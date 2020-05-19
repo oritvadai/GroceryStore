@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"GroceryStore.Users"}],"uuid":"e8595887fcff4b4cab096cf0425ce6c5"}
