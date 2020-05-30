@@ -1,0 +1,10 @@
+div {
+    height: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 20% 80%;
+}
+
+div, div > * {
+    border: 1px solid black;
+}
