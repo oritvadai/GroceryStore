@@ -4,7 +4,7 @@ const Item = require("../models/item");
 
 const router = express.Router();
 
-// Get one item - GET http://localhost:3000/api/items
+// Get all items - GET http://localhost:3000/api/items
 router.get("/", async (request, response) => {
     try {
         const items = await itemsLogic.getAllItemsAsync();

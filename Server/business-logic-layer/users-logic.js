@@ -8,6 +8,11 @@ function getOneUserAsync(_id) {
     return User.findOne({_id}).exec();
 };
 
+// Login
+function loginUserAsync(username, password) {
+    return User.findOne({username, password}).exec();
+};
+
 function addUserAsync(user) {
     return user.save();
 };
@@ -19,6 +24,7 @@ function updateUserAsync(user) {
 module.exports = {
     getAllUsersAsync,
     getOneUserAsync,
+    loginUserAsync,
     addUserAsync,
     updateUserAsync
 };

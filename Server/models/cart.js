@@ -20,6 +20,12 @@ CartSchema.virtual("user", {
     justOne: true
 });
 
+CartSchema.virtual("items", {
+    ref: "Item",
+    localField: "_id",
+    foreignField: "cartId"
+});
+
 const Cart = mongoose.model("Cart", CartSchema, "Carts");
 
 module.exports = Cart;

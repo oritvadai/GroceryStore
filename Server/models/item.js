@@ -6,7 +6,7 @@ const ItemSchema = mongoose.Schema({
         ref: "Product"
     },
     quantity: Number,
-    totalPrice: Number, // quantity * product price??
+    // totalPrice: Number, // quantity * product price??
     cartId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"
@@ -29,6 +29,10 @@ ItemSchema.virtual("cart", {
     localField: "cartId",
     foreignField: "_id",
     justOne: true
+});
+
+ItemSchema.virtual("itemsPrice").get(function(){
+    return this.quantity * this.product.price;
 });
 
 const Item = mongoose.model("Item", ItemSchema, "Items");

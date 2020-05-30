@@ -9,7 +9,7 @@ const OrderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"
     },
-    price: Number, // sum of items total prices? 
+    // price: Number, // sum of items total prices? 
     city: String,
     street: String,
     deliveryDate: Date,
@@ -34,6 +34,10 @@ OrderSchema.virtual("cart", {
     foreignField: "_id",
     justOne: true
 });
+
+// OrderSchema.virtual("totalPrice").get(function(){
+//     return // sum all the itemsPrice 
+// });
 
 const Order = mongoose.model("Order", OrderSchema, "Orders");
 
