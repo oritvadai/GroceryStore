@@ -1,0 +1,7 @@
+<p>products works!</p>
+
+<div *ngFor="let p of products">
+        {{p.productName}} <br>
+        Price: {{p.price | currency:"ILS"}} <br>
+        {{p.picFileName}}
+</div>
