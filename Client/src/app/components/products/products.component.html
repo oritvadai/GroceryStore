@@ -1,7 +1,22 @@
-<p>products works!</p>
+<!-- <p>All products: </p> -->
 
-<div *ngFor="let p of products">
+<!-- <div class="products" *ngFor="let p of products">
         {{p.productName}} <br>
         Price: {{p.price | currency:"ILS"}} <br>
         {{p.picFileName}}
+</div> -->
+<div class="categories">
+
+        <div class="category" *ngFor="let c of categories">
+                <div (click)="getProductsByCategory(c._id)"> | {{c.category}} | </div>
+        </div>
+</div>
+
+
+<div class="products">
+        <div class="product" *ngFor="let pc of productsByCat">
+                {{pc.productName}} <br>
+                Price: {{pc.price | currency:"ILS"}} <br>
+                {{pc.picFileName}}
+        </div>
 </div>

@@ -1,6 +1,19 @@
-div {
+.category {
+    float: left;
+}
+
+.categories {
+    margin: auto;
+}
+
+.product {
     border: 1px solid black;
     padding: 10px;
     margin: 5px;
     float: left;
+    width: fit-content;
+}
+
+.products {
+    clear: left;
 }
