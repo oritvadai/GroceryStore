@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 function connectAsync() {
     return new Promise((resolve, reject) => {
-        mongoose.connect("mongodb://localhost:27017/GroceryStore",
+        const mdb = config.mongoDB
+        mongoose.connect(`mongodb://${mdb.host}:${mdb.port}/${mdb.dataBase}`,
             { useNewUrlParser: true, useUnifiedTopology: true }, (err, db) => {
                 if (err) {
                     reject(err);

@@ -8,6 +8,10 @@ function getOneProductAsync(_id) {
     return Product.findOne({_id}).populate("category").exec();
 };
 
+function getProductsByCategoryAsync(categoryId) {
+    return Product.find({ categoryId }).exec();
+}
+
 function addProductAsync(product) {
     return product.save();
 };
@@ -19,6 +23,7 @@ function updateProductAsync(product) {
 module.exports = {
     getAllProductsAsync,
     getOneProductAsync,
+    getProductsByCategoryAsync,
     addProductAsync,
     updateProductAsync
 };

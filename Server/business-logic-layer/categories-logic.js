@@ -4,6 +4,11 @@ function getAllCategoriesAsync() {
     return Category.find().exec();
 };
 
+// function getOneCategoryAsync(_id) {
+//     return Category.findOne({_id}).populate("products").exec();
+// };
+
 module.exports = {
-    getAllCategoriesAsync
+    getAllCategoriesAsync,
+    // getOneCategoryAsync
 };

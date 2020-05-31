@@ -1,8 +1,12 @@
 const express = require("express");
 const productsLogic = require("../business-logic-layer/products-logic");
 const Product = require("../models/product");
+// const verifyLoggedIn = require("../middleware/verify-logged-in")
 
 const router = express.Router();
+
+// Invoke this middleware for any products route:
+// router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
 router.get("/", async (request, response) => {
@@ -19,6 +23,21 @@ router.get("/", async (request, response) => {
 router.get("/:_id", async (request, response) => {
     try {
         const product = await productsLogic.getOneProductAsync(request.params._id);
+        if(!product) {
+            response.sendStatus(404);
+            return;
+        };
+        response.json(product);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    };
+});
+
+// Get products by category - GET http://localhost:3000/api/products/by-category/:categoryId
+router.get("/by-category/:categoryId", async (request, response) => {
+    try {
+        const product = await productsLogic.getProductsByCategoryAsync(request.params.categoryId);
         if(!product) {
             response.sendStatus(404);
             return;

@@ -1,0 +1,12 @@
+{
+    "mongoDB": {
+        "host": "localhost",
+        "port": 27017,
+        "dataBase": "GroceryStore",
+        "username": "",
+        "password": ""
+    },
+    "jwt": {
+        "secretKey": "FantasyWithinRealism"
+    }
+}

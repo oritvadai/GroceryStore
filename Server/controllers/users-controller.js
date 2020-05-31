@@ -30,38 +30,6 @@ router.get("/:_id", async (request, response) => {
     }
 });
 
-// Login user - Post http://localhost:3000/api/users
-// How to request data from body and not ip?
-router.post("/login", async (request, response) => {
-    try {
-        const username = request.body.username;
-        const password = request.body.password;
-        const user = await usersLogic.loginUserAsync(username, password);
-        if(!user) {
-            response.status(403).send("Incorrect username or password");
-            return;
-            // response.sendStatus(404);
-            // return;
-        }
-        response.json(user);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
-
-// Add user - POST http://localhost:3000/api/users
-router.post("/", async (request, response) => {
-    try {
-        const user = new User(request.body);
-        const addedUser = await usersLogic.addUserAsync(user);
-        response.json(addedUser);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
-
 // Edit user - PUT http://localhost:3000/api/users/:_id
 router.put("/:_id", async (request, response) => {
     try {
