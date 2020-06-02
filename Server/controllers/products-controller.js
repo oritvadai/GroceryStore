@@ -1,12 +1,12 @@
 const express = require("express");
 const productsLogic = require("../business-logic-layer/products-logic");
 const Product = require("../models/product");
-// const verifyLoggedIn = require("../middleware/verify-logged-in")
+const verifyLoggedIn = require("../middleware/verify-logged-in")
 
 const router = express.Router();
 
 // Invoke this middleware for any products route:
-// router.use(verifyLoggedIn);
+router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
 router.get("/", async (request, response) => {
