@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Order } from '../models/order';
 import { Category } from '../models/category';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class GroceryService {
-  
-  constructor(private http: HttpClient) { }
+
+	// public token = localStorage.getItem("token")
+	public headers = { Authorization: "Bearer " + sessionStorage.getItem("token") };
+
+	constructor(private http: HttpClient) { }
 
 	public getAllProducts(): Observable<Product[]> {
-		return this.http.get<Product[]>("http://localhost:3000/api/products");
+		return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.headers });
 	}
 
 	public getAllOrders(): Observable<Order[]> {
@@ -25,6 +28,6 @@ export class GroceryService {
 	}
 
 	public getProductsByCategory(categoryId): Observable<Product[]> {
-		return this.http.get<Product[]>("http://localhost:3000/api/products/by-category/" + categoryId);
+		return this.http.get<Product[]>("http://localhost:3000/api/products/by-category/" + categoryId, { headers: this.headers });
 	}
 }

@@ -2,10 +2,10 @@
 <div>
     <h4>Login:</h4>
 
-    <form action="">
-        <input type="text" placeholder="Username"><br>
-        <input type="text" placeholder="Password"><br>
-        <button>Login</button>
+    <form>
+        <input type="text" placeholder="Username = Email" name="username" [(ngModel)]="user.username"><br>
+        <input type="text" placeholder="Password" name="password" [(ngModel)]="user.password"><br>
+        <button (click)="login()">Login</button>
     </form>
 
     <a routerLink="/register"><h6>Register Here</h6></a>

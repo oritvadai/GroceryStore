@@ -4,36 +4,36 @@
     <!-- <h6>Step 1:</h6> -->
 
     <form action="">
-        <input type="number" placeholder="ID"><br>
-        <input type="text" placeholder="Email"><br>
-        <input type="text" placeholder="Password"><br>
-        <input type="text" placeholder="Confirm Password"><br>
+        <input type="number" placeholder="ID" name="ID" [(ngModel)]="user.ID"><br>
+        <input type="text" placeholder="User Name = Email" name="username" [(ngModel)]="user.username"><br>
+        <input type="text" placeholder="Password" name="password" [(ngModel)]="user.password"><br>
+        <!-- <input type="text" placeholder="Confirm Password" name="password" [(ngModel)]="user.password"><br> -->
 
         <button>Next</button>
     </form>
     <br>
 
     <!-- <h6>Step 2:</h6> -->
-    <form action="">
-        <select name="" id="">
-            <option value="">Jerusalem</option>
-            <option value="">Tel Aviv</option>
-            <option value="">Haifa</option>
-            <option value="">Rishon Le'Zion</option>
-            <option value="">Petach Tikva</option>
+    <form  >
+        <select name="city" [(ngModel)]="user.city">
+            <option value="Jerusalem">Jerusalem</option>
+            <option value="Tel Aviv">Tel Aviv</option>
+            <option value="Haifa">Haifa</option>
+            <option value="Rishon Le'Zion">Rishon Le'Zion</option>
+            <option value="Petach Tikva">Petach Tikva</option>
             
-            <option value="">Ashdod</option>
-            <option value="">Natania</option>
-            <option value="">Be'er Sheva</option>
-            <option value="">Holon</option>
-            <option value="">Bnei Brak</option>
+            <option value="Ashdod">Ashdod</option>
+            <option value="Natania">Natania</option>
+            <option value="Be'er Sheva">Be'er Sheva</option>
+            <option value="Holon">Holon</option>
+            <option value="Bnei Brak">Bnei Brak</option>
 
         </select><br>
-        <input type="text" placeholder="Street"><br>
-        <input type="text" placeholder="First Name"><br>
-        <input type="text" placeholder="Last Name"><br>
+        <input type="text" placeholder="Street" name="street" [(ngModel)]="user.street"><br>
+        <input type="text" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName"><br>
+        <input type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName"><br>
 
-        <button>Submit</button>
+        <button (click)="register()">Register</button>
     </form>
 
     
