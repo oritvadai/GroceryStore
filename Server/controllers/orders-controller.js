@@ -8,7 +8,7 @@ const router = express.Router();
 // Get SUM of all orders - GET http://localhost:3000/api/orders/sum
 router.get("/sum", async (request, response) => {
     try {
-        const ordersSum = await ordersLogic.sumOfOrdersAsync();
+        const ordersSum = await ordersLogic.getNumOrdersAsync();
         response.json(ordersSum);
     }
     catch (err) {

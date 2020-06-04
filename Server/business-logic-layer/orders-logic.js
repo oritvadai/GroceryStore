@@ -1,7 +1,7 @@
 const Order = require("../models/order");
 
-function sumOfOrdersAsync() {
-    return Order.count();
+function getNumOrdersAsync() {
+    return Order.countDocuments();
 };
 
 function getAllOrdersAsync() {
@@ -25,7 +25,7 @@ function deleteOrderAsync(_id) {
 };
 
 module.exports = {
-    sumOfOrdersAsync,
+    getNumOrdersAsync,
     getAllOrdersAsync,
     getOneOrderAsync,
     addOrderAsync,

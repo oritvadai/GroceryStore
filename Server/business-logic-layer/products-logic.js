@@ -1,7 +1,7 @@
 const Product = require("../models/product");
 
-function sumOfProductsAsync() {
-    return Product.count();
+function getNumProductsAsync() {
+    return Product.countDocuments();
 };
 
 function getAllProductsAsync() {
@@ -25,7 +25,7 @@ function updateProductAsync(product) {
 };
 
 module.exports = {
-    sumOfProductsAsync,
+    getNumProductsAsync,
     getAllProductsAsync,
     getOneProductAsync,
     getProductsByCategoryAsync,

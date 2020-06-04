@@ -15,8 +15,14 @@ export class HeaderComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit(): void {
+		console.log("subscribing to store");
+
 		store.subscribe(() => {
 			this.user = store.getState().user;
+			console.log("msg");
+			console.log(this.user);
+
 		});
+
 	}
 }
