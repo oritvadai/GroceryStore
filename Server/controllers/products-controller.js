@@ -5,6 +5,17 @@ const verifyLoggedIn = require("../middleware/verify-logged-in")
 
 const router = express.Router();
 
+// Get SUM of all products - GET http://localhost:3000/api/products/sum
+router.get("/sum", async (request, response) => {
+    try {
+        const productsSum = await productsLogic.sumOfProductsAsync();
+        response.json(productsSum);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
+
 // Invoke this middleware for any products route:
 router.use(verifyLoggedIn);
 

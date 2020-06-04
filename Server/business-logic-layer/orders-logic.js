@@ -1,5 +1,9 @@
 const Order = require("../models/order");
 
+function sumOfOrdersAsync() {
+    return Order.count();
+};
+
 function getAllOrdersAsync() {
     return Order.find({}).populate(["cart", "user"]).exec();
 };
@@ -21,6 +25,7 @@ function deleteOrderAsync(_id) {
 };
 
 module.exports = {
+    sumOfOrdersAsync,
     getAllOrdersAsync,
     getOneOrderAsync,
     addOrderAsync,

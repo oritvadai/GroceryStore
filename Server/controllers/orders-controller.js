@@ -1,8 +1,23 @@
 const express = require("express");
 const ordersLogic = require("../business-logic-layer/orders-logic");
 const Order = require("../models/order");
+const verifyLoggedIn = require("../middleware/verify-logged-in")
 
 const router = express.Router();
+
+// Get SUM of all orders - GET http://localhost:3000/api/orders/sum
+router.get("/sum", async (request, response) => {
+    try {
+        const ordersSum = await ordersLogic.sumOfOrdersAsync();
+        response.json(ordersSum);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
+
+// Invoke this middleware for any products route:
+router.use(verifyLoggedIn);
 
 // Get all orders - GET http://localhost:3000/api/orders
 router.get("/", async (request, response) => {
