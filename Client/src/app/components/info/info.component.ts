@@ -17,14 +17,14 @@ export class InfoComponent implements OnInit {
   constructor(private groceryService: GroceryService) { }
 
   ngOnInit(): void {
-    this.groceryService
-      .getAllProducts()
-      .subscribe(products => this.products = products,
-        err => alert(err.message));
+    // this.groceryService
+    //   .getAllProducts()
+    //   .subscribe(products => this.products = products,
+    //     err => alert(err.message));
 
-    this.groceryService
-      .getAllOrders()
-      .subscribe(orders => this.orders = orders,
-        err => alert(err.message));
+    // this.groceryService
+    //   .getAllOrders()
+    //   .subscribe(orders => this.orders = orders,
+    //     err => alert(err.message));
   }
 }

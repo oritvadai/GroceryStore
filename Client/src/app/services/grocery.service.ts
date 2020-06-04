@@ -10,13 +10,14 @@ import { Category } from '../models/category';
 })
 export class GroceryService {
 
-	// public token = localStorage.getItem("token")
-	public headers = { Authorization: "Bearer " + sessionStorage.getItem("token") };
+	public getHeaders() {
+		return { Authorization: "Bearer " + sessionStorage.getItem("token") };
+	}
 
 	constructor(private http: HttpClient) { }
 
 	public getAllProducts(): Observable<Product[]> {
-		return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.headers });
+		return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
 	}
 
 	public getAllOrders(): Observable<Order[]> {
@@ -28,6 +29,6 @@ export class GroceryService {
 	}
 
 	public getProductsByCategory(categoryId): Observable<Product[]> {
-		return this.http.get<Product[]>("http://localhost:3000/api/products/by-category/" + categoryId, { headers: this.headers });
+		return this.http.get<Product[]>("http://localhost:3000/api/products/by-category/" + categoryId, { headers: this.getHeaders() });
 	}
 }
