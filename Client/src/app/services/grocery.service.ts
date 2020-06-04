@@ -16,6 +16,14 @@ export class GroceryService {
 
 	constructor(private http: HttpClient) { }
 
+	public getNumProducts(): Observable<number> {
+		return this.http.get<number>("http://localhost:3000/api/products/sum");
+	}
+
+	public getNumOrders(): Observable<number> {
+		return this.http.get<number>("http://localhost:3000/api/orders/sum");
+	}
+
 	public getAllProducts(): Observable<Product[]> {
 		return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
 	}
