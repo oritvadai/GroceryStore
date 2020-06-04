@@ -48,12 +48,12 @@ router.get("/:_id", async (request, response) => {
 // Get products by category - GET http://localhost:3000/api/products/by-category/:categoryId
 router.get("/by-category/:categoryId", async (request, response) => {
     try {
-        const product = await productsLogic.getProductsByCategoryAsync(request.params.categoryId);
-        if(!product) {
+        const products = await productsLogic.getProductsByCategoryAsync(request.params.categoryId);
+        if(!products) {
             response.sendStatus(404);
             return;
         };
-        response.json(product);
+        response.json(products);
     }
     catch (err) {
         response.status(500).send(err.message);

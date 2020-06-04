@@ -6,7 +6,6 @@ const ItemSchema = mongoose.Schema({
         ref: "Product"
     },
     quantity: Number,
-    // totalPrice: Number, // quantity * product price??
     cartId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"

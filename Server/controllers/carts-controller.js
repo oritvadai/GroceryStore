@@ -30,6 +30,21 @@ router.get("/:_id", async (request, response) => {
     }
 });
 
+// Get cart by user - GET http://localhost:3000/api/carts/by-user/:userId
+router.get("/by-user/:userId", async (request, response) => {
+    try {
+        const cart = await cartsLogic.getCartByUserAsync(request.params.userId);
+        if(!cart) {
+            response.sendStatus(404);
+            return;
+        };
+        response.json(cart);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    };
+});
+
 // Add cart - POST http://localhost:3000/api/carts
 router.post("/", async (request, response) => {
     try {

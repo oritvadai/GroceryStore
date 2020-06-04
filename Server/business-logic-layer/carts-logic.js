@@ -11,6 +11,11 @@ function getOneCartAsync(_id) {
     return Cart.findOne({ _id }).populate(["user", "items"]).exec();
 };
 
+// Get cart by userId ?
+function getCartByUserAsync(userId) {
+    return Cart.findOne({ userId }).exec();
+};
+
 function addCartAsync(cart) {
     return cart.save();
 };
@@ -26,6 +31,7 @@ function deleteCartAsync(_id) {
 module.exports = {
     getAllCartsAsync,
     getOneCartAsync,
+    getCartByUserAsync,
     addCartAsync,
     updateCartAsync,
     deleteCartAsync

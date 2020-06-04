@@ -30,6 +30,21 @@ router.get("/:_id", async (request, response) => {
     }
 });
 
+// Get items by cart - GET http://localhost:3000/api/items/by-cart/:cartId
+router.get("/by-cart/:cartId", async (request, response) => {
+    try {
+        const items = await itemsLogic.getItemsByCartAsync(request.params.cartId);
+        if(!items) {
+            response.sendStatus(404);
+            return;
+        };
+        response.json(items);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    };
+});
+
 // Add item - POST http://localhost:3000/api/items
 router.post("/", async (request, response) => {
     try {
