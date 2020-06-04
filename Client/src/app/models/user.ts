@@ -2,6 +2,7 @@
 export class User {
 
     public constructor(
+        public _id?: string,
         public firstName?: string,
         public lastName?: string,
         public username?: string,

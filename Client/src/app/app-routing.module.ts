@@ -4,12 +4,14 @@ import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductsComponent } from './components/products/products.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { CartComponent } from './components/cart/cart.component';
 
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "register", component: RegisterComponent },
   { path: "products", component: ProductsComponent },
+  { path: "cart", component: CartComponent },
   { path: "logout", component: LogoutComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   // { path: "**", component: PageNotFoundComponent }

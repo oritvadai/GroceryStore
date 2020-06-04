@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Order } from '../models/order';
 import { Category } from '../models/category';
+import { Cart } from '../models/cart';
+import { Item } from '../models/item';
 
 @Injectable({
 	providedIn: 'root'
@@ -24,13 +26,13 @@ export class GroceryService {
 		return this.http.get<number>("http://localhost:3000/api/orders/sum");
 	}
 
-	public getAllProducts(): Observable<Product[]> {
-		return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
-	}
+	// public getAllProducts(): Observable<Product[]> {
+	// 	return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
+	// }
 
-	public getAllOrders(): Observable<Order[]> {
-		return this.http.get<Order[]>("http://localhost:3000/api/orders");
-	}
+	// public getAllOrders(): Observable<Order[]> {
+	// 	return this.http.get<Order[]>("http://localhost:3000/api/orders");
+	// }
 
 	public getAllCategories(): Observable<Category[]> {
 		return this.http.get<Category[]>("http://localhost:3000/api/categories");
@@ -38,5 +40,13 @@ export class GroceryService {
 
 	public getProductsByCategory(categoryId): Observable<Product[]> {
 		return this.http.get<Product[]>("http://localhost:3000/api/products/by-category/" + categoryId, { headers: this.getHeaders() });
+	}
+
+	public getCartByUser(userId): Observable<Cart> {
+		return this.http.get<Cart>("http://localhost:3000/api/carts/by-user/" + userId, { headers: this.getHeaders() });
+	}
+
+	public getItemsByCart(cartId): Observable<Item[]> {
+		return this.http.get<Item[]>("http://localhost:3000/api/items/by-cart/" + cartId, { headers: this.getHeaders() });
 	}
 }

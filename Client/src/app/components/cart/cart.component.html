@@ -1,0 +1,16 @@
+<p>cart works!</p>
+
+<div>
+    cartId: {{cart._id}} <br>
+    date: {{cart.date}} <br><br>
+</div>
+
+<button (click)="getItems()"> Show Cart Items </button>
+<br>
+
+<div class="item" *ngFor="let i of items">
+    product: {{i.product.productName}} <br>
+    product: {{i.product.picFileName}} <br>
+    quantity: {{i.quantity}} <br>
+    price: {{i.itemsPrice}} <br>
+</div>
