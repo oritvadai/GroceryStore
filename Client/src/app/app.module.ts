@@ -11,7 +11,8 @@ import { InfoComponent } from './components/info/info.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './components/products/products.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { LogoutComponent } from './components/logout/logout.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms'
     AboutComponent,
     InfoComponent,
     RegisterComponent,
-    ProductsComponent
+    ProductsComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

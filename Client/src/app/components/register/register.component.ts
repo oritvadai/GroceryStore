@@ -13,7 +13,7 @@ export class RegisterComponent {
   public user = new User();
   public token = "";
 
-  constructor(private authService: AuthService, private myRouter: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   register() {
     console.log(this.user);
@@ -23,7 +23,7 @@ export class RegisterComponent {
         .subscribe(response => {
           sessionStorage.setItem("user", JSON.stringify(response.user));
           sessionStorage.setItem("token", response.token);
-          this.myRouter.navigateByUrl("/products");
+          this.router.navigateByUrl("/products");
         },
           err => alert(err.message));
     }
