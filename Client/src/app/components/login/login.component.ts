@@ -26,12 +26,14 @@ export class LoginComponent {
 					sessionStorage.setItem("user", JSON.stringify(response.user));
 					sessionStorage.setItem("token", response.token);
 
+					const action = { type: ActionType.Login, payload: response.user };
+					store.dispatch(action);
+
 					this.router.navigateByUrl("/products");
 				},
 					err => alert(err.message));
 
-			const action = { type: ActionType.Login, payload: this.user };
-			store.dispatch(action);
+
 		}
 	}
 }
