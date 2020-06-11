@@ -13,7 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsComponent } from './components/products/products.component';
 import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
-import { CartComponent } from './components/cart/cart.component'
+import { CartComponent } from './components/cart/cart.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AddProductComponent } from './components/add-product/add-product.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { CartComponent } from './components/cart/cart.component'
     RegisterComponent,
     ProductsComponent,
     LogoutComponent,
-    CartComponent
+    CartComponent,
+    AdminComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
