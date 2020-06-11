@@ -6,7 +6,8 @@
         "username": "",
         "password": ""
     },
-    "jwt": {
-        "secretKey": "FantasyWithinRealism"
+    "secrets": {
+        "jwt": "FantasyWithinRealism",
+        "salt": "DoNotForgetToAddSpices"
     }
 }

@@ -19,7 +19,7 @@ function verifyLoggedIn(request, response, next) {
     }
 
     // Verify the token: 
-    jwt.verify(token, config.jwt.secretKey, (err, payload) => { // payload is the object used to create the token (i.e. {user}).
+    jwt.verify(token, config.secrets.jwt, (err, payload) => { // payload is the object used to create the token (i.e. {user}).
 
         // If the token isn't verified or it is expired:
         if (err) {
