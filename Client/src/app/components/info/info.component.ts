@@ -10,8 +10,8 @@ import { Order } from 'src/app/models/order';
 })
 export class InfoComponent implements OnInit {
 
-	public productsSum: number;
-	public ordersSum: number;
+	public productsNum: number;
+	public ordersNum: number;
 
 
 	constructor(private groceryService: GroceryService) { }
@@ -19,12 +19,12 @@ export class InfoComponent implements OnInit {
 	ngOnInit(): void {
 		this.groceryService
 			.getNumProducts()
-			.subscribe(productsSum => this.productsSum = productsSum,
+			.subscribe(productsNum => this.productsNum = productsNum,
 				err => alert(err.message));
 
 		this.groceryService
 			.getNumOrders()
-			.subscribe(ordersSum => this.ordersSum = ordersSum,
+			.subscribe(ordersNum => this.ordersNum = ordersNum,
 				err => alert(err.message));
 	}
 }
