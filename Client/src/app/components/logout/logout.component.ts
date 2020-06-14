@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActionType } from 'src/app/redux/action-type';
+import { store } from 'src/app/redux/store';
 
 @Component({
-	selector: 'app-logout',
-	templateUrl: './logout.component.html',
-	styleUrls: ['./logout.component.css']
+    selector: 'app-logout',
+    templateUrl: './logout.component.html',
+    styleUrls: ['./logout.component.css']
 })
 export class LogoutComponent implements OnInit {
 
-	constructor(private router: Router) { }
+    constructor(private router: Router) { }
 
-	ngOnInit(): void {
-			sessionStorage.clear();
-			console.log("logged out");
+    ngOnInit(): void {
+        sessionStorage.clear();
 
-			this.router.navigateByUrl("/home");
-	}
+        const action = { type: ActionType.Logout };
+        store.dispatch(action);
+
+        console.log("logged out");
+        
+        this.router.navigateByUrl("/home");
+    }
 }

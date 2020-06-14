@@ -3,6 +3,8 @@ import { Product } from 'src/app/models/product';
 import { AdminService } from 'src/app/services/admin.service';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
+import { ActionType } from 'src/app/redux/action-type';
+import { store } from 'src/app/redux/store';
 
 @Component({
 	selector: 'app-add-product',
@@ -29,6 +31,9 @@ export class AddProductComponent implements OnInit {
 			this.adminService
 				.addProduct(this.product)
 				.subscribe(product => {
+                    const action = { type: ActionType.AddProduct, payload: product };
+                    store.dispatch(action);
+
 					console.log("Product Added " + product)
 					// this.router.navigateByUrl("/products");
 				},
