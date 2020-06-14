@@ -5,11 +5,11 @@ const verifyLoggedIn = require("../middleware/verify-logged-in")
 
 const router = express.Router();
 
-// Get SUM of all orders - GET http://localhost:3000/api/orders/sum
-router.get("/sum", async (request, response) => {
+// Get the num of all orders - GET http://localhost:3000/api/orders/num
+router.get("/num", async (request, response) => {
     try {
-        const ordersSum = await ordersLogic.getNumOrdersAsync();
-        response.json(ordersSum);
+        const ordersNum = await ordersLogic.getNumOrdersAsync();
+        response.json(ordersNum);
     }
     catch (err) {
         response.status(500).send(err.message);
