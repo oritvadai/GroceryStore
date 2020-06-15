@@ -1,22 +1,20 @@
-<!-- <p>All products: </p> -->
+<div class="productsCart">
+    <app-cart></app-cart>
+    <div class="products">
+        <div class="categories">
 
-<!-- <div class="products" *ngFor="let p of products">
-        {{p.productName}} <br>
-        Price: {{p.price | currency:"ILS"}} <br>
-        {{p.picFileName}}
-</div> -->
-<div class="categories">
-
-        <div class="category" *ngFor="let c of categories">
+            <div class="category" *ngFor="let c of categories">
                 <div (click)="getProductsByCategory(c._id)"> | {{c.category}} | </div>
+            </div>
         </div>
-</div>
 
 
-<div class="products">
-        <div class="product" *ngFor="let pc of productsByCat">
-                {{pc.productName}} <br>
-                Price: {{pc.price | currency:"ILS"}} <br>
-                {{pc.picFileName}}
+        <div class="product" *ngFor="let p of products">
+            {{p.productName}} <br>
+            Price: {{p.price | currency:"ILS"}} <br>
+            {{p.picFileName}} <br>
+            <!-- <button (click)="addToCart(p._id)">Add</button> -->
         </div>
+    </div>
+
 </div>

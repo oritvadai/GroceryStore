@@ -1,8 +1,5 @@
-<p>cart works!</p>
-
 <div>
-    cartId: {{cart._id}} <br>
-    date: {{cart.date}} <br><br>
+    Cart date: {{cart.date | date: "dd/MM/yyyy"}} <br>
 </div>
 
 <button (click)="getItems()"> Show Cart Items </button>
@@ -13,4 +10,6 @@
     product: {{i.product.picFileName}} <br>
     quantity: {{i.quantity}} <br>
     price: {{i.itemsPrice}} <br>
+    <button (click)="removeItem(i._id)">Remove</button>
+
 </div>

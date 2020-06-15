@@ -7,15 +7,19 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "register", component: RegisterComponent },
   { path: "products", component: ProductsComponent },
-  { path: "cart", component: CartComponent },
+//   { path: "cart", component: CartComponent },
+  { path: "search", component: SearchComponent },
   { path: "admin", component: AdminComponent },
   { path: "add-product", component: AddProductComponent },
+  { path: "edit-product/:productId", component: EditProductComponent },
   { path: "logout", component: LogoutComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   // { path: "**", component: PageNotFoundComponent }

@@ -1,0 +1,11 @@
+<div>
+    <form action="">
+        <input type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName" value={{product.productName}}><br>
+        <select name="categories" [(ngModel)]="product.categoryId" value={{product.categoryId}}>
+            <option  *ngFor="let c of categories" value={{c._id}}>{{c.category}}</option>
+        </select><br>
+        <input type="number" placeholder="Price" name="price" [(ngModel)]="product.price" value={{product.price}}><br>
+        <input type="text" placeholder="Picture" name="picture" [(ngModel)]="product.picFileName" value={{product.picFileName}}><br>
+    </form>
+    <button (click)="edit()">Edit Product</button>
+</div>

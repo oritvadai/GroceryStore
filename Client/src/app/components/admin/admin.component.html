@@ -1,7 +1,7 @@
 <a routerLink="/add-product">Add Product</a>
 <div>
     <div class="product" *ngFor="let p of products">
-        <button>Edit</button><br>
+        <button routerLink="/edit-product/{{p._id}}">Edit</button><br>
         {{p.productName}}<br>
         Price: {{p.price | currency:"ILS"}}<br>
         {{p.picFileName}}

@@ -5,6 +5,7 @@ import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-add-product',
@@ -16,7 +17,10 @@ export class AddProductComponent implements OnInit {
 	public product = new Product();
 	public categories: Category[];
 
-	constructor(private adminService: AdminService, private groceryService: GroceryService) { }
+	constructor(
+        private adminService: AdminService, 
+        private groceryService: GroceryService, 
+        private router: Router) { }
 
 	ngOnInit(): void {
 		this.groceryService
@@ -34,8 +38,8 @@ export class AddProductComponent implements OnInit {
                     const action = { type: ActionType.AddProduct, payload: product };
                     store.dispatch(action);
 
-					console.log("Product Added " + product)
-					// this.router.navigateByUrl("/products");
+					console.log("Product Added: " + product.productName)
+					this.router.navigateByUrl("/products");
 				},
 					err => alert(err.message));
 		}

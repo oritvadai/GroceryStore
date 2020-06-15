@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { AdminService } from 'src/app/services/admin.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-admin',
@@ -14,17 +15,12 @@ export class AdminComponent implements OnInit {
     public products: Product[];
     public unsubscribe: Function;
 
-    constructor(private adminService: AdminService) { }
+    constructor(private adminService: AdminService,private router: Router) { }
 
     ngOnInit(): void {
-        this.unsubscribe = store.subscribe(() => {
-            this.products = store.getState().products;
-            console.log("redux subscribe");
-            console.log(this.products);
-        });
 
-        console.log(store.getState().products.length)
-        
+        this.unsubscribe = store.subscribe(() => { this.products = store.getState().products; });
+
         if (store.getState().products.length === 0) {
 
             this.adminService
@@ -34,16 +30,18 @@ export class AdminComponent implements OnInit {
 
                     const action = { type: ActionType.GetAllProducts, payload: products };
                     store.dispatch(action);
-
-                    console.log("Get All Products");
-
                 },
-                    err => alert(err.message));
+                    err => {
+                        alert("You are not logged in");
+                        this.router.navigateByUrl("/home");
+                    }
+                );
         }
         else {
             this.products = store.getState().products;
         }
     }
+
     ngOnDestroy() {
         this.unsubscribe();
     }

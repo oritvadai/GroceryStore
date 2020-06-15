@@ -1,19 +1,26 @@
-.category {
-    float: left;
+.productsCart {
+    padding: 5px;
+    height: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: repeat(12, 1fr);
 }
 
-.categories {
-    margin: auto;
-}
-
-.product {
+/* div, div > * {
     border: 1px solid black;
-    padding: 10px;
+} */
+
+app-cart {
+    grid-column: span 4;
     margin: 5px;
-    float: left;
-    width: fit-content;
+    border: 1px solid black;
+    overflow: auto;
 }
 
 .products {
-    clear: left;
+    grid-column: span 8;
+    margin: 5px;
+    border: 1px solid black;
+    overflow: auto;
 }

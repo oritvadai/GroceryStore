@@ -31,7 +31,7 @@ export class LoginComponent {
 
 					this.router.navigateByUrl("/products");
 				},
-					err => alert(err.message));
+					err => alert("Wrong Username or Password"));
 
 
 		}

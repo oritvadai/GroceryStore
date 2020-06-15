@@ -3,5 +3,6 @@ export enum ActionType {
     Login,
     Logout,
     GetAllProducts,
-    AddProduct
+    AddProduct,
+    GetCart
 }

@@ -2,6 +2,7 @@ import { AppState } from './app-state';
 import { Action } from './action';
 import { ActionType } from './action-type';
 import { User } from '../models/user';
+import { Cart } from '../models/cart';
 
 export function reducer(oldAppState: AppState, action: Action): AppState {
 
@@ -15,7 +16,12 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
         case ActionType.Logout:
             newAppState.user = new User();
+            newAppState.cart = new Cart();
             newAppState.products = [];
+            break;
+
+        case ActionType.GetCart:
+            newAppState.cart = action.payload;
             break;
 
         case ActionType.GetAllProducts:
