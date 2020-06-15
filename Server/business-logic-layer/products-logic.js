@@ -8,12 +8,16 @@ function getAllProductsAsync() {
     return Product.find({}).populate("category").exec();
 };
 
-function getOneProductAsync(_id) {
-    return Product.findOne({ _id }).populate("category").exec();
-};
+// function getOneProductAsync(_id) {
+//     return Product.findOne({ _id }).populate("category").exec();
+// };
 
 function getProductsByCategoryAsync(categoryId) {
     return Product.find({ categoryId }).exec();
+};
+
+function getProductsByName(productName) {
+    return Product.find({ productName }).exec();
 };
 
 function addProductAsync(product) {
@@ -27,8 +31,9 @@ function updateProductAsync(product) {
 module.exports = {
     getNumProductsAsync,
     getAllProductsAsync,
-    getOneProductAsync,
+    // getOneProductAsync,
     getProductsByCategoryAsync,
+    getProductsByName,
     addProductAsync,
     updateProductAsync
 };

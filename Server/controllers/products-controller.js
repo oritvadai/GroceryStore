@@ -31,19 +31,19 @@ router.get("/", async (request, response) => {
 });
 
 // Get one product - GET http://localhost:3000/api/products/:_id
-router.get("/:_id", async (request, response) => {
-    try {
-        const product = await productsLogic.getOneProductAsync(request.params._id);
-        if(!product) {
-            response.sendStatus(404);
-            return;
-        };
-        response.json(product);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    };
-});
+// router.get("/:_id", async (request, response) => {
+//     try {
+//         const product = await productsLogic.getOneProductAsync(request.params._id);
+//         if(!product) {
+//             response.sendStatus(404);
+//             return;
+//         };
+//         response.json(product);
+//     }
+//     catch (err) {
+//         response.status(500).send(err.message);
+//     };
+// });
 
 // Get products by category - GET http://localhost:3000/api/products/by-category/:categoryId
 router.get("/by-category/:categoryId", async (request, response) => {
@@ -54,6 +54,21 @@ router.get("/by-category/:categoryId", async (request, response) => {
             return;
         };
         response.json(products);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    };
+});
+
+// Get products by name - GET http://localhost:3000/api/products/by-name/:productName
+router.get("/by-name/:productName", async (request, response) => {
+    try {
+        const product = await productsLogic.getProductsByName(request.params.productName);
+        if(!product) {
+            response.sendStatus(404);
+            return;
+        };
+        response.json(product);
     }
     catch (err) {
         response.status(500).send(err.message);
