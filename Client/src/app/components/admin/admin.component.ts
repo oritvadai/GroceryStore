@@ -12,14 +12,27 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
+    public isLoggedIn: boolean;
     public products: Product[];
     public unsubscribe: Function;
 
-    constructor(private adminService: AdminService,private router: Router) { }
+
+    constructor(private adminService: AdminService, private router: Router) { }
 
     ngOnInit(): void {
 
-        this.unsubscribe = store.subscribe(() => { this.products = store.getState().products; });
+        this.unsubscribe = store.subscribe(() => {
+            this.products = store.getState().products;
+            this.isLoggedIn = store.getState().isLoggedIn;
+        });
+
+        this.isLoggedIn = store.getState().isLoggedIn;
+
+        if (!this.isLoggedIn) {
+            alert("You are not logged in");
+            this.router.navigateByUrl("/home");
+            return;
+        }
 
         if (store.getState().products.length === 0) {
 
@@ -31,11 +44,7 @@ export class AdminComponent implements OnInit {
                     const action = { type: ActionType.GetAllProducts, payload: products };
                     store.dispatch(action);
                 },
-                    err => {
-                        alert("You are not logged in");
-                        this.router.navigateByUrl("/home");
-                    }
-                );
+                    err => alert(err.message));
         }
         else {
             this.products = store.getState().products;

@@ -4,6 +4,7 @@ import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { Item } from 'src/app/models/item';
 import { Router } from '@angular/router';
+import { store } from 'src/app/redux/store';
 
 @Component({
     selector: 'app-products',
@@ -16,18 +17,29 @@ export class ProductsComponent implements OnInit {
     public products: Product[];
     public item = new Item();
 
+    public isLoggedIn: boolean;
+    public unsubscribe: Function;
+
     constructor(private groceryService: GroceryService, private router: Router) { }
 
     ngOnInit(): void {
+
+        this.unsubscribe = store.subscribe(() => {
+            this.isLoggedIn = store.getState().isLoggedIn;
+        });
+
+        this.isLoggedIn = store.getState().isLoggedIn;
+
+        if (!this.isLoggedIn) {
+            alert("You are not logged in");
+            this.router.navigateByUrl("/home");
+            return;
+        }
+
         this.groceryService
             .getAllCategories()
-            .subscribe(
-                categories => this.categories = categories,
-                err => {
-                    alert("You are not logged in");
-                    this.router.navigateByUrl("/home");
-                }
-            );
+            .subscribe(categories => this.categories = categories,
+                err => alert(err.message));
     }
 
     public async getProductsByCategory(categoryId: string) {
@@ -48,4 +60,8 @@ export class ProductsComponent implements OnInit {
     //     .subscribe(item => this.item = item,
     //         err => alert(err.message));
     // }
+
+    ngOnDestroy() {
+        this.unsubscribe();
+    }
 }

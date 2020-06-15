@@ -12,10 +12,12 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
         case ActionType.Login:
             newAppState.user = action.payload;
+            newAppState.isLoggedIn = true;
             break;
 
         case ActionType.Logout:
             newAppState.user = new User();
+            newAppState.isLoggedIn = false;
             newAppState.cart = new Cart();
             newAppState.products = [];
             break;

@@ -1,7 +1,9 @@
 <!-- <p>header: Logo ------------ contact info</p> -->
 
-<div *ngIf="user; else elseBlock">Hello {{user.firstName}} {{user.lastName}}</div>
-<ng-template #elseBlock>Hello Guest</ng-template>
+<div *ngIf="isLoggedIn; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>Hello {{user.firstName}} {{user.lastName}}!</ng-template>
+<ng-template #elseBlock>Hello Guest!</ng-template> 
+<br>
 
 <a routerLink="/home">Home</a>
 <span> | </span>

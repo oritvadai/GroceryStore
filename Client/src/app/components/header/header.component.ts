@@ -10,14 +10,17 @@ import { store } from 'src/app/redux/store';
 
 export class HeaderComponent implements OnInit {
 
-	public user = new User();
+    public user = new User();
+    public isLoggedIn: boolean;
 
 	constructor() { }
 
 	ngOnInit(): void {
 
 		store.subscribe(() => {
-			this.user = store.getState().user;
+            this.user = store.getState().user;
+            this.isLoggedIn = store.getState().isLoggedIn;
+
 		});
 
 	}

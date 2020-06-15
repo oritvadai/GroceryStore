@@ -17,47 +17,48 @@ export class CartComponent implements OnInit {
     public user = new User();
     public cart = new Cart();
     public items: Item[];
-    public unsubscribeUser: Function;
-    public unsubscribeCart: Function;
+
+    public isLoggedIn: boolean;
+    public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
 
     async ngOnInit() {
 
-        this.unsubscribeUser = store.subscribe(() => {
+        this.unsubscribe = store.subscribe(() => {
             this.user = store.getState().user;
+            this.cart = store.getState().cart;
+            this.isLoggedIn = store.getState().isLoggedIn;
         });
 
-        // this.unsubscribeCart = store.subscribe(() => {
-        //     this.cart = store.getState().cart;
-        // });
+        this.isLoggedIn = store.getState().isLoggedIn;
+
+        if (!this.isLoggedIn) {
+            return;
+        }
 
         this.user = store.getState().user;
 
-        // if (!store.getState().cart) {
+        if (!store.getState().cart._id) {
 
-        this.groceryService
-            .getCartByUser(this.user._id)
-            .subscribe(cart => {
-                this.cart = cart;
+            this.groceryService
+                .getCartByUser(this.user._id)
+                .subscribe(cart => {
+                    this.cart = cart;
 
-                // const action = { type: ActionType.GetCart, payload: cart };
-                // store.dispatch(action);
+                    const action = { type: ActionType.GetCart, payload: cart };
+                    store.dispatch(action);
 
-                this.groceryService
-                    .getItemsByCart(cart._id)
-                    .subscribe(items => this.items = items,
-                        err => alert(err.message));
-            },
-                err => {
-                    alert("You are not logged in");
-                    this.router.navigateByUrl("/home");
-                }
-            );
-        // }
-        // else {
-        //     this.cart = store.getState().cart;
-        // }
+                    this.groceryService
+                        .getItemsByCart(cart._id)
+                        .subscribe(items => this.items = items,
+                            err => alert(err.message));
+                }, err => alert(err.message));
+
+        }
+        else {
+            this.cart = store.getState().cart;
+        }
     }
 
     public async getItems() {
@@ -73,8 +74,8 @@ export class CartComponent implements OnInit {
             .subscribe(result => console.log(result),
                 err => alert(err.message));
     }
-    // ngOnDestroy() {
-    //     this.unsubscribeUser();
-    //     this.unsubscribeCart();
-    // }
+
+    ngOnDestroy() {
+        this.unsubscribe();
+    }
 }
