@@ -54,6 +54,7 @@ router.post("/register", async (request, response) => {
         // }
 
         const newUser = new User(request.body);
+        newUser.role = "user";
         const user = await authLogic.registerAsync(newUser);
 
         // Create new Token: 

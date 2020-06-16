@@ -10,7 +10,15 @@ const cartsController = require("./controllers/carts-controller");
 const itemsController = require("./controllers/items-controller");
 const ordersController = require("./controllers/orders-controller");
 
+const expressSession = require("express-session");
 const server = express();
+
+// server.use(expressSession({
+//     name: "GrocerySession",
+//     secret: config.secret.expressSession,
+//     resave: true,
+//     saveUninitialized: false
+// }));
 
 server.use(cors());
 server.use(express.json());

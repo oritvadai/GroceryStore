@@ -3,7 +3,7 @@ const cryptography = require("../helpers/cryptography");
 
 function loginAsync(credentials) {
     credentials.password = cryptography.hash(credentials.password);
-    return User.findOne({ username: credentials.username, password: credentials.password }, { firstName: 1, lastName: 1 }).exec();
+    return User.findOne({ username: credentials.username, password: credentials.password }, { firstName: 1, lastName: 1, role: 1 }).exec();
 };
 
 function registerAsync(newUser) {
