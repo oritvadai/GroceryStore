@@ -4,5 +4,7 @@ export enum ActionType {
     Logout,
     GetAllProducts,
     AddProduct,
-    GetCart
+    GetCart,
+    GetItems,
+    AddItem
 }

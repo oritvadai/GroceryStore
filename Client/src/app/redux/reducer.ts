@@ -26,6 +26,16 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.cart = action.payload;
             break;
 
+        // Items:
+        case ActionType.GetItems:
+            newAppState.items = action.payload;
+            break;
+
+        case ActionType.AddItem:
+            newAppState.items.push(action.payload);
+            break;
+
+        // Products:
         case ActionType.GetAllProducts:
             newAppState.products = action.payload;
             break;

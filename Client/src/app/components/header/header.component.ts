@@ -20,8 +20,6 @@ export class HeaderComponent implements OnInit {
 		store.subscribe(() => {
             this.user = store.getState().user;
             this.isLoggedIn = store.getState().isLoggedIn;
-
 		});
-
 	}
 }

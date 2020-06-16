@@ -2,12 +2,11 @@
     Cart date: {{cart.date | date: "dd/MM/yyyy"}} <br>
 </div>
 
-<button (click)="getItems()"> Show Cart Items </button>
+<!-- <button (click)="getItems()"> Show Cart Items </button> -->
 <br>
 
 <div class="item" *ngFor="let i of items">
     product: {{i.product.productName}} <br>
-    product: {{i.product.picFileName}} <br>
     quantity: {{i.quantity}} <br>
     price: {{i.itemsPrice}} <br>
     <button (click)="removeItem(i._id)">Remove</button>

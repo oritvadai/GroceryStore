@@ -14,7 +14,7 @@ form {
     padding: 10px;
 }
 
-.product, .item {
+.product {
     border: 1px solid black;
     padding: 10px;
     margin: 5px;

@@ -2,17 +2,32 @@
 
 <div *ngIf="isLoggedIn; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>Hello {{user.firstName}} {{user.lastName}}!</ng-template>
-<ng-template #elseBlock>Hello Guest!</ng-template> 
+<ng-template #elseBlock>Hello Guest!</ng-template>
 <br>
 
-<a routerLink="/home">Home</a>
-<span> | </span>
-<a routerLink="/register">Register</a>
-<span> | </span>
-<a routerLink="/products">Products</a>
-<span> | </span>
-<a routerLink="/search">Search</a>
-<span> | </span>
-<a routerLink="/admin">Admin</a>
-<span> | </span>
-<a routerLink="/logout">Logout</a>
+<div>
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <!-- <a routerLink="/home">Home</a> -->
+    <span> | </span>
+</div>
+
+<div *ngIf="!isLoggedIn">
+    <a routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
+    <span> | </span>
+</div>
+
+<div *ngIf="user.role == 'user'">
+    <a routerLink="/products" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Products</a>
+    <span> | </span>
+    <a routerLink="/search" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Search</a>
+    <span> | </span>
+</div>
+
+<div *ngIf="user.role == 'admin'">
+    <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Admin</a>
+    <span> | </span>
+</div>
+
+<div *ngIf="isLoggedIn">
+    <a routerLink="/logout" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Logout</a>
+</div>

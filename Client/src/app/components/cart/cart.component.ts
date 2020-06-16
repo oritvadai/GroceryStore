@@ -28,6 +28,7 @@ export class CartComponent implements OnInit {
         this.unsubscribe = store.subscribe(() => {
             this.user = store.getState().user;
             this.cart = store.getState().cart;
+            this.items = store.getState().items;
             this.isLoggedIn = store.getState().isLoggedIn;
         });
 
@@ -51,22 +52,27 @@ export class CartComponent implements OnInit {
 
                     this.groceryService
                         .getItemsByCart(cart._id)
-                        .subscribe(items => this.items = items,
+                        .subscribe(items => {
+                            this.items = items;
+
+                            const action = { type: ActionType.GetItems, payload: items };
+                            store.dispatch(action);
+                        },
                             err => alert(err.message));
                 }, err => alert(err.message));
-
         }
         else {
             this.cart = store.getState().cart;
+            this.items = store.getState().items;
         }
     }
 
-    public async getItems() {
-        this.groceryService
-            .getItemsByCart(this.cart._id)
-            .subscribe(items => this.items = items,
-                err => alert(err.message));
-    }
+    // public async getItems() {
+    //     this.groceryService
+    //         .getItemsByCart(this.cart._id)
+    //         .subscribe(items => this.items = items,
+    //             err => alert(err.message));
+    // }
 
     public async removeItem(itemId) {
         this.groceryService

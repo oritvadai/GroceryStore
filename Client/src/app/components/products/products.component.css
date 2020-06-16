@@ -11,11 +11,22 @@
     border: 1px solid black;
 } */
 
+app-search {
+    grid-row: 5%;
+    margin: 5px;
+    border: 1px solid black;
+    overflow: auto;
+}
+
 app-cart {
     grid-column: span 4;
     margin: 5px;
     border: 1px solid black;
     overflow: auto;
+}
+
+.category {
+    float: left;
 }
 
 .products {
