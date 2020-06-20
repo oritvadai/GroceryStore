@@ -6,6 +6,10 @@ function loginAsync(credentials) {
     return User.findOne({ username: credentials.username, password: credentials.password }, { firstName: 1, lastName: 1, role: 1 }).exec();
 };
 
+function userIDExistsAsync(ID) {
+    return User.exists({ID});
+};
+
 function registerAsync(newUser) {
     newUser.password = cryptography.hash(newUser.password);
     newUser.save();
@@ -17,5 +21,6 @@ function registerAsync(newUser) {
 
 module.exports = {
     loginAsync,
+    userIDExistsAsync,
     registerAsync
 };

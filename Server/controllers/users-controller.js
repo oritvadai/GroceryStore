@@ -16,19 +16,30 @@ router.get("/", async (request, response) => {
 });
 
 // Get one user - GET http://localhost:3000/api/users/:_id
-router.get("/:_id", async (request, response) => {
-    try {
-        const user = await usersLogic.getOneUserAsync(request.params._id);
-        if(!user) {
-            response.sendStatus(404);
-            return;
-        }
-        response.json(user);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
+// router.get("/:_id", async (request, response) => {
+//     try {
+//         const user = await usersLogic.getOneUserAsync(request.params._id);
+//         if(!user) {
+//             response.sendStatus(404);
+//             return;
+//         }
+//         response.json(user);
+//     }
+//     catch (err) {
+//         response.status(500).send(err.message);
+//     }
+// });
+
+// // Check if User ID Exists - GET http://localhost:3000/api/users/:ID
+// router.get("/:ID", async (request, response) => {
+//     try {
+//         const userIDExists = await usersLogic.userIDExistsAsync(request.params.ID);
+//         response.json(userIDExists);
+//     }
+//     catch (err) {
+//         response.status(500).send(err.message);
+//     }
+// });
 
 // Edit user - PUT http://localhost:3000/api/users/:_id
 router.put("/:_id", async (request, response) => {
