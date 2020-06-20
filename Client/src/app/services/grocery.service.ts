@@ -34,7 +34,7 @@ export class GroceryService {
     
     // Products
     public getAllCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>("http://localhost:3000/api/categories");
+        return this.http.get<Category[]>("http://localhost:3000/api/categories", { headers: this.getHeaders() });
     }
 
     public getProductsByCategory(categoryId): Observable<Product[]> {
