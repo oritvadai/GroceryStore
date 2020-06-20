@@ -18,6 +18,7 @@ export class GroceryService {
 
     constructor(private http: HttpClient) { }
 
+    // Home
     public getNumProducts(): Observable<number> {
         return this.http.get<number>("http://localhost:3000/api/products/num");
     }
@@ -30,10 +31,8 @@ export class GroceryService {
     // 	return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
     // }
 
-    // public getAllOrders(): Observable<Order[]> {
-    // 	return this.http.get<Order[]>("http://localhost:3000/api/orders");
-    // }
-
+    
+    // Products
     public getAllCategories(): Observable<Category[]> {
         return this.http.get<Category[]>("http://localhost:3000/api/categories");
     }
@@ -46,6 +45,8 @@ export class GroceryService {
         return this.http.get<Product[]>("http://localhost:3000/api/products/by-name/" + productName, { headers: this.getHeaders() });
     }
 
+
+    // Cart
     public getCartByUser(userId): Observable<Cart> {
         return this.http.get<Cart>("http://localhost:3000/api/carts/by-user/" + userId, { headers: this.getHeaders() });
     }
@@ -62,6 +63,8 @@ export class GroceryService {
         return this.http.delete<string>("http://localhost:3000/api/items/"+ itemId, { headers: this.getHeaders() })
     }
 
+
+    // Order
     public addOrder(order): Observable<Order> {
         return this.http.post<Order>("http://localhost:3000/api/orders", order, { headers: this.getHeaders() })
     }

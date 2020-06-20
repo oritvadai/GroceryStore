@@ -1,18 +1,18 @@
 <div>
     <!-- <h6>Step 1:</h6> -->
 
-    <form action="">
+    <form>
         <input type="number" placeholder="ID" name="ID" [(ngModel)]="user.ID"><br>
         <input type="text" placeholder="User Name = Email" name="username" [(ngModel)]="user.username"><br>
         <input type="text" placeholder="Password" name="password" [(ngModel)]="user.password"><br>
         <!-- <input type="text" placeholder="Confirm Password" name="password" [(ngModel)]="user.password"><br> -->
 
-        <button>Next</button>
+        <button (click)="validateUserID()">Next</button>
     </form>
     <br>
 
     <!-- <h6>Step 2:</h6> -->
-    <form  >
+    <form>
         <select name="city" [(ngModel)]="user.city">
             <option value="Jerusalem">Jerusalem</option>
             <option value="Tel Aviv">Tel Aviv</option>
