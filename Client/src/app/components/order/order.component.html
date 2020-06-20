@@ -3,6 +3,13 @@
         Cart date: {{cart.date | date: "dd/MM/yyyy"}}
     </p>
     <hr>
+    
+    <p>
+        No changes are permitted here,
+        to add or remove items go back to the
+        <a routerLink="/store">store</a>
+    </p>
+    <hr>
 
     <div class="item" *ngFor="let i of items">
         product: {{i.product.productName}} <br>
@@ -37,7 +44,7 @@
         <input type="text" placeholder="Street" name="street" [(ngModel)]="order.street"><br>
 
         <input type="date" placeholder="Shipping Date" name="shipping-date" [(ngModel)]="order.deliveryDate"><br>
-        
+
         <input type="number" placeholder="Credit Card" name="credit-card" [(ngModel)]="order.creditCard"><br>
 
 
