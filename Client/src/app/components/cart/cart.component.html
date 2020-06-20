@@ -1,14 +1,15 @@
-<div>
-    Cart date: {{cart.date | date: "dd/MM/yyyy"}} <br>
-</div>
+<div class="cart">
+    <p>
+        Cart date: {{cart.date | date: "dd/MM/yyyy"}}
+    </p>
+    <hr>
 
-<!-- <button (click)="getItems()"> Show Cart Items </button> -->
-<br>
-
-<div class="item" *ngFor="let i of items">
-    product: {{i.product.productName}} <br>
-    quantity: {{i.quantity}} <br>
-    price: {{i.itemsPrice}} <br>
-    <button (click)="removeItem(i._id)">Remove</button>
+    <div class="item" *ngFor="let i of items">
+        product: {{i.product.productName}} <br>
+        quantity: {{i.quantity}} <br>
+        price: {{i.itemsPrice}} <br>
+        <button (click)="removeItem(i._id)">Remove</button>
+        <hr>
+    </div>
 
 </div>

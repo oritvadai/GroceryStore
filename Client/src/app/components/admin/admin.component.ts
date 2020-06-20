@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-    public isLoggedIn: boolean;
+    public hasToken: boolean;
     public products: Product[];
     public unsubscribe: Function;
 
@@ -22,20 +22,19 @@ export class AdminComponent implements OnInit {
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
+            this.hasToken = store.getState().hasToken;
             this.products = store.getState().products;
-            this.isLoggedIn = store.getState().isLoggedIn;
         });
 
-        this.isLoggedIn = store.getState().isLoggedIn;
+        this.hasToken = store.getState().hasToken;
 
-        if (!this.isLoggedIn) {
-            alert("You are not logged in");
+        if (!this.hasToken) {
+            alert("Please Login");
             this.router.navigateByUrl("/home");
             return;
         }
 
         if (store.getState().products.length === 0) {
-
             this.adminService
                 .getAllProducts()
                 .subscribe(products => {

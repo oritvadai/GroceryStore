@@ -13,6 +13,7 @@ export class LogoutComponent implements OnInit {
     constructor(private router: Router) { }
 
     ngOnInit(): void {
+        
         sessionStorage.clear();
 
         const action = { type: ActionType.Logout };

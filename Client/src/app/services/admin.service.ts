@@ -10,7 +10,8 @@ export class AdminService {
 
 	public getHeaders() {
 		return { Authorization: "Bearer " + sessionStorage.getItem("token") };
-	}
+    }
+    
 	constructor(private http: HttpClient) { }
 
 	// public getProductById(productId): Observable<Product> {

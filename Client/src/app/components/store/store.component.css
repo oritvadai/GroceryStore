@@ -1,0 +1,31 @@
+div {
+    padding: 5px;
+    height: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2px;
+}
+
+aside {
+    grid-column: span 4;
+    overflow: auto;
+}
+
+main {
+    height: 80%;
+    box-sizing: border-box;
+    display: grid;
+    grid-column: span 8;
+    grid-template-rows: 20% 100%;
+    gap: 2px;
+}
+
+app-search {
+    overflow: auto;
+}
+
+app-products {
+    overflow: auto;
+}

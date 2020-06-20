@@ -11,7 +11,7 @@ import { store } from 'src/app/redux/store';
 export class HeaderComponent implements OnInit {
 
     public user = new User();
-    public isLoggedIn: boolean;
+    public hasToken: boolean;
 
 	constructor() { }
 
@@ -19,7 +19,8 @@ export class HeaderComponent implements OnInit {
 
 		store.subscribe(() => {
             this.user = store.getState().user;
-            this.isLoggedIn = store.getState().isLoggedIn;
-		});
+            this.hasToken = store.getState().hasToken;
+        });
+        // this.user = store.getState().user;
 	}
 }

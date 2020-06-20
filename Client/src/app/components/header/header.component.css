@@ -1,7 +1,14 @@
-div {
-    float: left;
+.header {
+    padding-top: 20px;
 }
 
+div {
+    margin: 0, auto;
+}
+
+.route {
+    display: inline-block;
+}
 
 a {
     color: darkblue;

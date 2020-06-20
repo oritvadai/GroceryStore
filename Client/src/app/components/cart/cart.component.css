@@ -1,7 +1,13 @@
-.item {
+.cart {
     border: 1px solid black;
-    padding: 10px;
-    margin: 5px;
+    height: 100%;
+}
+
+.item {
+    text-align: left;
+    /* border: 1px solid black; */
+    /* padding: 10px; */
+    padding-left: 10px;
     float: left;
-    width: fit-content;
+    width: 96%;
 }

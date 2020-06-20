@@ -5,6 +5,8 @@ import { Category } from 'src/app/models/category';
 import { Item } from 'src/app/models/item';
 import { Router } from '@angular/router';
 import { store } from 'src/app/redux/store';
+import { ActionType } from 'src/app/redux/action-type';
+import { Cart } from 'src/app/models/cart';
 
 @Component({
     selector: 'app-products',
@@ -13,33 +15,46 @@ import { store } from 'src/app/redux/store';
 })
 export class ProductsComponent implements OnInit {
 
+    public hasToken: boolean;
+    public unsubscribe: Function;
+
     public categories: Category[];
     public products: Product[];
+    public cart = new Cart();
     public item = new Item();
-
-    public isLoggedIn: boolean;
-    public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, private router: Router) { }
 
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
-            this.isLoggedIn = store.getState().isLoggedIn;
+            this.hasToken = store.getState().hasToken;
+            this.categories = store.getState().categories;
+            this.cart = store.getState().cart;
         });
 
-        this.isLoggedIn = store.getState().isLoggedIn;
+        this.hasToken = store.getState().hasToken;
+        this.cart = store.getState().cart;
 
-        if (!this.isLoggedIn) {
-            alert("You are not logged in");
+        if (!this.hasToken) {
+            alert("Please Login");
             this.router.navigateByUrl("/home");
             return;
         }
 
-        this.groceryService
-            .getAllCategories()
-            .subscribe(categories => this.categories = categories,
-                err => alert(err.message));
+        if (store.getState().categories.length === 0) {
+            this.groceryService
+                .getAllCategories()
+                .subscribe(categories => {
+                    this.categories = categories;
+
+                    const action = { type: ActionType.GetAllCategories, payload: categories };
+                    store.dispatch(action);
+                },
+                    err => alert(err.message));
+        } else {
+            this.categories = store.getState().categories;
+        }
     }
 
     public async getProductsByCategory(categoryId: string) {
@@ -49,17 +64,22 @@ export class ProductsComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    // public async addToCart(productId) {
+    public async addToCart(productId, productPrice, productName) {
+        this.item.cartId = this.cart._id;
+        this.item.productId = productId;
+        this.item.quantity = 1;
+        this.item.product = { "price": productPrice, "productName": productName };
 
-    //     this.item.cartId = "?",
-    //     this.item.productId = productId,
-    //     // this.item.quantity = 
+        this.groceryService
+            .addItem(this.item)
+            .subscribe(item => {
+                const action = { type: ActionType.AddItem, payload: item };
+                store.dispatch(action);
 
-    //     this.groceryService
-    //     .addItem(this.item)
-    //     .subscribe(item => this.item = item,
-    //         err => alert(err.message));
-    // }
+                alert("Item Added")
+            },
+                err => alert(err.message));
+    }
 
     ngOnDestroy() {
         this.unsubscribe();

@@ -17,7 +17,8 @@ import { CartComponent } from './components/cart/cart.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
-import { SearchComponent } from './components/search/search.component'
+import { SearchComponent } from './components/search/search.component';
+import { StoreComponent } from './components/store/store.component'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SearchComponent } from './components/search/search.component'
     AdminComponent,
     AddProductComponent,
     EditProductComponent,
-    SearchComponent
+    SearchComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,

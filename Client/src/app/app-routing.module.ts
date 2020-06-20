@@ -9,14 +9,16 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { SearchComponent } from './components/search/search.component';
+import { StoreComponent } from './components/store/store.component';
 
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "register", component: RegisterComponent },
-  { path: "products", component: ProductsComponent },
+  { path: "store", component: StoreComponent },
+//   { path: "products", component: ProductsComponent },
 //   { path: "cart", component: CartComponent },
-  { path: "search", component: SearchComponent },
+//   { path: "search", component: SearchComponent },
   { path: "admin", component: AdminComponent },
   { path: "add-product", component: AddProductComponent },
   { path: "edit-product/:productId", component: EditProductComponent },

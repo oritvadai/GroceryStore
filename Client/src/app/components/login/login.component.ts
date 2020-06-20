@@ -13,7 +13,6 @@ import { store } from 'src/app/redux/store';
 export class LoginComponent {
 
     public user = new User();
-    public token = "";
 
     constructor(private authService: AuthService, private router: Router) { }
 
@@ -30,7 +29,7 @@ export class LoginComponent {
                     store.dispatch(action);
 
                     if (response.user.role == "user") {
-                        this.router.navigateByUrl("/products");
+                        this.router.navigateByUrl("/store");
                     } else if (response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
                     }

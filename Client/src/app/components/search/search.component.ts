@@ -23,5 +23,4 @@ export class SearchComponent implements OnInit {
             .subscribe(products => this.products = products,
                 err => alert(err.message));
     }
-
 }
