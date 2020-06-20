@@ -1,14 +1,5 @@
 const Item = require("../models/item");
 
-function getAllItemsAsync() {
-    return Item.find({}).populate(["product", "cart"]).exec();
-};
-
-function getOneItemAsync(_id) {
-    return Item.findOne({_id}).populate(["product", "cart"]).exec();
-};
-
-// Get items by cardId / userId ?
 function getItemsByCartAsync(cartId) {
     return Item.find({ cartId }).populate("product").exec();
 };
@@ -26,8 +17,6 @@ function deleteItemAsync(_id) {
 };
 
 module.exports = {
-    getAllItemsAsync,
-    getOneItemAsync,
     getItemsByCartAsync,
     addItemAsync,
     updateItemAsync,

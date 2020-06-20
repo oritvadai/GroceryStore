@@ -17,7 +17,7 @@ function getProductsByCategoryAsync(categoryId) {
 };
 
 function getProductsByName(productName) {
-    return Product.find({ productName }).exec();
+    return Product.find({ productName }).populate("category").exec();
 };
 
 function addProductAsync(product) {

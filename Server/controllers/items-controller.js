@@ -4,31 +4,7 @@ const Item = require("../models/item");
 
 const router = express.Router();
 
-// Get all items - GET http://localhost:3000/api/items
-router.get("/", async (request, response) => {
-    try {
-        const items = await itemsLogic.getAllItemsAsync();
-        response.json(items);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
-
-// Get one item - GET http://localhost:3000/api/items/:_id
-router.get("/:_id", async (request, response) => {
-    try {
-        const item = await itemsLogic.getOneItemAsync(request.params._id);
-        if(!item) {
-            response.sendStatus(404);
-            return;
-        }
-        response.json(item);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
+router.use(verifyLoggedIn);
 
 // Get items by cart - GET http://localhost:3000/api/items/by-cart/:cartId
 router.get("/by-cart/:cartId", async (request, response) => {
@@ -57,7 +33,7 @@ router.post("/", async (request, response) => {
     }
 });
 
-// Edit item - PUT http://localhost:3000/api/items/:_id
+// Update item - PUT http://localhost:3000/api/items/:_id
 router.put("/:_id", async (request, response) => {
     try {
         const item = new Item(request.body);

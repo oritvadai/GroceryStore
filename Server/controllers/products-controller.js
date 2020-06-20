@@ -16,7 +16,6 @@ router.get("/num", async (request, response) => {
     }
 });
 
-// Invoke this middleware for any products route:
 router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
