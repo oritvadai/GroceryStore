@@ -69,13 +69,6 @@ export class CartComponent implements OnInit {
         }
     }
 
-    // public async getItems() {
-    //     this.groceryService
-    //         .getItemsByCart(this.cart._id)
-    //         .subscribe(items => this.items = items,
-    //             err => alert(err.message));
-    // }
-
     public async removeItem(itemId) {
         this.groceryService
             .removeItem(itemId)

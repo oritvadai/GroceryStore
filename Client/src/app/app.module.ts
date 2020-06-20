@@ -18,7 +18,8 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { SearchComponent } from './components/search/search.component';
-import { StoreComponent } from './components/store/store.component'
+import { StoreComponent } from './components/store/store.component';
+import { OrderComponent } from './components/order/order.component'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StoreComponent } from './components/store/store.component'
     AddProductComponent,
     EditProductComponent,
     SearchComponent,
-    StoreComponent
+    StoreComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

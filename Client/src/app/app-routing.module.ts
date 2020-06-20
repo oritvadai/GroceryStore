@@ -10,15 +10,14 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { SearchComponent } from './components/search/search.component';
 import { StoreComponent } from './components/store/store.component';
+import { OrderComponent } from './components/order/order.component';
 
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "register", component: RegisterComponent },
   { path: "store", component: StoreComponent },
-//   { path: "products", component: ProductsComponent },
-//   { path: "cart", component: CartComponent },
-//   { path: "search", component: SearchComponent },
+  { path: "order", component: OrderComponent },
   { path: "admin", component: AdminComponent },
   { path: "add-product", component: AddProductComponent },
   { path: "edit-product/:productId", component: EditProductComponent },

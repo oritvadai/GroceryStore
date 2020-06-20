@@ -61,5 +61,9 @@ export class GroceryService {
     public removeItem(itemId): Observable<string> {
         return this.http.delete<string>("http://localhost:3000/api/items/"+ itemId, { headers: this.getHeaders() })
     }
+
+    public addOrder(order): Observable<Order> {
+        return this.http.post<Order>("http://localhost:3000/api/orders", order, { headers: this.getHeaders() })
+    }
     
 }

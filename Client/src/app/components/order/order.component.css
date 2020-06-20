@@ -1,0 +1,13 @@
+.order-cart {
+    width: 45%;
+    overflow: auto;
+    height: 99%;
+    float: left;
+}
+
+.order-form {
+    width: 45%;
+    overflow: auto;
+    height: 99%;
+    float: left;
+}
