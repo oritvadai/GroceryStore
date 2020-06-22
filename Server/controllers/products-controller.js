@@ -48,7 +48,7 @@ router.get("/", async (request, response) => {
 router.get("/by-category/:categoryId", async (request, response) => {
     try {
         const products = await productsLogic.getProductsByCategoryAsync(request.params.categoryId);
-        if(!products) {
+        if (!products) {
             response.sendStatus(404);
             return;
         };
@@ -63,7 +63,7 @@ router.get("/by-category/:categoryId", async (request, response) => {
 router.get("/by-name/:productName", async (request, response) => {
     try {
         const product = await productsLogic.getProductsByName(request.params.productName);
-        if(!product) {
+        if (!product) {
             response.sendStatus(404);
             return;
         };
@@ -78,6 +78,13 @@ router.get("/by-name/:productName", async (request, response) => {
 router.post("/", async (request, response) => {
     try {
         const product = new Product(request.body);
+
+        if (!product || !product.productName || !product.categoryId || !product.price
+            || !product.picFileName) {
+            alert("Missing product details");
+            return;
+        }
+
         const addedProduct = await productsLogic.addProductAsync(product);
         response.json(addedProduct);
     }
@@ -90,9 +97,16 @@ router.post("/", async (request, response) => {
 router.put("/:_id", async (request, response) => {
     try {
         const product = new Product(request.body);
+
+        if (!product || !product.productName || !product.categoryId || !product.price
+            || !product.picFileName) {
+            alert("Missing product details");
+            return;
+        }
+
         product._id = request.params._id;
         const updatedProduct = await productsLogic.updateProductAsync(product);
-        if(!updatedProduct) {
+        if (!updatedProduct) {
             response.sendStatus(404);
             return;
         }

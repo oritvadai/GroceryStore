@@ -9,7 +9,13 @@ const router = express.Router();
 // Login - Post http://localhost:3000/api/auth/login
 router.post("/login", async (request, response) => {
     try {
-        const user = await authLogic.loginAsync(request.body);
+        const credentials = request.body
+        if (!credentials || !credentials.username || !credentials.password) {
+            alert("Missing username and/or password");
+            return;
+        }
+
+        const user = await authLogic.loginAsync(credentials);
         if (!user) {
             response.status(401).send("Incorrect username or password");
             return;
@@ -50,6 +56,12 @@ router.post("/register", async (request, response) => {
         // }
 
         const newUser = new User(request.body);
+        if (!newUser || !newUser.firstName || !newUser.lastName || !newUser.username 
+            || !newUser.ID || !newUser.password || !newUser.city || !newUser.street) {
+            alert("Missing registration data");
+            return;
+        }
+
         newUser.role = "user";
         const user = await authLogic.registerAsync(newUser);
 
