@@ -9,6 +9,7 @@ export enum ActionType {
 
     GetAllProducts,
     AddProduct,
+    UpdateProduct,
 
     GetCart,
     GetItems,

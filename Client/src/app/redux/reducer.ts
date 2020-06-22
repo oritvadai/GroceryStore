@@ -44,20 +44,32 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             break;
 
         case ActionType.RemoveItem:
-            const itemId = action.payload;
-            const index = newAppState.items.findIndex(i => i._id === itemId);
-            if (index >= 0) {
-                newAppState.items.splice(index, 1);
+            {
+                const itemId = action.payload;
+                const index = newAppState.items.findIndex(i => i._id === itemId);
+                if (index >= 0) {
+                    newAppState.items.splice(index, 1);
+                }
             }
             break;
 
-        // Products:
+        // Admin Products:
         case ActionType.GetAllProducts:
             newAppState.products = action.payload;
             break;
 
         case ActionType.AddProduct:
             newAppState.products.push(action.payload);
+            break;
+
+        case ActionType.UpdateProduct:
+            {
+                const id = action.payload._id;
+                const index = newAppState.products.findIndex(p => p._id === id);
+                if (index >= 0) {
+                    newAppState.products[index] = action.payload;
+                }
+            }
             break;
 
         // Categories:

@@ -33,6 +33,7 @@ export class AdminComponent implements OnInit {
             this.router.navigateByUrl("/home");
             return;
         }
+        console.log(store.getState().products.length);
 
         if (store.getState().products.length === 0) {
             this.adminService
@@ -42,6 +43,7 @@ export class AdminComponent implements OnInit {
 
                     const action = { type: ActionType.GetAllProducts, payload: products };
                     store.dispatch(action);
+                    console.log("network activity")
                 },
                     err => alert(err.message));
         }

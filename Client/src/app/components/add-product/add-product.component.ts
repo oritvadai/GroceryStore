@@ -30,7 +30,6 @@ export class AddProductComponent implements OnInit {
 	}
 
 	add() {
-		console.log(this.product);
 		if (this.product) {
 			this.adminService
 				.addProduct(this.product)
@@ -38,7 +37,7 @@ export class AddProductComponent implements OnInit {
                     const action = { type: ActionType.AddProduct, payload: product };
                     store.dispatch(action);
 
-					console.log("Product Added: " + product.productName)
+                    alert(this.product.productName + " has been added");
 					this.router.navigateByUrl("/admin");
 				},
 					err => alert(err.message));

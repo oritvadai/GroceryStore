@@ -3,7 +3,7 @@ import { Product } from 'src/app/models/product';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { Item } from 'src/app/models/item';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Cart } from 'src/app/models/cart';
@@ -23,9 +23,16 @@ export class ProductsComponent implements OnInit {
     public cart = new Cart();
     public item = new Item();
 
-    constructor(private groceryService: GroceryService, private router: Router) { }
+    constructor(
+        private groceryService: GroceryService, 
+        private router: Router,
+        private activatedRoute: ActivatedRoute
+        ) { }
 
     ngOnInit(): void {
+
+        const id = this.activatedRoute.snapshot.params.categoryId;
+        console.log(id)
 
         this.unsubscribe = store.subscribe(() => {
             this.hasToken = store.getState().hasToken;
