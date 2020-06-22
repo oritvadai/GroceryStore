@@ -39,7 +39,7 @@ export class AddProductComponent implements OnInit {
                     store.dispatch(action);
 
 					console.log("Product Added: " + product.productName)
-					this.router.navigateByUrl("/products");
+					this.router.navigateByUrl("/admin");
 				},
 					err => alert(err.message));
 		}

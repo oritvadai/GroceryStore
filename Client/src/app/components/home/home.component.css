@@ -1,10 +1,11 @@
 div {
-    padding: 5px;
+    padding: 10px;
     height: 100%;
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
 }
 
 div, div > * {
@@ -13,15 +14,15 @@ div, div > * {
 
 app-login {
     grid-column: span 4;
-    margin: 5px;
+    padding: 5px;
 }
 
 app-about {
     grid-column: span 4;
-    margin: 5px;
+    padding: 5px;
 }
 
 app-info {
     grid-column: span 4;
-    margin: 5px;
+    padding: 5px;
 }

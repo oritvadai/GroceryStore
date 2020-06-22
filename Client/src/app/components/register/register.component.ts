@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
                 .subscribe(response => {
                     sessionStorage.setItem("user", JSON.stringify(response.user));
                     sessionStorage.setItem("token", response.token);
-                    this.router.navigateByUrl("/products");
+                    this.router.navigateByUrl("/store");
                 },
                     err => alert(err.message));
         }

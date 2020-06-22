@@ -19,34 +19,43 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 import { SearchComponent } from './components/search/search.component';
 import { StoreComponent } from './components/store/store.component';
-import { OrderComponent } from './components/order/order.component'
+import { OrderComponent } from './components/order/order.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    HomeComponent,
-    HeaderComponent,
-    LoginComponent,
-    AboutComponent,
-    InfoComponent,
-    RegisterComponent,
-    ProductsComponent,
-    LogoutComponent,
-    CartComponent,
-    AdminComponent,
-    AddProductComponent,
-    EditProductComponent,
-    SearchComponent,
-    StoreComponent,
-    OrderComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [LayoutComponent]
+    declarations: [
+        LayoutComponent,
+        HomeComponent,
+        HeaderComponent,
+        LoginComponent,
+        AboutComponent,
+        InfoComponent,
+        RegisterComponent,
+        ProductsComponent,
+        LogoutComponent,
+        CartComponent,
+        AdminComponent,
+        AddProductComponent,
+        EditProductComponent,
+        SearchComponent,
+        StoreComponent,
+        OrderComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule
+    ],
+    providers: [],
+    bootstrap: [LayoutComponent]
 })
 export class AppModule { }

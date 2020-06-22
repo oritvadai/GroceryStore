@@ -3,7 +3,7 @@
         Cart date: {{cart.date | date: "dd/MM/yyyy"}}
     </p>
     <hr>
-    
+
     <p>
         No changes are permitted here,
         to add or remove items go back to the
@@ -24,31 +24,52 @@
 
     <p>Shipping Details:</p>
 
-    <form>
+    <form #formInfo="ngForm">
+        <mat-form-field>
+            <mat-label>City</mat-label>
+            <mat-select name="city" [(ngModel)]="order.city">
+                <mat-option value="Jerusalem">Jerusalem</mat-option>
+                <mat-option value="Tel Aviv">Tel Aviv</mat-option>
+                <mat-option value="Haifa">Haifa</mat-option>
+                <mat-option value="Rishon Le'Zion">Rishon Le'Zion</mat-option>
+                <mat-option value="Petach Tikva">Petach Tikva</mat-option>
 
-        <select name="city" [(ngModel)]="order.city">
-            <option value="Jerusalem">Jerusalem</option>
-            <option value="Tel Aviv">Tel Aviv</option>
-            <option value="Haifa">Haifa</option>
-            <option value="Rishon Le'Zion">Rishon Le'Zion</option>
-            <option value="Petach Tikva">Petach Tikva</option>
+                <mat-option value="Ashdod">Ashdod</mat-option>
+                <mat-option value="Natania">Natania</mat-option>
+                <mat-option value="Be'er Sheva">Be'er Sheva</mat-option>
+                <mat-option value="Holon">Holon</mat-option>
+                <mat-option value="Bnei Brak">Bnei Brak</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
 
-            <option value="Ashdod">Ashdod</option>
-            <option value="Natania">Natania</option>
-            <option value="Be'er Sheva">Be'er Sheva</option>
-            <option value="Holon">Holon</option>
-            <option value="Bnei Brak">Bnei Brak</option>
-
-        </select><br>
-
-        <input type="text" placeholder="Street" name="street" [(ngModel)]="order.street"><br>
-
-        <input type="date" placeholder="Shipping Date" name="shipping-date" [(ngModel)]="order.deliveryDate"><br>
-
-        <input type="number" placeholder="Credit Card" name="credit-card" [(ngModel)]="order.creditCard"><br>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Street" name="street" [(ngModel)]="order.street" required
+                minlength="2" #streetInfo="ngModel">
+            <mat-error *ngIf="streetInfo.errors?.required && streetInfo.touched">Missing Street</mat-error>
+            <mat-error *ngIf="streetInfo.errors?.minlength && streetInfo.touched">Street too short</mat-error>
+        </mat-form-field>
+        <br>
 
 
-        <button (click)="commitOrder()">Order</button>
+        <mat-form-field>
+            <input matInput type="date" placeholder="Shipping Date" name="shipping-date"
+                [(ngModel)]="order.deliveryDate" required #deliveryInfo="ngModel">
+            <mat-error *ngIf="deliveryInfo.errors?.required && deliveryInfo.touched">Missing Product Name</mat-error>
+            <mat-error *ngIf="deliveryInfo.errors?.minlength && deliveryInfo.touched">Product Name too short</mat-error>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field>
+            <input matInput type="number" min="0" placeholder="Credit Card" name="credit-card" [(ngModel)]="order.creditCard"
+                required nonNegative #cardInfo="ngModel">
+            <mat-error *ngIf="cardInfo.errors?.required && cardInfo.touched">Missing Credit Card</mat-error>
+            <mat-error *ngIf="cardInfo.errors?.nonNegative && cardInfo.touched">Credit Card can't be negative</mat-error>
+        </mat-form-field>
+        <br>
+
+        <button mat-button [disabled]="formInfo.form.invalid" (click)="commitOrder()">Order</button>
+
     </form>
 
 </div>

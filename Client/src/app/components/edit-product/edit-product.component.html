@@ -1,11 +1,37 @@
 <div>
-    <form action="">
-        <input type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName" value={{product.productName}}><br>
-        <select name="categories" [(ngModel)]="product.categoryId" value={{product.categoryId}}>
-            <option  *ngFor="let c of categories" value={{c._id}}>{{c.category}}</option>
-        </select><br>
-        <input type="number" placeholder="Price" name="price" [(ngModel)]="product.price" value={{product.price}}><br>
-        <input type="text" placeholder="Picture" name="picture" [(ngModel)]="product.picFileName" value={{product.picFileName}}><br>
+    <form #formInfo="ngForm">
+        <mat-form-field>
+            <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
+                value={{product.productName}} required minlength="2" #prodNameInfo="ngModel" autofocus>
+            <mat-error *ngIf="prodNameInfo.errors?.required && prodNameInfo.touched">Missing Product Name</mat-error>
+            <mat-error *ngIf="prodNameInfo.errors?.minlength && prodNameInfo.touched">Product Name too short</mat-error>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select name="categories" [(ngModel)]="product.categoryId" value={{product.categoryId}} required>
+                <mat-option *ngFor="let c of categories" value={{c._id}}>{{c.category}}</mat-option>
+            </mat-select><br>
+        </mat-form-field>
+        <br>
+
+
+        <mat-form-field>
+            <input matInput type="number" min="0" placeholder="Price" name="price" [(ngModel)]="product.price"
+                value={{product.price}} required nonNegative #priceInfo="ngModel">
+            <mat-error *ngIf="priceInfo.errors?.required && priceInfo.touched">Missing Price Name</mat-error>
+            <mat-error *ngIf="priceInfo.errors?.nonNegative && priceInfo.touched">Price can't be negative</mat-error>
+        </mat-form-field>
+        <br>
+
+
+        <!-- <mat-form-field>
+            <input matInput type="text" placeholder="Picture" name="picture" [(ngModel)]="product.picFileName">
+        </mat-form-field>
+        <br> -->
+
+        <button mat-button [disabled]="formInfo.form.invalid" (click)="edit()">Edit Product</button>
+
     </form>
-    <button (click)="edit()">Edit Product</button>
 </div>

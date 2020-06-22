@@ -1,47 +1,104 @@
-<div>
-    <!-- <h6>Step 1:</h6> -->
+<div id="register">
 
-    <form>
-        <input type="number" placeholder="ID" name="ID" [(ngModel)]="user.ID"><br>
-        <input type="text" placeholder="User Name = Email" name="username" [(ngModel)]="user.username"><br>
-        <input type="text" placeholder="Password" name="password" [(ngModel)]="user.password"><br>
-        <!-- <input type="text" placeholder="Confirm Password" name="password" [(ngModel)]="user.password"><br> -->
+    <div id="step1">
+        <h4>Register - Step 1:</h4>
 
-        <button (click)="validateUserID()">Next</button>
-    </form>
-    <br>
+        <form #formInfo1="ngForm">
 
-    <!-- <h6>Step 2:</h6> -->
-    <form>
-        <select name="city" [(ngModel)]="user.city">
-            <option value="Jerusalem">Jerusalem</option>
-            <option value="Tel Aviv">Tel Aviv</option>
-            <option value="Haifa">Haifa</option>
-            <option value="Rishon Le'Zion">Rishon Le'Zion</option>
-            <option value="Petach Tikva">Petach Tikva</option>
-            
-            <option value="Ashdod">Ashdod</option>
-            <option value="Natania">Natania</option>
-            <option value="Be'er Sheva">Be'er Sheva</option>
-            <option value="Holon">Holon</option>
-            <option value="Bnei Brak">Bnei Brak</option>
+            <mat-form-field>
+                <input matInput type="number" min="0" placeholder="ID" name="ID" [(ngModel)]="user.ID" required
+                    nonNegative #IDInfo="ngModel" autofocus>
+                <mat-error *ngIf="IDInfo.errors?.required && IDInfo.touched">Missing ID</mat-error>
+                <mat-error *ngIf="IDInfo.errors?.nonNegative && IDInfo.touched">ID can't be negative</mat-error>
+            </mat-form-field>
+            <br>
 
-        </select><br>
-        <input type="text" placeholder="Street" name="street" [(ngModel)]="user.street"><br>
-        <input type="text" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName"><br>
-        <input type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName"><br>
+            <mat-form-field>
+                <input matInput type="text" placeholder="User Name = Email" name="username" [(ngModel)]="user.username"
+                    required minlength="2" #emailInfo="ngModel">
+                <mat-error *ngIf="emailInfo.errors?.required && emailInfo.touched">Missing Email</mat-error>
+                <mat-error *ngIf="emailInfo.errors?.minlength && emailInfo.touched">Email too short</mat-error>
+            </mat-form-field>
+            <br>
 
-        <!-- Present captcha image: -->
-        <!-- <div id="divCAPTCHA">
+            <mat-form-field>
+                <input matInput type="text" placeholder="Password" name="password" [(ngModel)]="user.password" required
+                    minlength="4" #passInfo="ngModel">
+                <mat-error *ngIf="passInfo.errors?.required && passInfo.touched">Missing Password</mat-error>
+                <mat-error *ngIf="passInfo.errors?.minlength && passInfo.touched">Password too short</mat-error>
+                <!-- <input type="text" placeholder="Confirm Password" name="password" [(ngModel)]="user.password"><br> -->
+            </mat-form-field>
+            <br>
+            <button mat-button [disabled]="formInfo1.form.invalid" (click)="validateUserID()">Next</button>
+
+        </form>
+        <br>
+    </div>
+
+    <div id="step2">
+        <h4>Register - Step 2:</h4>
+
+        <form #formInfo2="ngForm">
+
+            <mat-form-field>
+                <mat-label>City</mat-label>
+                <mat-select name="city" [(ngModel)]="user.city">
+                    <mat-option value="Jerusalem">Jerusalem</mat-option>
+                    <mat-option value="Tel Aviv">Tel Aviv</mat-option>
+                    <mat-option value="Haifa">Haifa</mat-option>
+                    <mat-option value="Rishon Le'Zion">Rishon Le'Zion</mat-option>
+                    <mat-option value="Petach Tikva">Petach Tikva</mat-option>
+
+                    <mat-option value="Ashdod">Ashdod</mat-option>
+                    <mat-option value="Natania">Natania</mat-option>
+                    <mat-option value="Be'er Sheva">Be'er Sheva</mat-option>
+                    <mat-option value="Holon">Holon</mat-option>
+                    <mat-option value="Bnei Brak">Bnei Brak</mat-option>
+                </mat-select><br>
+            </mat-form-field>
+            <br>
+
+            <mat-form-field>
+                <input matInput type="text" placeholder="Street" name="street" [(ngModel)]="user.street" required
+                    minlength="2" #streetInfo="ngModel">
+                <mat-error *ngIf="streetInfo.errors?.required && streetInfo.touched">Missing Street</mat-error>
+                <mat-error *ngIf="streetInfo.errors?.minlength && streetInfo.touched">Street too short</mat-error>
+            </mat-form-field>
+            <br>
+
+            <mat-form-field>
+                <input matInput type="text" placeholder="First Name" name="firstName" [(ngModel)]="user.firstName"
+                    required minlength="2" #firstNameInfo="ngModel">
+                <mat-error *ngIf="firstNameInfo.errors?.required && firstNameInfo.touched">Missing First Name
+                </mat-error>
+                <mat-error *ngIf="firstNameInfo.errors?.minlength && firstNameInfo.touched">First Name too short
+                </mat-error>
+            </mat-form-field>
+            <br>
+
+            <mat-form-field>
+                <input matInput type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName" required
+                    minlength="2" #lastNameInfo="ngModel">
+                <mat-error *ngIf="lastNameInfo.errors?.required && lastNameInfo.touched">Missing Last Name</mat-error>
+                <mat-error *ngIf="lastNameInfo.errors?.minlength && lastNameInfo.touched">Last Name too short
+                </mat-error>
+            </mat-form-field>
+            <br>
+
+            <!-- Present captcha image: -->
+            <!-- <div id="divCAPTCHA">
             <img src="http://localhost:3000/api/auth/captcha" alt="">
         </div> -->
 
-        <!-- Get captcha text from user: -->
-        <!-- <input type="text" id="textBoxCAPTCHA" placeholder="Enter Image Text..." required>
+            <!-- Get captcha text from user: -->
+            <!-- <input type="text" id="textBoxCAPTCHA" placeholder="Enter Image Text..." required>
         <br><br> -->
 
-        <button (click)="register()">Register</button>
-    </form>
+            <!-- <button (click)="register()">Register</button> -->
+            <button mat-button [disabled]="formInfo2.form.invalid" (click)="register()">Register</button>
 
-    
+        </form>
+
+    </div>
+
 </div>
