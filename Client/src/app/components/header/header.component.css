@@ -10,11 +10,11 @@ div {
     display: inline-block;
 }
 
-a {
+/* a {
     color: darkblue;
-}
+} */
 
 .active {
-    color: blue;
+    /* color: darkblue; */
     font-weight: bold;
 }

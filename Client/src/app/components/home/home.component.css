@@ -15,14 +15,17 @@ div, div > * {
 app-login {
     grid-column: span 4;
     padding: 5px;
+    padding-top: 30px;
 }
 
 app-about {
     grid-column: span 4;
     padding: 5px;
+    padding-top: 30px;
 }
 
 app-info {
     grid-column: span 4;
     padding: 5px;
+    padding-top: 30px;
 }

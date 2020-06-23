@@ -21,6 +21,5 @@ export class HeaderComponent implements OnInit {
             this.user = store.getState().user;
             this.hasToken = store.getState().hasToken;
         });
-        // this.user = store.getState().user;
 	}
 }
