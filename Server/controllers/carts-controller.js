@@ -1,6 +1,7 @@
 const express = require("express");
 const cartsLogic = require("../business-logic-layer/carts-logic");
 const Cart = require("../models/cart");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const usersLogic = require("../business-logic-layer/users-logic");
 const User = require("../models/user");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 

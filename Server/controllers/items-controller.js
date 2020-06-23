@@ -1,6 +1,7 @@
 const express = require("express");
 const itemsLogic = require("../business-logic-layer/items-logic");
 const Item = require("../models/item");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 

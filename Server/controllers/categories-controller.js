@@ -1,5 +1,7 @@
 const express = require("express");
 const categoriesLogic = require("../business-logic-layer/categories-logic");
+const verifyLoggedIn = require("../middleware/verify-logged-in");
+
 const router = express.Router();
 
 router.use(verifyLoggedIn);
