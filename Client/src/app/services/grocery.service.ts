@@ -31,7 +31,7 @@ export class GroceryService {
     // 	return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
     // }
 
-    
+
     // Products
     public getAllCategories(): Observable<Category[]> {
         return this.http.get<Category[]>("http://localhost:3000/api/categories", { headers: this.getHeaders() });
@@ -51,6 +51,11 @@ export class GroceryService {
         return this.http.get<Cart>("http://localhost:3000/api/carts/by-user/" + userId, { headers: this.getHeaders() });
     }
 
+    public addCart(cart): Observable<Cart> {
+        return this.http.post<Cart>("http://localhost:3000/api/carts", cart, { headers: this.getHeaders() })
+    }
+
+    // Items
     public getItemsByCart(cartId): Observable<Item[]> {
         return this.http.get<Item[]>("http://localhost:3000/api/items/by-cart/" + cartId, { headers: this.getHeaders() });
     }
@@ -60,13 +65,13 @@ export class GroceryService {
     }
 
     public removeItem(itemId): Observable<string> {
-        return this.http.delete<string>("http://localhost:3000/api/items/"+ itemId, { headers: this.getHeaders() })
+        return this.http.delete<string>("http://localhost:3000/api/items/" + itemId, { headers: this.getHeaders() })
     }
 
-    
+
     // Order
     public addOrder(order): Observable<Order> {
         return this.http.post<Order>("http://localhost:3000/api/orders", order, { headers: this.getHeaders() })
     }
-    
+
 }

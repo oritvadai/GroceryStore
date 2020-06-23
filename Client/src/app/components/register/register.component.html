@@ -22,20 +22,30 @@
             <br>
 
             <mat-form-field>
-                <input matInput type="text" placeholder="Password" name="password" [(ngModel)]="user.password" required
+                <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required
                     minlength="4" #passInfo="ngModel">
                 <mat-error *ngIf="passInfo.errors?.required && passInfo.touched">Missing Password</mat-error>
                 <mat-error *ngIf="passInfo.errors?.minlength && passInfo.touched">Password too short</mat-error>
-                <!-- <input type="text" placeholder="Confirm Password" name="password" [(ngModel)]="user.password"><br> -->
             </mat-form-field>
             <br>
+
+            <mat-form-field>
+                <input matInput type="password" placeholder="Confirm Password" name="confirm-password" [(ngModel)]="confirmPass" required
+                    minlength="4" #confirmInfo="ngModel">
+                <mat-error *ngIf="confirmInfo.errors?.required && confirmInfo.touched">Missing Password</mat-error>
+                <mat-error *ngIf="confirmInfo.errors?.minlength && confirmInfo.touched">Password too short</mat-error>
+                <!-- <mat-error *ngIf="confirmInfo.errors?.value != this.user.password && confirmInfo.touched">Password didn't match</mat-error> -->
+            </mat-form-field>
+            <br>
+
+
             <button mat-button [disabled]="formInfo1.form.invalid" (click)="validateUserID()">Next</button>
 
         </form>
         <br>
     </div>
 
-    <div id="step2">
+    <div id="step2" *ngIf="this.step1complete">
         <h4>Register - Step 2:</h4>
 
         <form #formInfo2="ngForm">
