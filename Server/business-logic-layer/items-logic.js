@@ -5,7 +5,7 @@ function getItemsByCartAsync(cartId) {
 };
 
 function addItemAsync(item) {
-    return item.save();
+    return item.save().then(item => item.populate("product").execPopulate());
 };
 
 function updateItemAsync(item) {
