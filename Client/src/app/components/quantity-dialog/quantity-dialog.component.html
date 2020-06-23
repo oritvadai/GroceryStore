@@ -1,11 +1,18 @@
-<div mat-dialog-content>
-  <p>How Many would you like to order?</p>
-  <mat-form-field>
-    <mat-label>Quantity</mat-label>
-    <input matInput [(ngModel)]="data.quantity">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.quantity" cdkFocusInitial>Ok</button>
-</div>
+<form #formInfo="ngForm">
+    <div mat-dialog-content>
+        <p>How Many would you like to order?</p>
+        <mat-form-field>
+            <mat-label>Quantity</mat-label>
+            <input matInput type="number" name="quantity" min="1" required [(ngModel)]="data.quantity"
+                #quantityInfo="ngModel">
+            <mat-error *ngIf="quantityInfo.errors?.required && quantityInfo.touched">Missing quantity</mat-error>
+            <mat-error *ngIf="quantityInfo.errors?.nonNegative && quantityInfo.touched">Quantity can't be less than 1
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="onYesClick()" [disabled]="formInfo.form.invalid" [mat-dialog-close]="data"
+            cdkFocusInitial>Ok</button>
+    </div>
+</form>

@@ -79,23 +79,25 @@ export class ProductsComponent implements OnInit {
 
         const dialogRef = this.dialog.open(QuantityDialogComponent, {
             width: '250px',
-            data: { quantity: this.item.quantity }
+            data: { quantity: this.item.quantity, isConfirmed: false }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.item.quantity = result;
+            console.log(result);
 
-            this.addToCart(p._id, p.price, p.productName)
-
+            if (result && result.isConfirmed) {
+                this.item.quantity = result.quantity;
+                this.addToCart(p);
+            }
         });
-
     }
 
-    public async addToCart(productId, productPrice, productName) {
+    public async addToCart(p) {
         this.item.cartId = this.cart._id;
-        this.item.productId = productId;
-        this.item.product = { "price": productPrice, "productName": productName };
+        this.item.productId = p._id;
+        this.item.product = { "price": p.productPrice, "productName": p.productName };
+
 
         this.groceryService
             .addItem(this.item)

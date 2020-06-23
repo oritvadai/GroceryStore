@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 // import { MatDialogRef } from '@angular/material/dialog';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
     quantity: number;
+    isConfirmed: boolean;
 }
 
 @Component({
@@ -18,6 +19,11 @@ export class QuantityDialogComponent {
         @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
     onNoClick(): void {
+        this.data.isConfirmed = false;
         this.dialogRef.close();
+    }
+
+    onYesClick(): void {
+        this.data.isConfirmed = true;
     }
 }
