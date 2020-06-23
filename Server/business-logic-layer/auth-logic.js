@@ -16,6 +16,7 @@ function registerAsync(newUser) {
     const user = new User();
     user.firstName = newUser.firstName;
     user.lastName = newUser.lastName;
+    user.role = newUser.role;
     return user;
 };
 
