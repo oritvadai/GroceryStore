@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>How Many would you like to order?</p>
+  <mat-form-field>
+    <mat-label>Quantity</mat-label>
+    <input matInput [(ngModel)]="data.quantity">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.quantity" cdkFocusInitial>Ok</button>
+</div>

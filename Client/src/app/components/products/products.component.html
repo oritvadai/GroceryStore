@@ -10,7 +10,9 @@
             {{p.productName}} <br>
             Price: {{p.price | currency:"ILS"}} <br>
             {{p.picFileName}} <br>
-            <button (click)="addToCart(p._id, p.price, p.productName)">Add</button>
+            <button mat-button (click)="openDialog(p)">Quantity</button>
+
+            <!-- <button (click)="addToCart(p._id, p.price, p.productName)">Add</button> -->
         </div>
 
     </div>

@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Cart } from 'src/app/models/cart';
+import { MatDialog } from '@angular/material/dialog';
+import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
 
 @Component({
     selector: 'app-products',
@@ -24,15 +26,16 @@ export class ProductsComponent implements OnInit {
     public item = new Item();
 
     constructor(
-        private groceryService: GroceryService, 
+        private groceryService: GroceryService,
         private router: Router,
-        private activatedRoute: ActivatedRoute
-        ) { }
+        private activatedRoute: ActivatedRoute,
+        public dialog: MatDialog
+    ) { }
 
     ngOnInit(): void {
 
-        const id = this.activatedRoute.snapshot.params.categoryId;
-        console.log(id)
+        // const id = this.activatedRoute.snapshot.params.categoryId;
+        // console.log(id)
 
         this.unsubscribe = store.subscribe(() => {
             this.hasToken = store.getState().hasToken;
@@ -71,10 +74,27 @@ export class ProductsComponent implements OnInit {
                 err => alert(err.message));
     }
 
+    // Pop-up Dialog for item quantity
+    openDialog(p): void {
+
+        const dialogRef = this.dialog.open(QuantityDialogComponent, {
+            width: '250px',
+            data: { quantity: this.item.quantity }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.item.quantity = result;
+
+            this.addToCart(p._id, p.price, p.productName)
+
+        });
+
+    }
+
     public async addToCart(productId, productPrice, productName) {
         this.item.cartId = this.cart._id;
         this.item.productId = productId;
-        this.item.quantity = 1;
         this.item.product = { "price": productPrice, "productName": productName };
 
         this.groceryService

@@ -25,6 +25,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+// import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { QuantityDialogComponent } from './components/quantity-dialog/quantity-dialog.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +47,8 @@ import { MatSelectModule } from '@angular/material/select';
         EditProductComponent,
         SearchComponent,
         StoreComponent,
-        OrderComponent
+        OrderComponent,
+        QuantityDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -53,7 +58,11 @@ import { MatSelectModule } from '@angular/material/select';
         BrowserAnimationsModule,
         MatInputModule,
         MatButtonModule,
-        MatSelectModule
+        MatSelectModule,
+        MatDialogModule
+        // MatDialog, 
+        // MatDialogRef, 
+        // MAT_DIALOG_DATA
     ],
     providers: [],
     bootstrap: [LayoutComponent]
