@@ -3,28 +3,29 @@
     <div *ngIf="hasToken; then thenBlock else elseBlock"></div>
     <ng-template #thenBlock>Hello {{user.firstName}} {{user.lastName}}!</ng-template>
     <ng-template #elseBlock>Hello Guest!</ng-template>
-    <br>
-
-    <div class="route">
-        <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <span> | </span>
-    </div>
+    <br><br>
 
     <div class="route" *ngIf="!hasToken">
-        <a routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
-        <span> | </span>
+        <a routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register here</a>
     </div>
 
-    <div class="route" *ngIf="user && user.role == 'user'">
+    <div class="route" *ngIf="hasToken">
+        <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <span> |&nbsp; </span>
+    </div>
+
+    
+
+    <div class="route" *ngIf="hasToken && user.role == 'user'">
         <a routerLink="/store" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Store</a>
-        <span> | </span>
+        <span> |&nbsp; </span>
         <!-- <a routerLink="/search" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Search</a>
         <span> | </span> -->
     </div>
 
-    <div class="route" *ngIf="user && user.role == 'admin'">
+    <div class="route" *ngIf="hasToken && user.role == 'admin'">
         <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Admin</a>
-        <span> | </span>
+        <span> |&nbsp; </span>
     </div>
 
     <div class="route" *ngIf="hasToken">
