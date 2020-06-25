@@ -18,8 +18,6 @@ export class LogoutComponent implements OnInit {
 
         const action = { type: ActionType.Logout };
         store.dispatch(action);
-
-        console.log("logged out");
         
         this.router.navigateByUrl("/home");
     }
