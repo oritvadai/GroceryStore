@@ -26,8 +26,10 @@ function verifyLoggedIn(request, response, next) {
             response.status(403).send("Your login session has expired");
             return;
         }
+        // console.log(payload);
+        request.decodedJwt = payload;
 
-        // Token is verify and not expired: 
+        // Token is verified and not expired: 
         next();
     });
 }

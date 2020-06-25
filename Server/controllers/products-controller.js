@@ -21,6 +21,12 @@ router.use(verifyLoggedIn);
 // Get all products - GET http://localhost:3000/api/products
 router.get("/", async (request, response) => {
     try {
+        // Allow access only to admin
+        const user = request.decodedJwt.user;
+        if (user.role != "admin") {
+            response.status(403).send("Access denied");
+            return;
+        }
         const products = await productsLogic.getAllProductsAsync();
         response.json(products);
     }
@@ -77,14 +83,19 @@ router.get("/by-name/:productName", async (request, response) => {
 // Add product - POST http://localhost:3000/api/products
 router.post("/", async (request, response) => {
     try {
-        const product = new Product(request.body);
-
-        if (!product || !product.productName || !product.categoryId || !product.price
-            || !product.picFileName) {
-            alert("Missing product details");
+        // Allow access only to admin
+        const user = request.decodedJwt.user;
+        if (user.role != "admin") {
+            response.status(403).send("Access denied");
             return;
         }
 
+        const product = new Product(request.body);
+        if (!product || !product.productName || !product.categoryId || !product.price
+            || !product.picFileName) {
+            response.status(400).send("Missing product details");
+            return;
+        }
         const addedProduct = await productsLogic.addProductAsync(product);
         response.json(addedProduct);
     }
@@ -96,15 +107,19 @@ router.post("/", async (request, response) => {
 // Update product - PUT http://localhost:3000/api/products/:_id
 router.put("/:_id", async (request, response) => {
     try {
-        const product = new Product(request.body);
-
-        if (!product || !product.productName || !product.categoryId || !product.price
-            || !product.picFileName) {
-            alert("Missing product details");
+        // Allow access only to admin
+        const user = request.decodedJwt.user;
+        if (user.role != "admin") {
+            response.status(403).send("Access denied");
             return;
         }
 
-        product._id = request.params._id;
+        const product = new Product(request.body);
+        if (!product || !product.productName || !product.categoryId || !product.price
+            || !product.picFileName) {
+            response.status(400).send("Missing product details");
+            return;
+        }
         const updatedProduct = await productsLogic.updateProductAsync(product);
         if (!updatedProduct) {
             response.sendStatus(404);
