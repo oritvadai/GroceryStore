@@ -48,7 +48,7 @@ export class AddProductComponent implements OnInit {
 
         if (!hasToken) {
             alert("Please Login");
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl("/logout");
             return;
         }
 
@@ -112,7 +112,7 @@ export class AddProductComponent implements OnInit {
         this.adminService
             .addProduct(productForm)
             .subscribe(product => {
-                const action = { type: ActionType.AddProduct, payload: product };
+                const action = { type: ActionType.AdminAddProduct, payload: product };
                 store.dispatch(action);
 
                 alert(this.product.productName + " has been added");

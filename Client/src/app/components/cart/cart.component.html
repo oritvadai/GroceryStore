@@ -8,10 +8,10 @@
         product: {{i.product.productName}} <br>
         quantity: {{i.quantity}} <br>
         price: {{i.itemsPrice}} <br>
-        <button (click)="removeItem(i._id)">Remove</button>
+        <button mat-button (click)="removeItem(i._id)">Remove</button>
         <hr>
     </div>
 
-    <button routerLink="/order">Checkout</button>
+    <button mat-button routerLink="/order">Checkout</button>
 
 </div>

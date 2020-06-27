@@ -10,6 +10,7 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
     switch (action.type) {
 
+        // Home Info
         case ActionType.GetNumProducts:
             newAppState.productsNum = +action.payload;
             break;
@@ -18,6 +19,8 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.ordersNum = +action.payload;
             break;
 
+
+        // Login
         case ActionType.Login:
             newAppState.user = action.payload;
             newAppState.hasToken = true;
@@ -27,14 +30,15 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.user = new User();
             newAppState.hasToken = false;
             newAppState.cart = new Cart();
-            newAppState.products = [];
+            newAppState.allProducts = [];
             break;
 
+
+        // Store
         case ActionType.GetCart:
             newAppState.cart = action.payload;
             break;
 
-        // Items:
         case ActionType.GetItems:
             newAppState.items = action.payload;
             break;
@@ -53,28 +57,32 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             }
             break;
 
-        // Admin Products:
-        case ActionType.GetAllProducts:
-            newAppState.products = action.payload;
-            break;
-
-        case ActionType.AddProduct:
-            newAppState.products.push(action.payload);
-            break;
-
-        case ActionType.UpdateProduct:
-            {
-                const id = action.payload._id;
-                const index = newAppState.products.findIndex(p => p._id === id);
-                if (index >= 0) {
-                    newAppState.products[index] = action.payload;
-                }
-            }
-            break;
-
-        // Categories:
         case ActionType.GetAllCategories:
             newAppState.categories = action.payload;
+            break;
+
+        case ActionType.GetProductsView:
+            newAppState.productsView = action.payload;
+            break;
+
+
+        // Admin:
+        case ActionType.AdminGetAllProducts:
+            newAppState.allProducts = action.payload;
+            break;
+
+        case ActionType.AdminAddProduct:
+            newAppState.allProducts.push(action.payload);
+            break;
+
+        case ActionType.AdminUpdateProduct:
+            {
+                const id = action.payload._id;
+                const index = newAppState.allProducts.findIndex(p => p._id === id);
+                if (index >= 0) {
+                    newAppState.allProducts[index] = action.payload;
+                }
+            }
             break;
     }
 

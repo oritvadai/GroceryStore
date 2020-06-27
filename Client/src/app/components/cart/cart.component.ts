@@ -38,7 +38,7 @@ export class CartComponent implements OnInit {
 
         if (!hasToken) {
             alert("Please Login");
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl("/logout");
             return;
         }
 

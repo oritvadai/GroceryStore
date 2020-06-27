@@ -36,12 +36,12 @@ export class EditProductComponent implements OnInit {
 
         if (!hasToken) {
             alert("Please Login");
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl("/logout");
             return;
         }
 
         const id = this.activatedRoute.snapshot.params.productId;
-        this.product = store.getState().products.find(p => p._id === id);
+        this.product = store.getState().allProducts.find(p => p._id === id);
 
         this.groceryService
             .getAllCategories()
@@ -54,7 +54,7 @@ export class EditProductComponent implements OnInit {
             this.adminService
                 .updateProduct(this.product)
                 .subscribe(result => {
-                    const action = { type: ActionType.UpdateProduct, payload: this.product };
+                    const action = { type: ActionType.AdminUpdateProduct, payload: this.product };
                     store.dispatch(action);
 
                     alert(this.product.productName + " has been edited");

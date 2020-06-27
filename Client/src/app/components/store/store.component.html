@@ -1,9 +1,24 @@
-<div>
+<div id="store">
     <aside>
         <app-cart></app-cart>
     </aside>
     <main>
         <app-search></app-search>
-        <app-products></app-products>
+        <div id="products">
+
+            <div class="categories">
+                <div class="category" *ngFor="let c of categories">
+                    <div (click)="getProductsByCategory(c._id)"> {{c.category}} </div>
+                </div>
+            </div>
+
+            <div class="product" *ngFor="let p of productsView">
+                {{p.productName}} <br>
+                Price: {{p.price | currency:"ILS"}} <br>
+                {{p.picFileName}} <br>
+                <button mat-button (click)="openDialog(p)">Add</button>
+            </div>
+
+        </div>
     </main>
 </div>

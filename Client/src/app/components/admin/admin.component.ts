@@ -13,7 +13,7 @@ import { User } from 'src/app/models/user';
 })
 export class AdminComponent implements OnInit {
 
-    public products: Product[];
+    public allProducts: Product[];
     public unsubscribe: Function;
 
 
@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
-            this.products = store.getState().products;
+            this.allProducts = store.getState().allProducts;
         });
 
         const user = store.getState().user;
@@ -36,20 +36,20 @@ export class AdminComponent implements OnInit {
 
         if (!hasToken) {
             alert("Please Login");
-            this.router.navigateByUrl("/home");
+            this.router.navigateByUrl("/logout");
             return;
         }
 
         console.log("store.getState().products.length =")
-        console.log(store.getState().products.length);
+        console.log(store.getState().allProducts.length);
 
-        if (store.getState().products.length === 0) {
+        if (store.getState().allProducts.length === 0) {
             this.adminService
                 .getAllProducts()
                 .subscribe(products => {
-                    this.products = products
+                    this.allProducts = products
 
-                    const action = { type: ActionType.GetAllProducts, payload: products };
+                    const action = { type: ActionType.AdminGetAllProducts, payload: products };
                     store.dispatch(action);
                     console.log("Admin network activity");
                 },
@@ -60,7 +60,7 @@ export class AdminComponent implements OnInit {
                 );
         }
         else {
-            this.products = store.getState().products;
+            this.allProducts = store.getState().allProducts;
         }
     }
 

@@ -1,4 +1,4 @@
-div {
+#store {
     padding: 5px;
     height: 100%;
     box-sizing: border-box;
@@ -10,7 +10,7 @@ div {
 
 aside {
     grid-column: span 4;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 main {
@@ -26,6 +26,23 @@ app-search {
     overflow: auto;
 }
 
-app-products {
+/* app-products {
     overflow: auto;
+} */
+
+#products {
+    border: 1px solid black;
+    height: 100%;
+    overflow-y: auto;
+
+}
+
+.category {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.product {
+    display: inline-block;
+    margin: 0, auto;
 }

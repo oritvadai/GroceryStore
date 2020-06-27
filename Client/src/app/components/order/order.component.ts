@@ -15,61 +15,62 @@ import { Order } from 'src/app/models/order';
 })
 export class OrderComponent implements OnInit {
 
-    public hasToken: boolean;
-    public unsubscribe: Function;
-
-    public user = new User();
     public cart = new Cart();
     public items: Item[];
     public order = new Order();
-
+    // public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
 
     async ngOnInit() {
 
-        this.unsubscribe = store.subscribe(() => {
-            this.hasToken = store.getState().hasToken;
-            this.user = store.getState().user;
-            // this.cart = store.getState().cart;
-            // this.items = store.getState().items;
-        });
+        // this.unsubscribe = store.subscribe(() => {
+        //     this.cart = store.getState().cart;
+        //     this.items = store.getState().items;
+        // });
 
-        this.hasToken = store.getState().hasToken;
-        this.user = store.getState().user;
+        this.cart = store.getState().cart;
+        this.items = store.getState().items;
 
+        const user = store.getState().user;
+        const hasToken = store.getState().hasToken;
 
-        if (!this.hasToken) {
+        if (user.role != "user") {
+            alert("Access Denied");
+            this.router.navigateByUrl("/home");
+            return;
+        }
+
+        if (!hasToken) {
             alert("Please Login");
             this.router.navigateByUrl("/home");
             return;
         }
 
-        // if (!store.getState().cart._id) {
+        if (!store.getState().cart._id) {
+            this.groceryService
+                .getCartByUser(user._id)
+                .subscribe(cart => {
+                    this.cart = cart;
 
-        this.groceryService
-            .getCartByUser(this.user._id)
-            .subscribe(cart => {
-                this.cart = cart;
+                    const action = { type: ActionType.GetCart, payload: cart };
+                    store.dispatch(action);
 
-                const action = { type: ActionType.GetCart, payload: cart };
-                store.dispatch(action);
+                    this.groceryService
+                        .getItemsByCart(cart._id)
+                        .subscribe(items => {
+                            this.items = items;
 
-                this.groceryService
-                    .getItemsByCart(cart._id)
-                    .subscribe(items => {
-                        this.items = items;
-
-                        const action = { type: ActionType.GetItems, payload: items };
-                        store.dispatch(action);
-                    },
-                        err => alert(err.message));
-            }, err => alert(err.message));
-        // }
-        // else {
-        //     this.cart = store.getState().cart;
-        //     this.items = store.getState().items;
-        // }
+                            const action = { type: ActionType.GetItems, payload: items };
+                            store.dispatch(action);
+                        },
+                            err => alert(err.message));
+                }, err => alert(err.message));
+        }
+        else {
+            this.cart = store.getState().cart;
+            this.items = store.getState().items;
+        }
     }
 
     commitOrder() {
@@ -85,7 +86,7 @@ export class OrderComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    ngOnDestroy() {
-        this.unsubscribe();
-    }
+    // ngOnDestroy() {
+    //     this.unsubscribe();
+    // }
 }
