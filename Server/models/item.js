@@ -31,7 +31,7 @@ ItemSchema.virtual("cart", {
 });
 
 ItemSchema.virtual("itemsPrice").get(function(){
-    return this.quantity * this.product.price;
+    return this.quantity * this.product.unitPrice;
 });
 
 const Item = mongoose.model("Item", ItemSchema, "Items");

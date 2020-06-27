@@ -98,7 +98,7 @@ export class AddProductComponent implements OnInit {
         const productForm = new FormData();
         productForm.append("productName", this.product.productName);
         productForm.append("categoryId", this.product.categoryId);
-        productForm.append("price", this.product.price.toString());
+        productForm.append("unitPrice", this.product.unitPrice.toString());
         // productForm.append("image", this.image, this.image.name);
 
         productForm.append("image", this.fileUploadForm.get("image").value);

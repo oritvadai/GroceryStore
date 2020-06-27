@@ -109,13 +109,11 @@ export class StoreComponent implements OnInit {
     public async addToCart(p) {
         this.item.cartId = this.cart._id;
         this.item.productId = p._id;
-        this.item.product = { "price": p.productPrice, "productName": p.productName };
-
 
         this.groceryService
             .addItem(this.item)
             .subscribe(item => {
-                
+
                 const action = { type: ActionType.AddItem, payload: item };
                 store.dispatch(action);
 
