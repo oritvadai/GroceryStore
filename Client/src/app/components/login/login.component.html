@@ -34,13 +34,13 @@
 <div *ngIf="user && user.role == 'user'">
     <h4> Welcome! </h4>
     <br>
-    <a routerLink="/store" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><b>
-        Start / Resume Shopping</b></a>
+    <a routerLink="/store" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        Start / Resume Shopping</a>
 </div>
 
 <div *ngIf="user && user.role == 'admin'">
     <h4> Welcome! </h4>
     <br>
-    <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><b>
-        Add / Edit Products</b></a>
+    <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        Add / Edit Products</a>
 </div>
