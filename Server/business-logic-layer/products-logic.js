@@ -1,4 +1,9 @@
 const Product = require("../models/product");
+const uuid = require("uuid");
+const fs = require("fs");
+const path = require("path");
+
+const uploadsFolder = "./uploads"
 
 function getNumProductsAsync() {
     return Product.countDocuments();
@@ -20,7 +25,20 @@ function getProductsByName(productName) {
     return Product.find({ productName }).populate("category").exec();
 };
 
-function addProductAsync(product) {
+function addProductAsync(product
+    // , image
+    ) {
+    // If there is no uploads folder, create it
+    if (!fs.existsSync(uploadsFolder)) {
+        fs.mkdirSync(uploadsFolder);
+    }
+    // Creat new uuid and add the file extension 
+    // const extension = image.name.substr(image.name.lastIndexOf("."));
+    // const fileName = uuid() + extension;
+    // Add the new picFileName to the product and save the image with that picFileName
+    // product.picFileName = fileName;
+    // image.mv(path.join(uploadsFolder , fileName));
+
     return product.save();
 };
 

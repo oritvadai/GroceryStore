@@ -86,17 +86,34 @@ router.post("/", async (request, response) => {
         // Allow access only to admin
         const user = request.decodedJwt.user;
         if (user.role != "admin") {
-            response.status(403).send("Access denied");
+            response.status(403).send("Access Denied");
             return;
         }
+        // if(!request.files){
+        //     response.status(400).send("No File Sent");
+        //     return;
+        // }
+
+        // console.log(request.files)
+        // console.log(request.files.image)
 
         const product = new Product(request.body);
-        if (!product || !product.productName || !product.categoryId || !product.price
-            || !product.picFileName) {
-            response.status(400).send("Missing product details");
-            return;
-        }
-        const addedProduct = await productsLogic.addProductAsync(product);
+        console.log("product")
+        console.log(product)
+        console.log(product.productName)
+        console.log(product.price)
+
+
+        // const image = request.files.image;
+
+
+        // if (!product || !product.productName || !product.categoryId || !product.price) {
+        //     response.status(400).send("Missing Product Details");
+        //     return;
+        // }
+        const addedProduct = await productsLogic.addProductAsync(product
+            // , image
+            );
         response.json(addedProduct);
     }
     catch (err) {
@@ -110,14 +127,14 @@ router.put("/:_id", async (request, response) => {
         // Allow access only to admin
         const user = request.decodedJwt.user;
         if (user.role != "admin") {
-            response.status(403).send("Access denied");
+            response.status(403).send("Access Denied");
             return;
         }
 
         const product = new Product(request.body);
         if (!product || !product.productName || !product.categoryId || !product.price
             || !product.picFileName) {
-            response.status(400).send("Missing product details");
+            response.status(400).send("Missing Product Details");
             return;
         }
         const updatedProduct = await productsLogic.updateProductAsync(product);
