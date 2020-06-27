@@ -9,7 +9,6 @@ import { LoginComponent } from './components/login/login.component';
 import { AboutComponent } from './components/about/about.component';
 import { InfoComponent } from './components/info/info.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ProductsComponent } from './components/products/products.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminComponent } from './components/admin/admin.component';
@@ -42,7 +41,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
         AboutComponent,
         InfoComponent,
         RegisterComponent,
-        ProductsComponent,
         LogoutComponent,
         CartComponent,
         AdminComponent,

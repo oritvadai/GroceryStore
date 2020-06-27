@@ -18,7 +18,7 @@ main {
     box-sizing: border-box;
     display: grid;
     grid-column: span 8;
-    grid-template-rows: 20% 100%;
+    /* grid-template-rows: 20% 100%; */
     gap: 2px;
 }
 

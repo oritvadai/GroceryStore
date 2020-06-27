@@ -12,16 +12,19 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 
 const routes: Routes = [
+    // Guest
     { path: "home", component: HomeComponent },
     { path: "register", component: RegisterComponent },
+    // User
     { path: "store", component: StoreComponent },
-    { path: "store/:categoryId", component: StoreComponent },
-
     { path: "order", component: OrderComponent },
+    // Admin
     { path: "admin", component: AdminComponent },
     { path: "add-product", component: AddProductComponent },
     { path: "edit-product/:productId", component: EditProductComponent },
+    // User and Admin
     { path: "logout", component: LogoutComponent },
+    // Redirect
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "**", component: PageNotFoundComponent }
 ];

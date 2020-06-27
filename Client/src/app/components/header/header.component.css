@@ -1,20 +1,18 @@
-.header {
-    padding-top: 20px;
+#header {
+    padding: 20px;
+    float: left;
 }
 
-div {
-    margin: 0, auto;
-}
+#search {
+    float: right;
+    padding: 20px;
+} 
 
 .route {
     display: inline-block;
 }
 
-/* a {
-    color: darkblue;
-} */
-
 .active {
-    /* color: darkblue; */
     font-weight: bold;
 }
+
