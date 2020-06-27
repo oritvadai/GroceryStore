@@ -1,13 +1,21 @@
 const Cart = require("../models/cart");
 const Item = require("../models/item");
 
-function getCartByUserAsync(userId) {
-    return Cart.findOne({ userId }).populate({ 
+async function getCartByUserAsync(userId) {
+    const cart = await Cart.findOne({ userId }).populate({
         path: "items",
         populate: {
-          path: "product",
+            path: "product",
         }
-     }).exec();
+    }).exec();
+
+    const prices = cart.items.map(i => i.itemsPrice);
+    const totalPrice = prices.reduce((a, b) => a + b, 0);
+
+    cart.totalPrice = totalPrice.toFixed(2);
+
+    console.log(cart);
+    return cart;
 };
 
 function addCartAsync(cart) {
