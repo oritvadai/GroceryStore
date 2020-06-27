@@ -4,6 +4,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
     selector: 'app-admin',
@@ -12,7 +13,6 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-    public hasToken: boolean;
     public products: Product[];
     public unsubscribe: Function;
 
@@ -22,17 +22,25 @@ export class AdminComponent implements OnInit {
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
-            this.hasToken = store.getState().hasToken;
             this.products = store.getState().products;
         });
 
-        this.hasToken = store.getState().hasToken;
+        const user = store.getState().user;
+        const hasToken = store.getState().hasToken;
 
-        if (!this.hasToken) {
+        if (user.role != "admin") {
+            alert("Access Denied");
+            this.router.navigateByUrl("/home");
+            return;
+        }
+
+        if (!hasToken) {
             alert("Please Login");
             this.router.navigateByUrl("/home");
             return;
         }
+
+        console.log("store.getState().products.length =")
         console.log(store.getState().products.length);
 
         if (store.getState().products.length === 0) {
@@ -43,9 +51,13 @@ export class AdminComponent implements OnInit {
 
                     const action = { type: ActionType.GetAllProducts, payload: products };
                     store.dispatch(action);
-                    console.log("network activity")
+                    console.log("Admin network activity");
                 },
-                    err => alert(err.message));
+                    err => {
+                        alert(err.message)
+                        this.router.navigateByUrl("/logout");
+                    }
+                );
         }
         else {
             this.products = store.getState().products;

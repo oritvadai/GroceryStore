@@ -13,6 +13,7 @@ import { ActionType } from 'src/app/redux/action-type';
     styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
+    
     public product = new Product();
     public categories: Category[];
 
@@ -23,6 +24,22 @@ export class EditProductComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
+
+        const user = store.getState().user;
+        const hasToken = store.getState().hasToken;
+
+        if (user.role != "admin") {
+            alert("Access Denied");
+            this.router.navigateByUrl("/home");
+            return;
+        }
+
+        if (!hasToken) {
+            alert("Please Login");
+            this.router.navigateByUrl("/home");
+            return;
+        }
+
         const id = this.activatedRoute.snapshot.params.productId;
         this.product = store.getState().products.find(p => p._id === id);
 
