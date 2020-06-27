@@ -1,5 +1,5 @@
 <div>
-    <form #formInfo="ngForm">
+    <form #formInfo="ngForm" (ngSubmit)="addProduct()">
         <mat-form-field>
             <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
                 required minlength="2" #prodNameInfo="ngModel" autofocus>
@@ -16,7 +16,6 @@
         </mat-form-field>
         <br>
 
-
         <mat-form-field>
             <input matInput type="number" min="0" placeholder="Price" name="price" [(ngModel)]="product.price" required
                 nonNegative #priceInfo="ngModel">
@@ -25,15 +24,14 @@
         </mat-form-field>
         <br>
 
-        <mat-form-field>
-            <input matInput type="text" placeholder="Picture" name="picture" [(ngModel)]="product.picFileName" required minlength="2" #picInfo="ngModel">
-            <mat-error *ngIf="picInfo.errors?.required && picInfo.touched">Missing Product Name</mat-error>
-            <mat-error *ngIf="picInfo.errors?.minlength && picInfo.touched">Product Name too short</mat-error>
-        </mat-form-field>
+        <img [src]="url" height="200"> <br />
+
+        <div [formGroup]="fileUploadForm">
+            <input type="file" accept="image*/" name="image" (input)="onFileSelect($event)" required />
+        </div>
         <br>
 
-        <button mat-button [disabled]="formInfo.form.invalid" (click)="add()">Add Product</button>
+        <button type="submit" mat-button [disabled]="formInfo.form.invalid">Add Product</button>
 
     </form>
-
 </div>
