@@ -14,29 +14,29 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 
-    public hasToken: boolean;
-    public unsubscribe: Function;
-
-    public user = new User();
     public cart = new Cart();
     public items: Item[];
+    public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
 
     async ngOnInit() {
 
         this.unsubscribe = store.subscribe(() => {
-            this.hasToken = store.getState().hasToken;
-            this.user = store.getState().user;
             this.cart = store.getState().cart;
             this.items = store.getState().items;
         });
 
-        this.hasToken = store.getState().hasToken;
-        this.user = store.getState().user;
+        const user = store.getState().user;
+        const hasToken = store.getState().hasToken;
 
+        if (user.role != "user") {
+            alert("Access Denied");
+            this.router.navigateByUrl("/home");
+            return;
+        }
 
-        if (!this.hasToken) {
+        if (!hasToken) {
             alert("Please Login");
             this.router.navigateByUrl("/home");
             return;
@@ -45,7 +45,7 @@ export class CartComponent implements OnInit {
         if (!store.getState().cart._id) {
 
             this.groceryService
-                .getCartByUser(this.user._id)
+                .getCartByUser(user._id)
                 .subscribe(cart => {
                     this.cart = cart;
 
