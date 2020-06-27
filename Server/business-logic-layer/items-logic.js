@@ -13,15 +13,8 @@ function updateItemAsync(item) {
 };
 
 function deleteItemAsync(_id) {
-    return Item.deleteOne({_id}).exec();
+    return Item.deleteOne({ _id }).exec();
 };
-
-// function totalPrice(cartId) {
-//     Item.aggregate([
-//         { $match: { cartId } },
-//         { $group: { _id: "$cartId", totalPrice: { $sum: "$itemsPrice" } } }
-//      ])
-// }
 
 module.exports = {
     getItemsByCartAsync,

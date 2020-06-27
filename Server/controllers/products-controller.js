@@ -98,16 +98,12 @@ router.post("/", async (request, response) => {
         // console.log(request.files.image)
 
         const product = new Product(request.body);
-        console.log("product")
-        console.log(product)
-        console.log(product.productName)
-        console.log(product.price)
 
 
         // const image = request.files.image;
 
 
-        // if (!product || !product.productName || !product.categoryId || !product.price) {
+        // if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
         //     response.status(400).send("Missing Product Details");
         //     return;
         // }
@@ -132,7 +128,7 @@ router.put("/:_id", async (request, response) => {
         }
 
         const product = new Product(request.body);
-        if (!product || !product.productName || !product.categoryId || !product.price
+        if (!product || !product.productName || !product.categoryId || !product.unitPrice
             || !product.picFileName) {
             response.status(400).send("Missing Product Details");
             return;

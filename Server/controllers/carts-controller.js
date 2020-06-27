@@ -5,7 +5,7 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 
-router.use(verifyLoggedIn);
+// router.use(verifyLoggedIn);
 
 // Get cart by user - GET http://localhost:3000/api/carts/by-user/:userId
 router.get("/by-user/:userId", async (request, response) => {
