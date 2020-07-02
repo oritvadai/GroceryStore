@@ -61,17 +61,17 @@ export class RegisterComponent implements OnInit {
                     store.dispatch(action);
 
                     // Create new cart for the new user
-                    this.cart.userId = response.user._id
-                    this.cart.date = new Date();
+                    // this.cart.userId = response.user._id
+                    // this.cart.date = new Date();
 
-                    this.groceryService
-                        .addCart(this.cart)
-                        .subscribe(response => {
-                            console.log("Cart Date " + response.date + "Cart ID: " + response._id);
-                        },
-                            err => alert(err.message));
+                    // this.groceryService
+                    //     .addCart(this.cart)
+                    //     .subscribe(response => {
+                    //         console.log("Cart Date " + response.date + "Cart ID: " + response._id);
+                    //     },
+                    //         err => alert(err.message));
 
-                    this.router.navigateByUrl("/store");
+                    this.router.navigateByUrl("/home");
                 },
                     err => alert(err.message));
         }
