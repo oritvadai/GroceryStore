@@ -23,11 +23,9 @@ router.post("/login", async (request, response) => {
 
         // Create new Token: 
         const token = jwt.sign({ user }, config.secrets.jwt, { expiresIn: "30m" });
-        // console.log(token);
 
         // Send back the token to the client: 
         response.json({ user, token });
-        // response.json({ user });
 
     }
     catch (err) {
