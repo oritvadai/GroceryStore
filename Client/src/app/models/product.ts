@@ -1,3 +1,5 @@
+import { Category } from './category';
+
     
 export class Product {
 
@@ -5,6 +7,7 @@ export class Product {
         public _id?: string,
         public productName?: string,
         public categoryId?: string,
+        public category?: Category,
         public unitPrice?: number,
         public picFileName?: string) {
     }
