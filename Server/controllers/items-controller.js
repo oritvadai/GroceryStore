@@ -62,4 +62,15 @@ router.delete("/:_id", async (request, response) => {
     }
 });
 
+// Delete items by cart - DELETE http://localhost:3000/api/items/by-cart/:cartId
+router.delete("/by-cart/:cartId", async (request, response) => {
+    try {
+        await itemsLogic.deleteItemsByCartAsync(request.params.cartId);
+        response.sendStatus(204);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
+
 module.exports = router;
