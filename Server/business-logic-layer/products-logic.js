@@ -1,5 +1,6 @@
 const Product = require("../models/product");
-const uuid = require("uuid");
+// const uuid = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 const fs = require("fs");
 const path = require("path");
 
@@ -18,33 +19,45 @@ function getAllProductsAsync() {
 // };
 
 function getProductsByCategoryAsync(categoryId) {
-    return Product.find({ categoryId }).exec();
+    return Product.find({ categoryId }).populate("category").exec();
 };
 
 function getProductsByName(productName) {
     return Product.find({ productName }).populate("category").exec();
 };
 
-function addProductAsync(product
-    // , image
-    ) {
+function addProductAsync(product, image) {
     // If there is no uploads folder, create it
     if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
     }
     // Creat new uuid and add the file extension 
-    // const extension = image.name.substr(image.name.lastIndexOf("."));
-    // const fileName = uuid() + extension;
+    const extension = image.name.substr(image.name.lastIndexOf("."));
+    const fileName = uuidv4() + extension;
     // Add the new picFileName to the product and save the image with that picFileName
-    // product.picFileName = fileName;
-    // image.mv(path.join(uploadsFolder , fileName));
+    product.picFileName = fileName;
+    image.mv(path.join(uploadsFolder, fileName));
 
     return product.save();
 };
 
-function updateProductAsync(product) {
+function updateProductAsync(product, image) {
+    if (!fs.existsSync(uploadsFolder)) {
+        fs.mkdirSync(uploadsFolder);
+    }
+    // Creat new uuid and add the file extension 
+    const extension = image.name.substr(image.name.lastIndexOf("."));
+    const fileName = uuidv4() + extension;
+    // Add the new picFileName to the product and save the image with that picFileName
+    product.picFileName = fileName;
+    image.mv(path.join(uploadsFolder, fileName));
+    
     return Product.updateOne({ _id: product._id }, product);
 };
+
+function getImagePathAsync(imgName){
+    return path.join(__dirname, "../uploads", imgName);
+}
 
 module.exports = {
     getNumProductsAsync,
@@ -53,5 +66,6 @@ module.exports = {
     getProductsByCategoryAsync,
     getProductsByName,
     addProductAsync,
-    updateProductAsync
+    updateProductAsync,
+    getImagePathAsync
 };
