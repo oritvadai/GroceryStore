@@ -18,10 +18,11 @@ import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.comp
 export class StoreComponent implements OnInit {
 
 
-    public categories: Category[];
+    public categories: Category[]; 
     public productsView: Product[];
     public cart = new Cart();
     public item = new Item();
+    public url: string;
     public unsubscribe: Function;
 
     constructor(
@@ -39,6 +40,7 @@ export class StoreComponent implements OnInit {
         });
 
         this.cart = store.getState().cart;
+        this.url = "http://localhost:3000/api/products/uploads/"
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;
