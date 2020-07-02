@@ -34,50 +34,64 @@ export class GroceryService {
 
     // Products
     public getAllCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>("http://localhost:3000/api/categories", { headers: this.getHeaders() });
+        return this.http.get<Category[]>(
+            "http://localhost:3000/api/categories", { headers: this.getHeaders() });
     }
 
-    public getProductsByCategory(categoryId): Observable<Product[]> {
-        return this.http.get<Product[]>("http://localhost:3000/api/products/by-category/" + categoryId, { headers: this.getHeaders() });
-    }
-
-    public getProductsByName(productName): Observable<Product[]> {
-        return this.http.get<Product[]>("http://localhost:3000/api/products/by-name/" + productName, { headers: this.getHeaders() });
-    }
-
-
-    // Cart
-    public getCartByUser(userId): Observable<Cart> {
-        return this.http.get<Cart>("http://localhost:3000/api/carts/by-user/" + userId,
+    public getProductsByCategory(categoryId: string): Observable<Product[]> {
+        return this.http.get<Product[]>(
+            "http://localhost:3000/api/products/by-category/" + categoryId,
             { headers: this.getHeaders() });
     }
 
-    public addCart(cart): Observable<Cart> {
-        return this.http.post<Cart>("http://localhost:3000/api/carts", cart,
+    public getProductsByName(productName: string): Observable<Product[]> {
+        return this.http.get<Product[]>(
+            "http://localhost:3000/api/products/by-name/" + productName,
+            { headers: this.getHeaders() });
+    }
+
+    // Cart + Items
+    public getCartByUser(userId: string): Observable<Cart> {
+        return this.http.get<Cart>(
+            "http://localhost:3000/api/carts/by-user/" + userId,
+            { headers: this.getHeaders() });
+    }
+
+    public addCart(cart: Cart): Observable<Cart> {
+        return this.http.post<Cart>(
+            "http://localhost:3000/api/carts", cart,
             { headers: this.getHeaders() })
     }
 
     // Items
-    public getItemsByCart(cartId): Observable<Item[]> {
-        return this.http.get<Item[]>("http://localhost:3000/api/items/by-cart/" + cartId,
+    public addItem(item: Item): Observable<Item> {
+        return this.http.post<Item>(
+            "http://localhost:3000/api/items", item,
+            { headers: this.getHeaders() })
+    }
+
+    public removeItem(itemId: string): Observable<string> {
+        return this.http.delete<string>(
+            "http://localhost:3000/api/items/" + itemId,
+            { headers: this.getHeaders() })
+    }
+
+    public removeItemsByCart(cartId: string): Observable<string> {
+        return this.http.delete<string>(
+            "http://localhost:3000/api/items/by-cart/" + cartId,
+            { headers: this.getHeaders() })
+    }
+
+    // Order
+    public getLastOrderByUser(userId: string): Observable<any> {
+        return this.http.get<any>(
+            "http://localhost:3000/api/orders/by-user/" + userId,
             { headers: this.getHeaders() });
     }
 
-    public addItem(item): Observable<Item> {
-        return this.http.post<Item>("http://localhost:3000/api/items", item,
+    public addOrder(order: Order): Observable<Order> {
+        return this.http.post<Order>(
+            "http://localhost:3000/api/orders", order,
             { headers: this.getHeaders() })
     }
-
-    public removeItem(itemId): Observable<string> {
-        return this.http.delete<string>("http://localhost:3000/api/items/" + itemId,
-            { headers: this.getHeaders() })
-    }
-
-
-    // Order
-    public addOrder(order): Observable<Order> {
-        return this.http.post<Order>("http://localhost:3000/api/orders", order,
-            { headers: this.getHeaders() })
-    }
-
 }

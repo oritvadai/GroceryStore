@@ -11,16 +11,18 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     public login(username: string, password: string): Observable<any> {
-        return this.http.post<any>("http://localhost:3000/api/auth/login",
-            { username, password });
+        return this.http.post<any>(
+            "http://localhost:3000/api/auth/login", { username, password });
     }
 
     public register(user: User): Observable<any> {
-        return this.http.post<any>("http://localhost:3000/api/auth/register", user);
+        return this.http.post<any>(
+            "http://localhost:3000/api/auth/register", user);
     }
 
-    public userIDExists(ID): Observable<boolean> {
-        return this.http.get<boolean>("http://localhost:3000/api/auth/" + ID);
+    public userIDExists(ID: number): Observable<boolean> {
+        return this.http.get<boolean>(
+            "http://localhost:3000/api/auth/" + ID);
     }
 
     //   public getCaptcha(): Observable<string> {

@@ -19,17 +19,20 @@ export class AdminService {
     // }
 
     public getAllProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>("http://localhost:3000/api/products",
+        return this.http.get<Product[]>(
+            "http://localhost:3000/api/products", 
             { headers: this.getHeaders() });
     }
 
     public addProduct(productForm: FormData): Observable<FormData> {
-        return this.http.post<FormData>("http://localhost:3000/api/products",
-            productForm, { headers: this.getHeaders() });
+        return this.http.post<FormData>(
+            "http://localhost:3000/api/products", productForm, 
+            { headers: this.getHeaders() });
     }
 
-    public updateProduct(product: Product): Observable<Product> {
-        return this.http.put<Product>("http://localhost:3000/api/products/" +
-            product._id, product, { headers: this.getHeaders() });
+    public updateProduct(productId: string ,productForm: FormData): Observable<FormData> {
+        return this.http.put<FormData>(
+            "http://localhost:3000/api/products/" + productId, productForm, 
+            { headers: this.getHeaders() });
     }
 }
