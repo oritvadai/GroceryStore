@@ -16,6 +16,18 @@ router.get("/num", async (request, response) => {
     }
 });
 
+// Get product image - GET http://localhost:3000/api/products/uploads/:imgName
+router.get("/uploads/:imgName", async (request, response) => {
+    try {
+        const imgName = request.params.imgName;
+        const imgPath = await productsLogic.getImagePathAsync(imgName);
+        response.sendFile(imgPath);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+})
+
 router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
@@ -89,27 +101,19 @@ router.post("/", async (request, response) => {
             response.status(403).send("Access Denied");
             return;
         }
-        // if(!request.files){
-        //     response.status(400).send("No File Sent");
-        //     return;
-        // }
+        if (!request.files) {
+            response.status(400).send("No File Sent");
+            return;
+        }
 
-        // console.log(request.files)
-        // console.log(request.files.image)
-
+        const image = request.files.image;
         const product = new Product(request.body);
 
-
-        // const image = request.files.image;
-
-
-        // if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
-        //     response.status(400).send("Missing Product Details");
-        //     return;
-        // }
-        const addedProduct = await productsLogic.addProductAsync(product
-            // , image
-            );
+        if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
+            response.status(400).send("Missing Product Details");
+            return;
+        }
+        const addedProduct = await productsLogic.addProductAsync(product, image);
         response.json(addedProduct);
     }
     catch (err) {
@@ -127,13 +131,16 @@ router.put("/:_id", async (request, response) => {
             return;
         }
 
+        const image = request.files.image;
         const product = new Product(request.body);
-        if (!product || !product.productName || !product.categoryId || !product.unitPrice
-            || !product.picFileName) {
+        const id = request.params._id;
+        product._id = id;
+
+        if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
             response.status(400).send("Missing Product Details");
             return;
         }
-        const updatedProduct = await productsLogic.updateProductAsync(product);
+        const updatedProduct = await productsLogic.updateProductAsync(product, image);
         if (!updatedProduct) {
             response.sendStatus(404);
             return;
