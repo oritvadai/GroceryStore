@@ -1,40 +1,30 @@
 #store {
-    padding: 5px;
     height: 100%;
     box-sizing: border-box;
     display: grid;
-    grid-template-rows: 100%;
     grid-template-columns: repeat(12, 1fr);
-    gap: 2px;
+    padding: 10px;
+    gap: 10px;
+    border: 1px solid black;
 }
 
-aside {
-    grid-column: span 4;
-    overflow-y: auto;
-}
-
-main {
-    height: 80%;
-    box-sizing: border-box;
-    display: grid;
-    grid-column: span 8;
-    /* grid-template-rows: 20% 100%; */
-    gap: 2px;
-}
-
-app-search {
-    overflow: auto;
-}
-
-/* app-products {
-    overflow: auto;
+/* div, div > * {
+    border: 1px solid black;
 } */
 
+#cart {
+    padding: 10px;
+    grid-column: span 4;
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
 #products {
+    padding: 10px;
+    grid-column: span 8;
     border: 1px solid black;
     height: 100%;
     overflow-y: auto;
-
 }
 
 .category {
@@ -45,4 +35,9 @@ app-search {
 .product {
     display: inline-block;
     margin: 0, auto;
+}
+
+img {
+    height: 100px;
+    width: 100px;
 }
