@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-search',
@@ -12,9 +13,8 @@ import { store } from 'src/app/redux/store';
 export class SearchComponent implements OnInit {
 
     public productName = "";
-    // public products: Product[];
 
-    constructor(private groceryService: GroceryService) { }
+    constructor(private groceryService: GroceryService, private router: Router) { }
 
     ngOnInit(): void {
     }
@@ -23,10 +23,11 @@ export class SearchComponent implements OnInit {
         this.groceryService
             .getProductsByName(this.productName)
             .subscribe(products => {
-                // this.products = products;
 
                 const action = { type: ActionType.GetProductsView, payload: products };
                 store.dispatch(action);
+
+                this.router.navigateByUrl("/store");
             },
                 err => alert(err.message));
     }

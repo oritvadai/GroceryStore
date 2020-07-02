@@ -6,6 +6,6 @@
             <mat-error *ngIf="productInfo.errors?.required && productInfo.touched">Missing product name</mat-error>
             <mat-error *ngIf="productInfo.errors?.minlength && productInfo.touched">Product name too short</mat-error>
         </mat-form-field>
-        <button mat-button (click)="search()">Search</button>
+        <button mat-raised-button (click)="search()">Search</button>
     </form>
 </div>
