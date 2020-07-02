@@ -16,9 +16,14 @@ function deleteItemAsync(_id) {
     return Item.deleteOne({ _id }).exec();
 };
 
+function deleteItemsByCartAsync(cartId) {
+    return Item.deleteMany({cartId}).exec();
+};
+
 module.exports = {
     getItemsByCartAsync,
     addItemAsync,
     updateItemAsync,
-    deleteItemAsync
+    deleteItemAsync,
+    deleteItemsByCartAsync
 };
