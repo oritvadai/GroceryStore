@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
     public cart = new Cart();
-    public items: Item[];
     public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
@@ -24,7 +23,6 @@ export class CartComponent implements OnInit {
 
         this.unsubscribe = store.subscribe(() => {
             this.cart = store.getState().cart;
-            this.items = store.getState().items;
         });
 
         const user = store.getState().user;
@@ -52,20 +50,10 @@ export class CartComponent implements OnInit {
                     const action = { type: ActionType.GetCart, payload: cart };
                     store.dispatch(action);
 
-                    this.groceryService
-                        .getItemsByCart(cart._id)
-                        .subscribe(items => {
-                            this.items = items;
-
-                            const action = { type: ActionType.GetItems, payload: items };
-                            store.dispatch(action);
-                        },
-                            err => alert(err.message));
                 }, err => alert(err.message));
         }
         else {
             this.cart = store.getState().cart;
-            this.items = store.getState().items;
         }
     }
 
@@ -77,6 +65,18 @@ export class CartComponent implements OnInit {
                 const action = { type: ActionType.RemoveItem, payload: itemId };
                 store.dispatch(action);
                 alert("Item Removed");
+            },
+                err => alert(err.message));
+    }
+
+    emptyCart() {
+        this.groceryService
+            .removeItemsByCart(this.cart._id)
+            .subscribe(result => {
+
+                const action = { type: ActionType.ClearCart };
+                store.dispatch(action);
+                alert("Cart Cleared");
             },
                 err => alert(err.message));
     }
