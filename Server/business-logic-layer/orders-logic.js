@@ -13,8 +13,20 @@ function addOrderAsync(order) {
     return order.save();
 };
 
+function getLastOrderByUserAsync(userId) {
+    const lastOrder = Order.findOne({ userId }, "orderDate").sort({ orderDate: "desc" }).exec();
+    return lastOrder;
+};
+
+function getOrderByCartAsync(cartId) {
+    return Order.find({ cartId }).countDocuments();
+}
+
+
 module.exports = {
     getNumOrdersAsync,
     // getOneOrderAsync,
     addOrderAsync,
+    getLastOrderByUserAsync,
+    getOrderByCartAsync
 };
