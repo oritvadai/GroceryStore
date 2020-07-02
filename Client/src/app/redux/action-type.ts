@@ -3,6 +3,7 @@ export enum ActionType {
     // Home Info
     GetNumProducts,
     GetNumOrders,
+    GetLastOrderByUser,
 
     // Login
     Login,
@@ -13,6 +14,7 @@ export enum ActionType {
     GetItems,
     AddItem,
     RemoveItem,
+    ClearCart,
     GetAllCategories,
     GetProductsView,
 

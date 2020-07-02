@@ -9,6 +9,7 @@ export class AppState {
     // Home Info
     public productsNum: number;
     public ordersNum: number;
+    public lastOrder: Date;
 
     // Login
     public user: User;

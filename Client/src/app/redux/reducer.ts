@@ -19,6 +19,10 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.ordersNum = +action.payload;
             break;
 
+        case ActionType.GetLastOrderByUser:
+            newAppState.lastOrder = action.payload;
+            break;
+
 
         // Login
         case ActionType.Login:
@@ -55,6 +59,10 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
                     newAppState.items.splice(index, 1);
                 }
             }
+            break;
+
+        case ActionType.ClearCart:
+            newAppState.items = [];
             break;
 
         case ActionType.GetAllCategories:
