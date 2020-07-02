@@ -9,8 +9,9 @@ const productsController = require("./controllers/products-controller");
 const cartsController = require("./controllers/carts-controller");
 const itemsController = require("./controllers/items-controller");
 const ordersController = require("./controllers/orders-controller");
+const fileUpload = require("express-fileupload");
 
-const expressSession = require("express-session");
+// const expressSession = require("express-session");
 const server = express();
 
 // server.use(expressSession({
@@ -22,6 +23,7 @@ const server = express();
 
 server.use(cors());
 server.use(express.json());
+server.use(fileUpload());
 
 server.use("/api/auth", authController);
 server.use("/api/users", usersController);
