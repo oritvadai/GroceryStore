@@ -1,6 +1,15 @@
 <h4>Info</h4>
 <br>
 <div>
-        Available products in our store: {{productsNum}} <br><br>
-        Number of orders in our store: {{ordersNum}}
+    Available products in our store: {{ productsNum }} <br><br>
+    Number of orders in our store: {{ ordersNum }}
+</div>
+
+<div *ngIf="hasToken && user.role == 'user'">
+    <br>
+    <hr>
+    <br>
+    Welcome user! <br>
+    You have an open cart from (date) <br>
+    your last purchase was on {{ lastOrder | date: "dd/MM/yyyy" }}
 </div>
