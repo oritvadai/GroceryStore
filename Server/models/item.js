@@ -23,7 +23,6 @@ ItemSchema.virtual("product", {
     justOne: true
 });
 
-});
 // ItemSchema.virtual("cart", {
 //     ref: "Cart",
 //     localField: "cartId",
