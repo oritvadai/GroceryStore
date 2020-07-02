@@ -10,16 +10,28 @@
         <a routerLink="/store">store</a>
     </p>
     <hr>
-
-    <div class="item" *ngFor="let i of items">
-        product: {{i.product.productName}} <br>
-        quantity: {{i.quantity}} <br>
-        price: {{i.itemsPrice}} <br>
-        <hr>
-    </div>
-
+    <!-- View Cart -->
+    <table>
+        <thead>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of cart.items">
+                <td>{{i.product.productName}}</td>
+                <td>{{i.quantity}}</td>
+                <td>{{i.itemsPrice | currency:"ILS"}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h2>
+        Total Price: {{cart.totalPrice| currency:"ILS"}}
+    </h2>
 </div>
 
+<!-- Order Form -->
 <div class="order-form">
 
     <p>Shipping Details:</p>
@@ -27,7 +39,7 @@
     <form #formInfo="ngForm">
         <mat-form-field>
             <mat-label>City</mat-label>
-            <mat-select name="city" [(ngModel)]="order.city">
+            <mat-select name="city" [(ngModel)]="order.city" #cityInfo="ngModel" required>
                 <mat-option value="Jerusalem">Jerusalem</mat-option>
                 <mat-option value="Tel Aviv">Tel Aviv</mat-option>
                 <mat-option value="Haifa">Haifa</mat-option>
@@ -40,35 +52,45 @@
                 <mat-option value="Holon">Holon</mat-option>
                 <mat-option value="Bnei Brak">Bnei Brak</mat-option>
             </mat-select>
+            <mat-error *ngIf="cityInfo.errors?.required && streetInfo.touched">Missing city</mat-error>
         </mat-form-field>
         <br>
 
         <mat-form-field>
             <input matInput type="text" placeholder="Street" name="street" [(ngModel)]="order.street" required
                 minlength="2" #streetInfo="ngModel">
-            <mat-error *ngIf="streetInfo.errors?.required && streetInfo.touched">Missing Street</mat-error>
+            <mat-error *ngIf="streetInfo.errors?.required && streetInfo.touched">Missing street</mat-error>
             <mat-error *ngIf="streetInfo.errors?.minlength && streetInfo.touched">Street too short</mat-error>
         </mat-form-field>
         <br>
 
+        <!-- <mat-form-field>
+            <mat-label>Shipping Date</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
 
         <mat-form-field>
-            <input matInput type="date" placeholder="Shipping Date" name="shipping-date"
+            <mat-label>Shipping Date</mat-label>
+            <input matInput [matDatepicker]="picker" name="shipping-date" [min]="minDate"
                 [(ngModel)]="order.deliveryDate" required #deliveryInfo="ngModel">
-            <mat-error *ngIf="deliveryInfo.errors?.required && deliveryInfo.touched">Missing Product Name</mat-error>
-            <mat-error *ngIf="deliveryInfo.errors?.minlength && deliveryInfo.touched">Product Name too short</mat-error>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="deliveryInfo.errors?.required && deliveryInfo.touched">Missing shipping Date</mat-error>
+            <mat-error *ngIf="deliveryInfo.errors?.min && deliveryInfo.touched">Shipping date can't be in the past</mat-error>
         </mat-form-field>
         <br>
 
         <mat-form-field>
             <input matInput type="number" min="0" placeholder="Credit Card" name="credit-card" [(ngModel)]="order.creditCard"
                 required nonNegative #cardInfo="ngModel">
-            <mat-error *ngIf="cardInfo.errors?.required && cardInfo.touched">Missing Credit Card</mat-error>
-            <mat-error *ngIf="cardInfo.errors?.nonNegative && cardInfo.touched">Credit Card can't be negative</mat-error>
+            <mat-error *ngIf="cardInfo.errors?.required && cardInfo.touched">Missing credit Card</mat-error>
+            <mat-error *ngIf="cardInfo.errors?.nonNegative && cardInfo.touched">Credit card can't be negative</mat-error>
         </mat-form-field>
         <br>
 
-        <button mat-button [disabled]="formInfo.form.invalid" (click)="commitOrder()">Order</button>
+        <button mat-raised-button [disabled]="formInfo.form.invalid" (click)="commitOrder()">Order</button>
 
     </form>
 
