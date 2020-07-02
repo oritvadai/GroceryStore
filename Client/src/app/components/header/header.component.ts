@@ -25,11 +25,6 @@ export class HeaderComponent implements OnInit {
 
         this.user = store.getState().user;
         this.hasToken = store.getState().hasToken;
-
-        // if (!this.user || !this.hasToken) {
-        //     this.user = JSON.parse(sessionStorage.getItem("user"))
-        //     this.hasToken = sessionStorage.get("token");
-        // }
     }
 
     ngOnDestroy() {

@@ -1,11 +1,20 @@
 #header {
+    padding: 5px;
+    border:  1px solid black;
+    height: 100%;
+    width: 100%;
+}
+
+#nav {
+    /* border:  1px solid black; */
     padding: 20px;
     float: left;
 }
 
 #search {
+    /* border:  1px solid black; */
     float: right;
-    padding: 20px;
+    padding: 10px;
 } 
 
 .route {
