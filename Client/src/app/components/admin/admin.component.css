@@ -1,4 +1,29 @@
+main {
+    padding: 10px;
+    grid-column: span 8;
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
+#products {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
+.category {
+    display: inline-block;
+    margin-right: 30px;
+}
+
 .product {
     display: inline-block;
     margin: 0, auto;
+}
+
+img {
+    height: 100px;
+    width: 100px;
 }

@@ -1,9 +1,19 @@
 <a routerLink="/add-product">Add Product</a>
-<div>
-    <div class="product" *ngFor="let p of allProducts">
+    
+
+<div id="products">
+
+    <div class="categories">
+        <div class="category" *ngFor="let c of categories">
+            <button mat-raised-button (click)="getProductsByCategory(c._id)"> {{c.category}} </button>
+        </div>
+    </div>
+    
+    <div class="product" *ngFor="let p of products">
         {{p.productName}}<br>
         Price: {{p.unitPrice | currency:"ILS"}}<br>
-        {{p.picFileName}}<br>
-        <button mat-button routerLink="/edit-product/{{p._id}}">Edit</button>
+        <img [src]="url+p.picFileName" height="200"> <br />
+        <button mat-raised-button routerLink="/edit-product/{{p._id}}">Edit</button>
     </div>
+
 </div>

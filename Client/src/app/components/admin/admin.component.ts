@@ -4,7 +4,8 @@ import { AdminService } from 'src/app/services/admin.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { Category } from 'src/app/models/category';
+import { GroceryService } from 'src/app/services/grocery.service';
 
 @Component({
     selector: 'app-admin',
@@ -13,17 +14,25 @@ import { User } from 'src/app/models/user';
 })
 export class AdminComponent implements OnInit {
 
-    public allProducts: Product[];
+    public categories: Category[]; 
+    public products: Product[];
+    public url: string;
     public unsubscribe: Function;
 
 
-    constructor(private adminService: AdminService, private router: Router) { }
+    constructor(
+        private groceryService: GroceryService,
+        // private adminService: AdminService, 
+        private router: Router) { }
 
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
-            this.allProducts = store.getState().allProducts;
+            this.categories = store.getState().categories;
+            // this.products = store.getState().allProducts;
         });
+
+        this.url = "http://localhost:3000/api/products/uploads/"
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;
@@ -40,28 +49,56 @@ export class AdminComponent implements OnInit {
             return;
         }
 
-        console.log("store.getState().products.length =")
-        console.log(store.getState().allProducts.length);
+        if (store.getState().categories.length === 0) {
+            this.groceryService
+                .getAllCategories()
+                .subscribe(categories => {
+                    this.categories = categories;
 
-        if (store.getState().allProducts.length === 0) {
-            this.adminService
-                .getAllProducts()
-                .subscribe(products => {
-                    this.allProducts = products
-
-                    const action = { type: ActionType.AdminGetAllProducts, payload: products };
+                    const action = { type: ActionType.GetAllCategories, payload: categories };
                     store.dispatch(action);
-                    console.log("Admin network activity");
                 },
                     err => {
-                        alert(err.message)
+                        alert(err.message);
                         this.router.navigateByUrl("/logout");
                     }
                 );
+
+        } else {
+            this.categories = store.getState().categories;
         }
-        else {
-            this.allProducts = store.getState().allProducts;
-        }
+
+        // if (store.getState().allProducts.length === 0) {
+        //     this.adminService
+        //         .getAllProducts()
+        //         .subscribe(products => {
+        //             this.products = products
+
+        //             const action = { type: ActionType.AdminGetAllProducts, payload: products };
+        //             store.dispatch(action);
+        //             console.log("Admin network activity");
+        //         },
+        //             err => {
+        //                 alert(err.message)
+        //                 this.router.navigateByUrl("/logout");
+        //             }
+        //         );
+        // }
+        // else {
+        //     this.products = store.getState().allProducts;
+        // }
+    }
+
+    public async getProductsByCategory(categoryId: string) {
+        this.groceryService
+            .getProductsByCategory(categoryId)
+            .subscribe(products => {
+                this.products = products;
+
+                const action = { type: ActionType.GetProductsView, payload: products };
+                store.dispatch(action);
+            },
+                err => alert(err.message));
     }
 
     ngOnDestroy() {
