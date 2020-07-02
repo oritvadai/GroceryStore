@@ -11,8 +11,8 @@
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
-        <button mat-button (click)="onNoClick()">Cancel</button>
-        <button mat-button (click)="onYesClick()" [disabled]="formInfo.form.invalid" [mat-dialog-close]="data"
+        <button mat-raised-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button (click)="onYesClick()" [disabled]="formInfo.form.invalid" [mat-dialog-close]="data"
             cdkFocusInitial>Ok</button>
     </div>
 </form>
