@@ -14,9 +14,13 @@ async function getCartByUserAsync(userId) {
 
     cart.totalPrice = totalPrice.toFixed(2);
 
-    console.log(cart);
     return cart;
 };
+
+// function getLastCartByUser(userId) {
+//     const lastCart =  Cart.findOne({ userId }, "date").sort({ orderDate: "desc" }).exec();
+//     return lastCart;
+// };
 
 function addCartAsync(cart) {
     return cart.save();
