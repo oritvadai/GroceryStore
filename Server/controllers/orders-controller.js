@@ -16,7 +16,7 @@ router.get("/num", async (request, response) => {
     }
 });
 
-router.use(verifyLoggedIn);
+// router.use(verifyLoggedIn);
 
 // Get one order - GET http://localhost:3000/api/orders/:_id
 // router.get("/:_id", async (request, response) => {
@@ -33,10 +33,43 @@ router.use(verifyLoggedIn);
 //     }
 // });
 
+// Get last order date by user - GET http://localhost:3000/api/orders/by-user/:userId
+router.get("/by-user/:userId", async (request, response) => {
+    try {
+        const lastOrderDate = await ordersLogic.getLastOrderByUser(request.params.userId);
+        if (!lastOrderDate) {
+            response.sendStatus(404);
+            return;
+        }
+        response.json(lastOrderDate);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
+
+// Get order by cart - GET http://localhost:3000/api/orders/by-cart/:cartId
+router.get("/by-cart/:cartId", async (request, response) => {
+    try {
+        const order = await ordersLogic.getOrderByCartAsync(request.params.cartId);
+        if (!order) {
+            response.sendStatus(404);
+            return;
+        }
+        response.json(order);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
+
+
 // Add order - POST http://localhost:3000/api/orders
 router.post("/", async (request, response) => {
     try {
         const order = new Order(request.body);
+        const now = new Date();
+        order.orderDate = now;
         const addedOrder = await ordersLogic.addOrderAsync(order);
         response.json(addedOrder);
     }
