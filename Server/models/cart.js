@@ -13,12 +13,12 @@ const CartSchema = mongoose.Schema({
     id: false
 });
 
-CartSchema.virtual("user", {
-    ref: "User",
-    localField: "userId",
-    foreignField: "_id",
-    justOne: true
-});
+// CartSchema.virtual("user", {
+//     ref: "User",
+//     localField: "userId",
+//     foreignField: "_id",
+//     justOne: true
+// });
 
 CartSchema.virtual("items", {
     ref: "Item",

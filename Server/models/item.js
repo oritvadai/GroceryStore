@@ -23,12 +23,13 @@ ItemSchema.virtual("product", {
     justOne: true
 });
 
-ItemSchema.virtual("cart", {
-    ref: "Cart",
-    localField: "cartId",
-    foreignField: "_id",
-    justOne: true
 });
+// ItemSchema.virtual("cart", {
+//     ref: "Cart",
+//     localField: "cartId",
+//     foreignField: "_id",
+//     justOne: true
+// });
 
 ItemSchema.virtual("itemsPrice").get(function(){
     return this.quantity * this.product.unitPrice;
