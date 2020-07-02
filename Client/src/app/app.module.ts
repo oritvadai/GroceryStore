@@ -18,17 +18,19 @@ import { SearchComponent } from './components/search/search.component';
 import { StoreComponent } from './components/store/store.component';
 import { OrderComponent } from './components/order/order.component';
 import { QuantityDialogComponent } from './components/quantity-dialog/quantity-dialog.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 
-
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 
@@ -62,7 +64,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
         MatInputModule,
         MatButtonModule,
         MatSelectModule,
-        MatDialogModule
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     providers: [],
     bootstrap: [LayoutComponent]

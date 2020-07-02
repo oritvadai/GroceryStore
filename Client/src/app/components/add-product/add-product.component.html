@@ -26,12 +26,12 @@
 
         <img [src]="url" height="200"> <br />
 
-        <div [formGroup]="fileUploadForm">
+        <div>
             <input type="file" accept="image*/" name="image" (input)="onFileSelect($event)" required />
         </div>
         <br>
 
-        <button type="submit" mat-button [disabled]="formInfo.form.invalid">Add Product</button>
+        <button type="submit" mat-raised-button [disabled]="formInfo.form.invalid">Add Product</button>
 
     </form>
 </div>

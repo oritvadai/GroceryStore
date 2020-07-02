@@ -13,9 +13,11 @@ import { ActionType } from 'src/app/redux/action-type';
     styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-    
+
     public product = new Product();
     public categories: Category[];
+    public image: File;
+    public url: string;
 
     constructor(
         private adminService: AdminService,
@@ -49,18 +51,44 @@ export class EditProductComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    edit() {
-        if (this.product) {
-            this.adminService
-                .updateProduct(this.product)
-                .subscribe(result => {
-                    const action = { type: ActionType.AdminUpdateProduct, payload: this.product };
-                    store.dispatch(action);
+    public onFileSelect(event) {
+        console.log(event);
 
-                    alert(this.product.productName + " has been edited");
-                    this.router.navigateByUrl("/admin");
-                },
-                    err => alert(err.message));
+        if (event.target.files.length > 0) {
+            this.image = event.target.files[0];
+
+            console.log("this.image:", this.image);
+
+            // Preview Image
+            var reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.onload = (urlEvent) => {
+                this.url = urlEvent.target.result.toString();
+            }
         }
     }
+
+    editProduct() {
+
+        const productForm = new FormData();
+        productForm.append("productName", this.product.productName);
+        productForm.append("categoryId", this.product.categoryId);
+        productForm.append("unitPrice", this.product.unitPrice.toString());
+        productForm.append("image", this.image, this.image.name);
+
+        console.log(productForm.get("productName"));
+        console.log(productForm.get("image"));
+
+        this.adminService
+            .updateProduct(this.product._id, productForm)
+            .subscribe(product => {
+                const action = { type: ActionType.AdminUpdateProduct, payload: product };
+                store.dispatch(action);
+
+                alert(this.product.productName + " has been edited");
+                this.router.navigateByUrl("/admin");
+            },
+                err => alert(err.message));
+    }
+
 }
