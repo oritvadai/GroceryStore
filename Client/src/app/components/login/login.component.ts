@@ -42,11 +42,9 @@ export class LoginComponent implements OnInit {
                     const action = { type: ActionType.Login, payload: response.user };
                     store.dispatch(action);
 
-                    // if (response.user.role == "user") {
-                    //     this.router.navigateByUrl("/store");
-                    // } else if (response.user.role == "admin") {
-                    //     this.router.navigateByUrl("/admin");
-                    // }
+                    if (response.user.role == "admin") {
+                        this.router.navigateByUrl("/admin");
+                    }
                 },
                     err => alert(err.message));
         }

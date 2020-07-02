@@ -1,12 +1,25 @@
+/* Cart View */
 .order-cart {
-    width: 45%;
+    width: 50%;
     overflow: auto;
     height: 99%;
     float: left;
 }
 
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Order Form */
 .order-form {
-    width: 45%;
+    width: 50%;
     overflow: auto;
     height: 99%;
     float: left;
