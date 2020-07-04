@@ -4,14 +4,14 @@ export enum ActionType {
     GetNumProducts,
     GetNumOrders,
     GetLastOrderByUser,
-    GetOpenCart,
+    GetOpenCartInfo,
 
     // Login
     Login,
     Logout,
 
     // Store
-    GetCart,
+    GetCartContent,
     GetItems,
     AddItem,
     RemoveItem,

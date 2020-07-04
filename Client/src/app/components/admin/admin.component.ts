@@ -22,14 +22,12 @@ export class AdminComponent implements OnInit {
 
     constructor(
         private groceryService: GroceryService,
-        // private adminService: AdminService, 
         private router: Router) { }
 
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
             this.categories = store.getState().categories;
-            // this.products = store.getState().allProducts;
         });
 
         this.url = "http://localhost:3000/api/products/uploads/"

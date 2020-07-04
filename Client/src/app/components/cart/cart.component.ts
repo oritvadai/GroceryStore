@@ -28,7 +28,7 @@ export class CartComponent implements OnInit {
             this.openCart = store.getState().openCart;
         });
 
-        store.getState().openCart;
+        this.openCart = store.getState().openCart;
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;
@@ -52,7 +52,7 @@ export class CartComponent implements OnInit {
                 .subscribe(cart => {
                     this.cart = cart;
 
-                    const action = { type: ActionType.GetCart, payload: cart };
+                    const action = { type: ActionType.GetCartContent, payload: cart };
                     store.dispatch(action);
 
                 }, err => alert(err.message));

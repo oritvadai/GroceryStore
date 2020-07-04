@@ -23,7 +23,7 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.lastOrder = action.payload;
             break;
 
-        case ActionType.GetOpenCart:
+        case ActionType.GetOpenCartInfo:
             newAppState.openCart = action.payload;
             break;
 
@@ -43,7 +43,7 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
 
         // Store
-        case ActionType.GetCart:
+        case ActionType.GetCartContent:
             newAppState.cart = action.payload;
             break;
 

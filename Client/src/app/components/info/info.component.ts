@@ -3,7 +3,6 @@ import { GroceryService } from 'src/app/services/grocery.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { User } from 'src/app/models/user';
-import { Cart } from 'src/app/models/cart';
 
 @Component({
     selector: 'app-info',
@@ -19,7 +18,7 @@ export class InfoComponent implements OnInit {
     public hasToken: boolean;
 
     public lastOrder = new Date();
-    public openCart = new Cart();
+    public openCart = new Date();
 
     public unsubscribe: Function;
 
@@ -29,14 +28,19 @@ export class InfoComponent implements OnInit {
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
-            this.productsNum = store.getState().productsNum;
-            this.ordersNum = store.getState().ordersNum;
+            const storeState = store.getState();
 
-            this.user = store.getState().user;
-            this.hasToken = store.getState().hasToken;
+            this.productsNum = storeState.productsNum;
+            this.ordersNum = storeState.ordersNum;
 
-            this.lastOrder = store.getState().lastOrder;
-            this.openCart = store.getState().openCart;
+            this.user = storeState.user;
+            this.hasToken = storeState.hasToken;
+
+            this.lastOrder = storeState.lastOrder;
+
+            if (storeState.openCart) {
+                this.openCart = storeState.openCart.date;
+            }
 
             this.getUserInfo();
         });
@@ -71,7 +75,7 @@ export class InfoComponent implements OnInit {
 
     }
 
-    getUserInfo(){
+    getUserInfo() {
         if (this.hasToken && !store.getState().lastOrder) {
             this.groceryService
                 .getLastOrderByUser(this.user._id)
@@ -86,22 +90,25 @@ export class InfoComponent implements OnInit {
         }
         else {
             this.lastOrder = store.getState().lastOrder;
-d        }
+        }
 
         if (this.hasToken && !store.getState().openCart) {
             this.groceryService
                 .getCartDateByUser(this.user._id)
                 .subscribe(openCart => {
                     console.log(openCart);
-                    this.openCart = openCart;
+                    this.openCart = openCart.date;
 
-                    const action = { type: ActionType.GetOpenCart, payload: openCart };
+                    const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
                     store.dispatch(action);
 
                 }, err => alert(err.message));
         }
         else {
-            this.openCart = store.getState().openCart;
+            const openCart = store.getState().openCart;
+            if(openCart) {
+                this.openCart = store.getState().openCart.date;
+            }
         };
     }
 

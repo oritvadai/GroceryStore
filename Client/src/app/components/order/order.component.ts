@@ -47,7 +47,7 @@ export class OrderComponent implements OnInit {
                 .subscribe(cart => {
                     this.cart = cart;
 
-                    const cartAction = { type: ActionType.GetCart, payload: cart };
+                    const cartAction = { type: ActionType.GetCartContent, payload: cart };
                     store.dispatch(cartAction);
 
                 }, err => alert(err.message));
