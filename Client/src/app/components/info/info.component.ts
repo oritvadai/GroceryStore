@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product';
 import { GroceryService } from 'src/app/services/grocery.service';
-import { Order } from 'src/app/models/order';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { User } from 'src/app/models/user';
@@ -14,14 +12,17 @@ import { Cart } from 'src/app/models/cart';
 })
 export class InfoComponent implements OnInit {
 
-    public unsubscribe: Function;
-
     public productsNum: number;
     public ordersNum: number;
-    
+
     public user = new User();
     public hasToken: boolean;
+
     public lastOrder = new Date();
+    public openCart = new Cart();
+
+    public unsubscribe: Function;
+
 
     constructor(private groceryService: GroceryService) { }
 
@@ -30,12 +31,15 @@ export class InfoComponent implements OnInit {
         this.unsubscribe = store.subscribe(() => {
             this.productsNum = store.getState().productsNum;
             this.ordersNum = store.getState().ordersNum;
+
             this.user = store.getState().user;
             this.hasToken = store.getState().hasToken;
-            // this.cart = store.getState().cart;
-        });
 
-        const user = store.getState().user;
+            this.lastOrder = store.getState().lastOrder;
+            this.openCart = store.getState().openCart;
+
+            this.getUserInfo();
+        });
 
         this.user = store.getState().user;
         this.hasToken = store.getState().hasToken;
@@ -63,11 +67,14 @@ export class InfoComponent implements OnInit {
         } else {
             this.productsNum = store.getState().productsNum;
             this.ordersNum = store.getState().ordersNum;
-        }
+        };
 
-        if (!store.getState().lastOrder) {
+    }
+
+    getUserInfo(){
+        if (this.hasToken && !store.getState().lastOrder) {
             this.groceryService
-                .getLastOrderByUser(user._id)
+                .getLastOrderByUser(this.user._id)
                 .subscribe(lastOrder => {
                     console.log(lastOrder);
                     this.lastOrder = lastOrder.orderDate;
@@ -79,7 +86,23 @@ export class InfoComponent implements OnInit {
         }
         else {
             this.lastOrder = store.getState().lastOrder;
+d        }
+
+        if (this.hasToken && !store.getState().openCart) {
+            this.groceryService
+                .getCartDateByUser(this.user._id)
+                .subscribe(openCart => {
+                    console.log(openCart);
+                    this.openCart = openCart;
+
+                    const action = { type: ActionType.GetOpenCart, payload: openCart };
+                    store.dispatch(action);
+
+                }, err => alert(err.message));
         }
+        else {
+            this.openCart = store.getState().openCart;
+        };
     }
 
     ngOnDestroy() {

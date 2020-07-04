@@ -9,7 +9,16 @@
     <br>
     <hr>
     <br>
-    Welcome user! <br>
-    You have an open cart from (date) <br>
-    your last purchase was on {{ lastOrder | date: "dd/MM/yyyy" }}
+    Welcome {{ user.firstName }} {{ user.lastName }}! <br><br>
+
+    <p *ngIf="openCart">
+        You have an open cart from {{ openCart.date | date: "dd/MM/yyyy" }}
+    </p>
+
+    <p *ngIf="lastOrder">
+        your last order was on {{ lastOrder | date: "dd/MM/yyyy" }} <br>
+    </p>
+
+    <!-- fix pipe date problem  -->
+
 </div>
