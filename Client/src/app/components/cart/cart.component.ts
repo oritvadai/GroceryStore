@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
     public cart = new Cart();
+    public openCart = new Cart();
+    
     public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
@@ -23,7 +25,10 @@ export class CartComponent implements OnInit {
 
         this.unsubscribe = store.subscribe(() => {
             this.cart = store.getState().cart;
+            this.openCart = store.getState().openCart;
         });
+
+        store.getState().openCart;
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;
@@ -43,7 +48,7 @@ export class CartComponent implements OnInit {
         if (!store.getState().cart._id) {
 
             this.groceryService
-                .getCartByUser(user._id)
+                .getCartById(this.openCart._id)
                 .subscribe(cart => {
                     this.cart = cart;
 

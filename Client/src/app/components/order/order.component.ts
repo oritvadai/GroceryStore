@@ -15,6 +15,7 @@ import { Order } from 'src/app/models/order';
 export class OrderComponent implements OnInit {
 
     public cart = new Cart();
+    public openCart = new Cart();
     public order = new Order();
     public minDate = new Date();
 
@@ -23,6 +24,7 @@ export class OrderComponent implements OnInit {
     async ngOnInit() {
 
         this.cart = store.getState().cart;
+        this.openCart =store.getState().openCart;
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;
@@ -41,7 +43,7 @@ export class OrderComponent implements OnInit {
 
         if (!store.getState().cart._id) {
             this.groceryService
-                .getCartByUser(user._id)
+                .getCartById(this.openCart._id)
                 .subscribe(cart => {
                     this.cart = cart;
 
