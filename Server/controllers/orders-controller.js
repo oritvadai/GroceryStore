@@ -16,27 +16,12 @@ router.get("/num", async (request, response) => {
     }
 });
 
-// router.use(verifyLoggedIn);
-
-// Get one order - GET http://localhost:3000/api/orders/:_id
-// router.get("/:_id", async (request, response) => {
-//     try {
-//         const order = await ordersLogic.getOneOrderAsync(request.params._id);
-//         if(!order) {
-//             response.sendStatus(404);
-//             return;
-//         }
-//         response.json(order);
-//     }
-//     catch (err) {
-//         response.status(500).send(err.message);
-//     }
-// });
+router.use(verifyLoggedIn);
 
 // Get last order date by user - GET http://localhost:3000/api/orders/by-user/:userId
 router.get("/by-user/:userId", async (request, response) => {
     try {
-        const lastOrderDate = await ordersLogic.getLastOrderByUser(request.params.userId);
+        const lastOrderDate = await ordersLogic.getLastOrderByUserAsync(request.params.userId);
         if (!lastOrderDate) {
             response.sendStatus(404);
             return;
@@ -48,21 +33,16 @@ router.get("/by-user/:userId", async (request, response) => {
     }
 });
 
-// Get order by cart - GET http://localhost:3000/api/orders/by-cart/:cartId
-router.get("/by-cart/:cartId", async (request, response) => {
+// Does an order exist for this cart - GET http://localhost:3000/api/orders//for-cart/:cartId
+router.get("/for-cart/:cartId", async (request, response) => {
     try {
-        const order = await ordersLogic.getOrderByCartAsync(request.params.cartId);
-        if (!order) {
-            response.sendStatus(404);
-            return;
-        }
-        response.json(order);
+        const orderExists = await ordersLogic.orderExistsForCartAsync(request.params.cartId);
+        response.json(orderExists>0);
     }
     catch (err) {
         response.status(500).send(err.message);
     }
 });
-
 
 // Add order - POST http://localhost:3000/api/orders
 router.post("/", async (request, response) => {
