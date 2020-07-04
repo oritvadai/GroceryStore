@@ -10,6 +10,7 @@ export class AppState {
     public productsNum: number;
     public ordersNum: number;
     public lastOrder: Date;
+    public openCart: Cart;
 
     // Login
     public user: User;

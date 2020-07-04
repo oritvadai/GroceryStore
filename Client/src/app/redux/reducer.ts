@@ -23,6 +23,10 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.lastOrder = action.payload;
             break;
 
+        case ActionType.GetOpenCart:
+            newAppState.openCart = action.payload;
+            break;
+
 
         // Login
         case ActionType.Login:

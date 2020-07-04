@@ -4,6 +4,7 @@ export enum ActionType {
     GetNumProducts,
     GetNumOrders,
     GetLastOrderByUser,
+    GetOpenCart,
 
     // Login
     Login,
