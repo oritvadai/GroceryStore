@@ -50,10 +50,17 @@ export class GroceryService {
             { headers: this.getHeaders() });
     }
 
-    // Cart + Items
-    public getCartByUser(userId: string): Observable<Cart> {
+    // Cart & Items
+
+    public getCartDateByUser(userId: string): Observable<Cart> {
         return this.http.get<Cart>(
-            "http://localhost:3000/api/carts/by-user/" + userId,
+            "http://localhost:3000/api/carts/date/" + userId,
+            { headers: this.getHeaders() });
+    }
+
+    public getCartById(_id: string): Observable<Cart> {
+        return this.http.get<Cart>(
+            "http://localhost:3000/api/carts/" + _id,
             { headers: this.getHeaders() });
     }
 
