@@ -1,8 +1,8 @@
 const Cart = require("../models/cart");
-const Item = require("../models/item");
+const Order = require("../models/order");
 
-async function getCartByUserAsync(userId) {
-    const cart = await Cart.findOne({ userId }).populate({
+async function getCartByIdAsync(_id) {
+    const cart = await Cart.findOne({ _id }).populate({
         path: "items",
         populate: {
             path: "product",
@@ -17,10 +17,23 @@ async function getCartByUserAsync(userId) {
     return cart;
 };
 
-// function getLastCartByUser(userId) {
-//     const lastCart =  Cart.findOne({ userId }, "date").sort({ orderDate: "desc" }).exec();
-//     return lastCart;
-// };
+function getOpenCartByUserAsync(userId) {
+    // get the last cart of the user
+    const lastCart = Cart.findOne({ userId }, "date").sort({ orderDate: "desc" }).exec();
+
+    // check if last cart was already ordered
+    const cartId = lastCart.cartId;
+    const numOrder = Order.find({ cartId }).countDocuments();
+
+    const isCartOrdered = numOrder > 0;
+    if (isCartOrdered) {
+        // last cart was ordered = no open carts
+        return false;
+    } else {
+        // last cart = open cart, return cartId and cart date.
+        return lastCart;
+    };
+};
 
 function addCartAsync(cart) {
     return cart.save();
@@ -31,7 +44,9 @@ function addCartAsync(cart) {
 // };
 
 module.exports = {
-    getCartByUserAsync,
+    getCartByIdAsync,
+    getOpenCartByUserAsync,
+
     addCartAsync,
     // updateCartAsync
 };

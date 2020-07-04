@@ -5,17 +5,32 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 
-// router.use(verifyLoggedIn);
+router.use(verifyLoggedIn);
 
-// Get cart by user - GET http://localhost:3000/api/carts/by-user/:userId
-router.get("/by-user/:userId", async (request, response) => {
+// Get cart (& items) by id - GET http://localhost:3000/api/carts/:_id
+router.get("/:_id", async (request, response) => {
     try {
-        const cart = await cartsLogic.getCartByUserAsync(request.params.userId);
+        const cart = await cartsLogic.getCartByIdAsync(request.params._id);
         if(!cart) {
             response.sendStatus(404);
             return;
         };
         response.json(cart);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    };
+});
+
+// Get open cart (id & date) by user - GET http://localhost:3000/api/carts/date/:userId
+router.get("/date/:userId", async (request, response) => {
+    try {
+        const openCart = await cartsLogic.getOpenCartByUserAsync(request.params.userId);
+        if(!openCart) {
+            response.sendStatus(404);
+            return;
+        };
+        response.json(openCart);
     }
     catch (err) {
         response.status(500).send(err.message);
