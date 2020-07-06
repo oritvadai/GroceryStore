@@ -55,7 +55,7 @@ export class AddProductComponent implements OnInit {
         if (event.target.files.length > 0) {
             this.image = event.target.files[0];
 
-            console.log("this.image:" , this.image);
+            console.log("this.image:", this.image);
 
             // Preview Image
             var reader = new FileReader();
@@ -80,8 +80,8 @@ export class AddProductComponent implements OnInit {
         this.adminService
             .addProduct(productForm)
             .subscribe(product => {
-                const action = { type: ActionType.AdminAddProduct, payload: product };
-                store.dispatch(action);
+                // const action = { type: ActionType.AdminAddProduct, payload: product };
+                // store.dispatch(action);
 
                 alert(this.product.productName + " has been added");
                 this.router.navigateByUrl("/admin");

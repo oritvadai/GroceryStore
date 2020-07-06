@@ -43,7 +43,12 @@ export class EditProductComponent implements OnInit {
         }
 
         const id = this.activatedRoute.snapshot.params.productId;
-        this.product = store.getState().allProducts.find(p => p._id === id);
+        // this.product = store.getState().allProducts.find(p => p._id === id);
+
+        this.adminService
+            .getProductById(id)
+            .subscribe(product => this.product = product,
+                err => alert(err.message));
 
         this.groceryService
             .getAllCategories()
@@ -52,7 +57,6 @@ export class EditProductComponent implements OnInit {
     }
 
     public onFileSelect(event) {
-        console.log(event);
 
         if (event.target.files.length > 0) {
             this.image = event.target.files[0];
@@ -82,8 +86,8 @@ export class EditProductComponent implements OnInit {
         this.adminService
             .updateProduct(this.product._id, productForm)
             .subscribe(product => {
-                const action = { type: ActionType.AdminUpdateProduct, payload: product };
-                store.dispatch(action);
+                // const action = { type: ActionType.AdminUpdateProduct, payload: product };
+                // store.dispatch(action);
 
                 alert(this.product.productName + " has been edited");
                 this.router.navigateByUrl("/admin");
