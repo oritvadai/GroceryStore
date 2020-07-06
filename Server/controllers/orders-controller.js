@@ -16,28 +16,17 @@ router.get("/num", async (request, response) => {
     }
 });
 
-router.use(verifyLoggedIn);
+// router.use(verifyLoggedIn);
 
 // Get last order date by user - GET http://localhost:3000/api/orders/by-user/:userId
 router.get("/by-user/:userId", async (request, response) => {
     try {
         const lastOrderDate = await ordersLogic.getLastOrderByUserAsync(request.params.userId);
         if (!lastOrderDate) {
-            response.sendStatus(404);
+            response.json({ noOrders: true });
             return;
         }
         response.json(lastOrderDate);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
-
-// Does an order exist for this cart - GET http://localhost:3000/api/orders//for-cart/:cartId
-router.get("/for-cart/:cartId", async (request, response) => {
-    try {
-        const orderExists = await ordersLogic.orderExistsForCartAsync(request.params.cartId);
-        response.json(orderExists>0);
     }
     catch (err) {
         response.status(500).send(err.message);

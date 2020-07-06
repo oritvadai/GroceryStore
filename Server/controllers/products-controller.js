@@ -28,7 +28,7 @@ router.get("/uploads/:imgName", async (request, response) => {
     }
 })
 
-router.use(verifyLoggedIn);
+// router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
 router.get("/", async (request, response) => {
@@ -48,19 +48,19 @@ router.get("/", async (request, response) => {
 });
 
 // Get one product - GET http://localhost:3000/api/products/:_id
-// router.get("/:_id", async (request, response) => {
-//     try {
-//         const product = await productsLogic.getOneProductAsync(request.params._id);
-//         if(!product) {
-//             response.sendStatus(404);
-//             return;
-//         };
-//         response.json(product);
-//     }
-//     catch (err) {
-//         response.status(500).send(err.message);
-//     };
-// });
+router.get("/:_id", async (request, response) => {
+    try {
+        const product = await productsLogic.getOneProductAsync(request.params._id);
+        if(!product) {
+            response.sendStatus(404);
+            return;
+        };
+        response.json(product);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    };
+});
 
 // Get products by category - GET http://localhost:3000/api/products/by-category/:categoryId
 router.get("/by-category/:categoryId", async (request, response) => {

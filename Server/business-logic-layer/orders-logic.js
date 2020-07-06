@@ -9,8 +9,7 @@ function addOrderAsync(order) {
 };
 
 function getLastOrderByUserAsync(userId) {
-    const lastOrder = Order.findOne({ userId }, "orderDate").sort({ orderDate: "desc" }).exec();
-    return lastOrder;
+    return Order.findOne({ userId }, "orderDate").sort({ orderDate: "desc" }).exec();
 };
 
 module.exports = {

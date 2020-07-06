@@ -5,7 +5,7 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 
-router.use(verifyLoggedIn);
+// router.use(verifyLoggedIn);
 
 // Get cart (& items) by id - GET http://localhost:3000/api/carts/:_id
 router.get("/:_id", async (request, response) => {
@@ -22,10 +22,11 @@ router.get("/:_id", async (request, response) => {
     };
 });
 
-// Get open cart (id & date) by user - GET http://localhost:3000/api/carts/date/:userId
+// Get open cart (id & date) by user -
+// GET http://localhost:3000/api/carts/date/:userId
 router.get("/date/:userId", async (request, response) => {
     try {
-        const openCart = await cartsLogic.getOpenCartByUserAsync(request.params.userId);
+        const openCart = await cartsLogic.getOpenCartByUser(request.params.userId);
         if(!openCart) {
             response.sendStatus(404);
             return;

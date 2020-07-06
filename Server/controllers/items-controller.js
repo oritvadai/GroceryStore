@@ -51,7 +51,7 @@ router.put("/:_id", async (request, response) => {
     }
 });
 
-// Delete item - DELETE http://localhost:3000/api/items/:_id
+// Delete one item - DELETE http://localhost:3000/api/items/:_id
 router.delete("/:_id", async (request, response) => {
     try {
         await itemsLogic.deleteItemAsync(request.params._id);
@@ -62,7 +62,7 @@ router.delete("/:_id", async (request, response) => {
     }
 });
 
-// Delete items by cart - DELETE http://localhost:3000/api/items/by-cart/:cartId
+// Delete all items by cart - DELETE http://localhost:3000/api/items/by-cart/:cartId
 router.delete("/by-cart/:cartId", async (request, response) => {
     try {
         await itemsLogic.deleteItemsByCartAsync(request.params.cartId);
