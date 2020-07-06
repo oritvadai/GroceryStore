@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { Cart } from 'src/app/models/cart';
+import { CartInfo } from 'src/app/models/cart-info';
 import { store } from 'src/app/redux/store';
-import { User } from 'src/app/models/user';
-import { Item } from 'src/app/models/item';
 import { ActionType } from 'src/app/redux/action-type';
 import { Router } from '@angular/router';
 
@@ -14,9 +13,9 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 
+    public openCart = new CartInfo();
     public cart = new Cart();
-    public openCart = new Cart();
-    
+    public totalPrice: number;
     public unsubscribe: Function;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
@@ -24,8 +23,9 @@ export class CartComponent implements OnInit {
     async ngOnInit() {
 
         this.unsubscribe = store.subscribe(() => {
-            this.cart = store.getState().cart;
             this.openCart = store.getState().openCart;
+            this.cart = store.getState().cart;
+            this.totalPrice = store.getState().totalPrice;
         });
 
         this.openCart = store.getState().openCart;
@@ -51,9 +51,13 @@ export class CartComponent implements OnInit {
                 .getCartById(this.openCart._id)
                 .subscribe(cart => {
                     this.cart = cart;
+                    this.totalPrice = cart.totalPrice;
 
-                    const action = { type: ActionType.GetCartContent, payload: cart };
-                    store.dispatch(action);
+                    const actionCart = { type: ActionType.GetCartContent, payload: cart };
+                    store.dispatch(actionCart);
+
+                    const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
+                    store.dispatch(actionPrice);
 
                 }, err => alert(err.message));
         }

@@ -17,14 +17,14 @@ export class OrderComponent implements OnInit {
     public cart = new Cart();
     public openCart = new Cart();
     public order = new Order();
-    public minDate = new Date();
+    public minDate: Date;
 
     constructor(private groceryService: GroceryService, public router: Router) { }
 
     async ngOnInit() {
 
         this.cart = store.getState().cart;
-        this.openCart =store.getState().openCart;
+        this.openCart = store.getState().openCart;
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;

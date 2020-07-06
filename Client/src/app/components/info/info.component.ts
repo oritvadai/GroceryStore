@@ -17,8 +17,8 @@ export class InfoComponent implements OnInit {
     public user = new User();
     public hasToken: boolean;
 
-    public lastOrder = new Date();
-    public openCart = new Date();
+    public lastOrder: Date;
+    public openCart: Date;
 
     public unsubscribe: Function;
 
@@ -81,6 +81,10 @@ export class InfoComponent implements OnInit {
                 .getLastOrderByUser(this.user._id)
                 .subscribe(lastOrder => {
                     console.log(lastOrder);
+                    if (lastOrder.noOrders) {
+                        this.lastOrder = null;
+                        console.log("No orders")                
+                    }
                     this.lastOrder = lastOrder.orderDate;
 
                     const action = { type: ActionType.GetLastOrderByUser, payload: this.lastOrder };
@@ -96,6 +100,8 @@ export class InfoComponent implements OnInit {
             this.groceryService
                 .getCartDateByUser(this.user._id)
                 .subscribe(openCart => {
+                    // if !open cart => 
+                    // else -
                     console.log(openCart);
                     this.openCart = openCart.date;
 

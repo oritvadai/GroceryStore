@@ -16,11 +16,10 @@ export class RegisterComponent implements OnInit {
 
     public user = new User();
     public confirmPass: string;
-    public cart = new Cart();
     public userIDExists: boolean;
     public step1complete: boolean;
     public token = "";
-    public captcha = "";
+    // public captcha = "";
 
     ngOnInit(): void {
 
@@ -49,7 +48,6 @@ export class RegisterComponent implements OnInit {
     }
 
     register() {
-        // console.log(this.user);
         if (this.user) {
             this.authService
                 .register(this.user)
@@ -59,17 +57,6 @@ export class RegisterComponent implements OnInit {
 
                     const action = { type: ActionType.Login, payload: response.user };
                     store.dispatch(action);
-
-                    // Create new cart for the new user
-                    // this.cart.userId = response.user._id
-                    // this.cart.date = new Date();
-
-                    // this.groceryService
-                    //     .addCart(this.cart)
-                    //     .subscribe(response => {
-                    //         console.log("Cart Date " + response.date + "Cart ID: " + response._id);
-                    //     },
-                    //         err => alert(err.message));
 
                     this.router.navigateByUrl("/home");
                 },

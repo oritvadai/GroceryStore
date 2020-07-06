@@ -18,7 +18,7 @@ import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.comp
 export class StoreComponent implements OnInit {
 
 
-    public categories: Category[]; 
+    public categories: Category[];
     public productsView: Product[];
     public cart = new Cart();
     public item = new Item();
@@ -35,7 +35,7 @@ export class StoreComponent implements OnInit {
 
         this.unsubscribe = store.subscribe(() => {
             this.categories = store.getState().categories;
-            this.productsView = store.getState().productsView
+            this.productsView = store.getState().productsView;
             this.cart = store.getState().cart;
         });
 
@@ -81,6 +81,7 @@ export class StoreComponent implements OnInit {
         this.groceryService
             .getProductsByCategory(categoryId)
             .subscribe(products => {
+                console.log("getProductsByCategory", products)
                 this.productsView = products;
 
                 const action = { type: ActionType.GetProductsView, payload: products };
