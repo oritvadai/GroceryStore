@@ -41,21 +41,26 @@ function addProductAsync(product, image) {
     return product.save();
 };
 
-function updateProductAsync(product, image) {
+async function updateProductAsync(product, image) {
     if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
     }
-    // Creat new uuid and add the file extension 
-    const extension = image.name.substr(image.name.lastIndexOf("."));
-    const fileName = uuidv4() + extension;
-    // Add the new picFileName to the product and save the image with that picFileName
-    product.picFileName = fileName;
-    image.mv(path.join(uploadsFolder, fileName));
-    
+
+    if (!image) {
+        const oldPic = await Product.findOne({ _id: product._id }, "picFileName").exec();
+        product.picFileName = oldPic.picFileName;
+    } else {
+        // Creat new uuid and add the file extension 
+        const extension = image.name.substr(image.name.lastIndexOf("."));
+        const fileName = uuidv4() + extension;
+        // Add the new picFileName to the product and save the image with that picFileName
+        product.picFileName = fileName;
+        image.mv(path.join(uploadsFolder, fileName));
+    }
     return Product.updateOne({ _id: product._id }, product);
 };
 
-function getImagePathAsync(imgName){
+function getImagePathAsync(imgName) {
     return path.join(__dirname, "../uploads", imgName);
 }
 

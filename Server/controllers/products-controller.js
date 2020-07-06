@@ -28,7 +28,7 @@ router.get("/uploads/:imgName", async (request, response) => {
     }
 })
 
-// router.use(verifyLoggedIn);
+router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
 router.get("/", async (request, response) => {
@@ -51,7 +51,7 @@ router.get("/", async (request, response) => {
 router.get("/:_id", async (request, response) => {
     try {
         const product = await productsLogic.getOneProductAsync(request.params._id);
-        if(!product) {
+        if (!product) {
             response.sendStatus(404);
             return;
         };
@@ -131,7 +131,7 @@ router.put("/:_id", async (request, response) => {
             return;
         }
 
-        const image = request.files.image;
+        const image = (request.files) ? request.files.image : null;
         const product = new Product(request.body);
         const id = request.params._id;
         product._id = id;
