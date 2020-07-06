@@ -78,7 +78,9 @@ export class EditProductComponent implements OnInit {
         productForm.append("productName", this.product.productName);
         productForm.append("categoryId", this.product.categoryId);
         productForm.append("unitPrice", this.product.unitPrice.toString());
-        productForm.append("image", this.image, this.image.name);
+        if (this.image) {
+            productForm.append("image", this.image, this.image.name);
+        }
 
         console.log(productForm.get("productName"));
         console.log(productForm.get("image"));

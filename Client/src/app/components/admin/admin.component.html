@@ -1,14 +1,14 @@
-<a routerLink="/add-product">Add Product</a>
-    
-
 <div id="products">
+
+    <a routerLink="/add-product">Add Product</a>
+    <br><br>
 
     <div class="categories">
         <div class="category" *ngFor="let c of categories">
             <button mat-raised-button (click)="getProductsByCategory(c._id)"> {{c.category}} </button>
         </div>
     </div>
-    
+
     <div class="product" *ngFor="let p of products">
         {{p.productName}}<br>
         Price: {{p.unitPrice | currency:"ILS"}}<br>
