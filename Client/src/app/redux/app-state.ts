@@ -1,7 +1,7 @@
 import { User } from '../models/user';
 import { Product } from '../models/product';
 import { Cart } from '../models/cart';
-import { Item } from '../models/item';
+import { CartInfo } from '../models/cart-info';
 import { Category } from '../models/category';
 
 export class AppState {
@@ -10,41 +10,44 @@ export class AppState {
     public productsNum: number;
     public ordersNum: number;
     public lastOrder: Date;
-    public openCart: Cart;
+    public openCart: CartInfo;
 
     // Login
     public user: User;
     public hasToken: boolean;
 
-    // Store
+    // Cart
     public cart: Cart;
-    public items: Item[];
+    public totalPrice: number;
+
+    // Store
     public categories: Category[];
     public productsView: Product[];
 
-
     // Admin
-    public allProducts: Product[];
-
+    // public allProducts: Product[];
 
     public constructor() {
 
         // Home Info
         this.productsNum = 0;
         this.ordersNum = 0;
+        // this.lastOrder = null;
+        // this.openCart = new CartInfo();
 
         // Login
         this.user = JSON.parse(sessionStorage.getItem("user"));
         this.hasToken = sessionStorage.getItem("token") != undefined;
 
-        // Store
+        // Cart
         this.cart = new Cart();
-        this.items = [];
+        this.totalPrice = 0;
+
+        // Store
         this.categories = [];
         this.productsView = [];
 
         // Admin
-        this.allProducts = [];
-
+        // this.allProducts = [];
     }
 }

@@ -10,17 +10,20 @@ export enum ActionType {
     Login,
     Logout,
 
-    // Store
+    // Cart
     GetCartContent,
     GetItems,
     AddItem,
     RemoveItem,
     ClearCart,
+    GetTotalPrice,
+
+    // Store
     GetAllCategories,
     GetProductsView,
 
     // admin
-    AdminGetAllProducts,
-    AdminAddProduct,
-    AdminUpdateProduct
+    // AdminGetAllProducts,
+    // AdminAddProduct,
+    // AdminUpdateProduct
 }

@@ -38,37 +38,42 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.user = new User();
             newAppState.hasToken = false;
             newAppState.cart = new Cart();
-            newAppState.allProducts = [];
+            // newAppState.allProducts = [];
             break;
 
 
-        // Store
+        // Cart
         case ActionType.GetCartContent:
             newAppState.cart = action.payload;
             break;
 
         case ActionType.GetItems:
-            newAppState.items = action.payload;
+            newAppState.cart.items = action.payload;
             break;
 
         case ActionType.AddItem:
-            newAppState.items.push(action.payload);
+            newAppState.cart.items.push(action.payload);
             break;
 
         case ActionType.RemoveItem:
             {
                 const itemId = action.payload;
-                const index = newAppState.items.findIndex(i => i._id === itemId);
+                const index = newAppState.cart.items.findIndex(i => i._id === itemId);
                 if (index >= 0) {
-                    newAppState.items.splice(index, 1);
+                    newAppState.cart.items.splice(index, 1);
                 }
             }
             break;
 
         case ActionType.ClearCart:
-            newAppState.items = [];
+            newAppState.cart.items = [];
             break;
 
+        case ActionType.GetTotalPrice:
+            newAppState.totalPrice = action.payload;
+
+
+        // Store
         case ActionType.GetAllCategories:
             newAppState.categories = action.payload;
             break;
@@ -79,23 +84,26 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
 
         // Admin:
-        case ActionType.AdminGetAllProducts:
-            newAppState.allProducts = action.payload;
-            break;
+        // case ActionType.AdminGetAllProducts:
+        //     newAppState.allProducts = action.payload;
+        //     break;
 
-        case ActionType.AdminAddProduct:
-            newAppState.allProducts.push(action.payload);
-            break;
+        // case ActionType.AdminAddProduct:
+        //     newAppState.allProducts.push(action.payload);
+        //     break;
 
-        case ActionType.AdminUpdateProduct:
-            {
-                const id = action.payload._id;
-                const index = newAppState.allProducts.findIndex(p => p._id === id);
-                if (index >= 0) {
-                    newAppState.allProducts[index] = action.payload;
-                }
-            }
-            break;
+        // case ActionType.AdminUpdateProduct:
+        //     {
+        //         const id = action.payload._id;
+        //         const index = newAppState.allProducts.findIndex(p => p._id === id);
+        //         if (index >= 0) {
+        //             newAppState.allProducts[index] = action.payload;
+        //         }
+        //     }
+        //     break;
+
+
+
     }
 
     return newAppState;
