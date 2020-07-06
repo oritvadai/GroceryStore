@@ -6,6 +6,7 @@ import { Order } from '../models/order';
 import { Category } from '../models/category';
 import { Cart } from '../models/cart';
 import { Item } from '../models/item';
+import { CartInfo } from '../models/cart-info';
 
 @Injectable({
     providedIn: 'root'
@@ -51,9 +52,8 @@ export class GroceryService {
     }
 
     // Cart & Items
-
-    public getCartDateByUser(userId: string): Observable<Cart> {
-        return this.http.get<Cart>(
+    public getCartDateByUser(userId: string): Observable<CartInfo> {
+        return this.http.get<CartInfo>(
             "http://localhost:3000/api/carts/date/" + userId,
             { headers: this.getHeaders() });
     }

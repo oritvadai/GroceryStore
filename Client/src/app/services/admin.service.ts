@@ -14,9 +14,9 @@ export class AdminService {
 
     constructor(private http: HttpClient) { }
 
-    // public getProductById(productId): Observable<Product> {
-    // 	return this.http.get<Product>("http://localhost:3000/api/products/" + productId, { headers: this.getHeaders() });
-    // }
+    public getProductById(productId): Observable<Product> {
+    	return this.http.get<Product>("http://localhost:3000/api/products/" + productId, { headers: this.getHeaders() });
+    }
 
     public getAllProducts(): Observable<Product[]> {
         return this.http.get<Product[]>(
