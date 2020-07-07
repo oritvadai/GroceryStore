@@ -1,7 +1,13 @@
 const Item = require("../models/item");
 
-function getItemsByCartAsync(cartId) {
-    return Item.find({ cartId }).populate("product").exec();
+async function getItemsTotalPriceAsync(cartId) {
+
+    const items = await Item.find({ cartId }).populate("product").exec();
+
+    const prices = items.map(i => i.itemsPrice);
+    const totalPrice = prices.reduce((a, b) => a + b, 0).toFixed(2);
+
+    return totalPrice;
 };
 
 function addItemAsync(item) {
@@ -17,11 +23,11 @@ function deleteItemAsync(_id) {
 };
 
 function deleteItemsByCartAsync(cartId) {
-    return Item.deleteMany({cartId}).exec();
+    return Item.deleteMany({ cartId }).exec();
 };
 
 module.exports = {
-    getItemsByCartAsync,
+    getItemsTotalPriceAsync,
     addItemAsync,
     updateItemAsync,
     deleteItemAsync,

@@ -7,15 +7,15 @@ const router = express.Router();
 
 router.use(verifyLoggedIn);
 
-// Get items by cart - GET http://localhost:3000/api/items/by-cart/:cartId
-router.get("/by-cart/:cartId", async (request, response) => {
+// Get items by cart - GET http://localhost:3000/api/items/totalPrice/:cartId
+router.get("/totalPrice/:cartId", async (request, response) => {
     try {
-        const items = await itemsLogic.getItemsByCartAsync(request.params.cartId);
-        if(!items) {
+        const totalPrice = await itemsLogic.getItemsTotalPriceAsync(request.params.cartId);
+        if(!totalPrice) {
             response.sendStatus(404);
             return;
         };
-        response.json(items);
+        response.json(totalPrice);
     }
     catch (err) {
         response.status(500).send(err.message);

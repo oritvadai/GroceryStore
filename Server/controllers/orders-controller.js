@@ -16,7 +16,7 @@ router.get("/num", async (request, response) => {
     }
 });
 
-// router.use(verifyLoggedIn);
+router.use(verifyLoggedIn);
 
 // Get last order date by user - GET http://localhost:3000/api/orders/by-user/:userId
 router.get("/by-user/:userId", async (request, response) => {
