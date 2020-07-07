@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
 import { Order } from '../models/order';
 import { Category } from '../models/category';
@@ -32,7 +32,7 @@ export class GroceryService {
     // 	return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
     // }
 
-
+    
     // Products
     public getAllCategories(): Observable<Category[]> {
         return this.http.get<Category[]>(

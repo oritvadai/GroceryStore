@@ -7,6 +7,7 @@ import { Product } from '../models/product';
 
 export function reducer(oldAppState: AppState, action: Action): AppState {
 
+    console.log(oldAppState, action)
     const newAppState = { ...oldAppState };
 
     switch (action.type) {
@@ -69,11 +70,12 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
         case ActionType.ClearCart:
             newAppState.cart.items = [];
+            newAppState.totalPrice = 0;
             break;
 
         case ActionType.GetTotalPrice:
             newAppState.totalPrice = action.payload;
-
+            break;
 
         // Store
         case ActionType.GetAllCategories:

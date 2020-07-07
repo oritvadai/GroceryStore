@@ -5,6 +5,8 @@ import { CartInfo } from 'src/app/models/cart-info';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Router } from '@angular/router';
+import { InfoService } from 'src/app/services/info.service';
+import { User } from 'src/app/models/user';
 
 @Component({
     selector: 'app-cart',
@@ -13,88 +15,95 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 
+    public user = new User();
+    public hasToken: boolean;
+
     public openCart = new CartInfo();
     public cart = new Cart();
     public totalPrice: number;
+
     public unsubscribe: Function;
 
-    constructor(private groceryService: GroceryService, public router: Router) { }
+    constructor(
+        private groceryService: GroceryService,
+        private infoService: InfoService,
+        public router: Router) { }
 
     async ngOnInit() {
 
         this.unsubscribe = store.subscribe(() => {
+            this.user = store.getState().user;
+            this.hasToken = store.getState().hasToken;
+
             this.openCart = store.getState().openCart;
             this.cart = store.getState().cart;
             this.totalPrice = store.getState().totalPrice;
         });
 
-        this.openCart = store.getState().openCart;
+        this.user = store.getState().user;
+        this.hasToken = store.getState().hasToken;
 
-        console.log("cart openCart");
-        console.log(this.openCart);
-
-
-        const user = store.getState().user;
-        const hasToken = store.getState().hasToken;
-
-        if (user.role != "user") {
+        if (this.user.role != "user") {
             alert("Access Denied");
             this.router.navigateByUrl("/home");
             return;
-        }
+        };
 
-        if (!hasToken) {
+        if (!this.hasToken) {
             alert("Please Login");
             this.router.navigateByUrl("/logout");
             return;
-        }
+        };
 
-        // Get openCart info for _id
-        // if (!store.getState().openCart) {
+        // Get openCart info
+        if (!store.getState().openCart || !store.getState().openCart._id) {
+            this.infoService
+                .getOpenCartInfo(this.user._id);
+        } else {
+            this.openCart = store.getState().openCart;
+        }
+        
+        this.getCartItems(this.openCart._id);
+
+        console.log(store.getState());
+
+        // if (!store.getState().openCart || !store.getState().openCart._id) {
         //     this.groceryService
-        //         .getCartDateByUser(user._id)
+        //         .getCartDateByUser(this.user._id)
         //         .subscribe(openCart => {
-        //             // if (!open cart) {
-        //             // } else {}
         //             this.openCart = openCart;
 
         //             const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
         //             store.dispatch(action);
 
+        //             this.getCartItems(openCart._id);
+
         //         }, err => alert(err.message));
-        // }
-        // else {
-        //     // const openCart = store.getState().openCart;
-        //     // if(openCart) {
+        // } else {
+
         //     this.openCart = store.getState().openCart;
-        //     // }
+
+            // this.getCartItems(this.openCart._id);
         // };
+    };
 
-        // Get openCart items
-        if (!store.getState().cart._id) {
+    // Get openCart items
+    getCartItems(openCartId) {
+        this.groceryService
+            .getCartById(openCartId)
+            .subscribe(cart => {
 
-            this.groceryService
-                .getCartById(this.openCart._id)
-                .subscribe(cart => {
-                    this.cart = cart;
+                this.cart = cart;
+                this.totalPrice = cart.totalPrice;
 
-                    console.log(cart);
-                    console.log(cart.items);
+                const actionCart = { type: ActionType.GetCartContent, payload: cart };
+                store.dispatch(actionCart);
 
-                    this.totalPrice = cart.totalPrice;
+                const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
+                store.dispatch(actionPrice);
 
-                    const actionCart = { type: ActionType.GetCartContent, payload: cart };
-                    store.dispatch(actionCart);
-
-                    const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
-                    store.dispatch(actionPrice);
-
-                }, err => alert(err.message));
-        }
-        else {
-            this.cart = store.getState().cart;
-        }
-    }
+            }, err => alert(err.message));
+    };
 
     public async removeItem(itemId) {
         this.groceryService
@@ -106,7 +115,7 @@ export class CartComponent implements OnInit {
                 // alert("Item Removed");
             },
                 err => alert(err.message));
-    }
+    };
 
     // Update totalPrice
     // updateTotalPrice() {
@@ -131,9 +140,9 @@ export class CartComponent implements OnInit {
                 // alert("Cart Cleared");
             },
                 err => alert(err.message));
-    }
+    };
 
     ngOnDestroy() {
         this.unsubscribe();
-    }
-}
+    };
+};

@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
+import { InfoService } from 'src/app/services/info.service';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +18,10 @@ export class LoginComponent implements OnInit {
     public hasToken: boolean;
     public unsubscribe: Function;
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(
+        private authService: AuthService, 
+        private infoService: InfoService, 
+        private router: Router) { }
 
     ngOnInit(): void {
 
@@ -44,6 +48,12 @@ export class LoginComponent implements OnInit {
 
                     if (response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
+                    } 
+                    else if (response.user.role == "user") {
+                        this.infoService
+                        .getOpenCartInfo(this.user._id);
+                        this.infoService
+                        .getLastOrderInfo(this.user._id);
                     }
                 },
                     err => alert(err.message));

@@ -68,9 +68,7 @@ export class StoreComponent implements OnInit {
                     err => {
                         alert(err.message);
                         this.router.navigateByUrl("/logout");
-                    }
-                );
-
+                    });
         } else {
             this.categories = store.getState().categories;
         }
@@ -121,7 +119,6 @@ export class StoreComponent implements OnInit {
             },
                 err => alert(err.message));
     }
-
 
     // Update totalPrice
     // updateTotalPrice() {
