@@ -89,6 +89,12 @@ export class GroceryService {
             { headers: this.getHeaders() })
     }
 
+    public getTotalPriceByCart(cartId: string): Observable<number> {
+        return this.http.get<number>(
+            "http://localhost:3000/api/items/totalPrice/" + cartId,
+            { headers: this.getHeaders() })
+    }
+
     // Order
     public getLastOrderByUser(userId: string): Observable<any> {
         return this.http.get<any>(

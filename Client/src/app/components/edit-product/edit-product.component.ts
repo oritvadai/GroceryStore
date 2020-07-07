@@ -61,8 +61,6 @@ export class EditProductComponent implements OnInit {
         if (event.target.files.length > 0) {
             this.image = event.target.files[0];
 
-            console.log("this.image:", this.image);
-
             // Preview Image
             var reader = new FileReader();
             reader.readAsDataURL(event.target.files[0]);
@@ -81,9 +79,6 @@ export class EditProductComponent implements OnInit {
         if (this.image) {
             productForm.append("image", this.image, this.image.name);
         }
-
-        console.log(productForm.get("productName"));
-        console.log(productForm.get("image"));
 
         this.adminService
             .updateProduct(this.product._id, productForm)

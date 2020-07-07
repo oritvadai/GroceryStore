@@ -3,7 +3,7 @@ import { Product } from 'src/app/models/product';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { Item } from 'src/app/models/item';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Cart } from 'src/app/models/cart';
@@ -16,7 +16,6 @@ import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.comp
     styleUrls: ['./store.component.css']
 })
 export class StoreComponent implements OnInit {
-
 
     public categories: Category[];
     public productsView: Product[];
@@ -81,8 +80,8 @@ export class StoreComponent implements OnInit {
         this.groceryService
             .getProductsByCategory(categoryId)
             .subscribe(products => {
-                console.log("getProductsByCategory", products)
                 this.productsView = products;
+                console.log(products);
 
                 const action = { type: ActionType.GetProductsView, payload: products };
                 store.dispatch(action);
@@ -99,8 +98,6 @@ export class StoreComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            console.log(result);
 
             if (result && result.isConfirmed) {
                 this.item.quantity = result.quantity;
@@ -120,10 +117,23 @@ export class StoreComponent implements OnInit {
                 const action = { type: ActionType.AddItem, payload: item };
                 store.dispatch(action);
 
-                alert("Item Added")
+                // this.updateTotalPrice();
             },
                 err => alert(err.message));
     }
+
+
+    // Update totalPrice
+    // updateTotalPrice() {
+    //     this.groceryService
+    //         .getTotalPriceByCart(this.cart._id)
+    //         .subscribe(totalPrice => {
+
+    //             const action = { type: ActionType.GetTotalPrice, payload: +totalPrice };
+    //             store.dispatch(action);
+    //         },
+    //             err => alert(err.message));
+    // }
 
     ngOnDestroy() {
         this.unsubscribe();

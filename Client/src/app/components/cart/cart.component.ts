@@ -30,6 +30,10 @@ export class CartComponent implements OnInit {
 
         this.openCart = store.getState().openCart;
 
+        console.log("cart openCart");
+        console.log(this.openCart);
+
+
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;
 
@@ -45,12 +49,38 @@ export class CartComponent implements OnInit {
             return;
         }
 
+        // Get openCart info for _id
+        // if (!store.getState().openCart) {
+        //     this.groceryService
+        //         .getCartDateByUser(user._id)
+        //         .subscribe(openCart => {
+        //             // if (!open cart) {
+        //             // } else {}
+        //             this.openCart = openCart;
+
+        //             const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
+        //             store.dispatch(action);
+
+        //         }, err => alert(err.message));
+        // }
+        // else {
+        //     // const openCart = store.getState().openCart;
+        //     // if(openCart) {
+        //     this.openCart = store.getState().openCart;
+        //     // }
+        // };
+
+        // Get openCart items
         if (!store.getState().cart._id) {
 
             this.groceryService
                 .getCartById(this.openCart._id)
                 .subscribe(cart => {
                     this.cart = cart;
+
+                    console.log(cart);
+                    console.log(cart.items);
+
                     this.totalPrice = cart.totalPrice;
 
                     const actionCart = { type: ActionType.GetCartContent, payload: cart };
@@ -73,10 +103,23 @@ export class CartComponent implements OnInit {
 
                 const action = { type: ActionType.RemoveItem, payload: itemId };
                 store.dispatch(action);
-                alert("Item Removed");
+                // alert("Item Removed");
             },
                 err => alert(err.message));
     }
+
+    // Update totalPrice
+    // updateTotalPrice() {
+    //     this.groceryService
+    //         .getTotalPriceByCart(this.cart._id)
+    //         .subscribe(totalPrice => {
+    //             this.totalPrice = +totalPrice;
+
+    //             const actionPrice = { type: ActionType.GetTotalPrice, payload: this.totalPrice };
+    //             store.dispatch(actionPrice);
+    //         },
+    //             err => alert(err.message));
+    // }
 
     emptyCart() {
         this.groceryService
@@ -85,7 +128,7 @@ export class CartComponent implements OnInit {
 
                 const action = { type: ActionType.ClearCart };
                 store.dispatch(action);
-                alert("Cart Cleared");
+                // alert("Cart Cleared");
             },
                 err => alert(err.message));
     }

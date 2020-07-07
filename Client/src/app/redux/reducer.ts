@@ -3,6 +3,7 @@ import { Action } from './action';
 import { ActionType } from './action-type';
 import { User } from '../models/user';
 import { Cart } from '../models/cart';
+import { Product } from '../models/product';
 
 export function reducer(oldAppState: AppState, action: Action): AppState {
 
@@ -38,6 +39,7 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.user = new User();
             newAppState.hasToken = false;
             newAppState.cart = new Cart();
+            newAppState.productsView = [];
             // newAppState.allProducts = [];
             break;
 

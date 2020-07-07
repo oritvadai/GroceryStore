@@ -73,7 +73,6 @@ export class AdminComponent implements OnInit {
 
         //             const action = { type: ActionType.AdminGetAllProducts, payload: products };
         //             store.dispatch(action);
-        //             console.log("Admin network activity");
         //         },
         //             err => {
         //                 alert(err.message)

@@ -72,18 +72,16 @@ export class InfoComponent implements OnInit {
             this.productsNum = store.getState().productsNum;
             this.ordersNum = store.getState().ordersNum;
         };
-
     }
 
     getUserInfo() {
+        // Last order
         if (this.hasToken && !store.getState().lastOrder) {
             this.groceryService
                 .getLastOrderByUser(this.user._id)
                 .subscribe(lastOrder => {
-                    console.log(lastOrder);
                     if (lastOrder.noOrders) {
                         this.lastOrder = null;
-                        console.log("No orders")                
                     }
                     this.lastOrder = lastOrder.orderDate;
 
@@ -96,13 +94,17 @@ export class InfoComponent implements OnInit {
             this.lastOrder = store.getState().lastOrder;
         }
 
+        // Open Cart
         if (this.hasToken && !store.getState().openCart) {
             this.groceryService
                 .getCartDateByUser(this.user._id)
                 .subscribe(openCart => {
+                    
+                    console.log("info openCart");
+                    console.log(openCart);
+                    
                     // if !open cart => 
                     // else -
-                    console.log(openCart);
                     this.openCart = openCart.date;
 
                     const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
@@ -112,7 +114,7 @@ export class InfoComponent implements OnInit {
         }
         else {
             const openCart = store.getState().openCart;
-            if(openCart) {
+            if (openCart) {
                 this.openCart = store.getState().openCart.date;
             }
         };

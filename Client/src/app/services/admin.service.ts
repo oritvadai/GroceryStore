@@ -18,11 +18,11 @@ export class AdminService {
     	return this.http.get<Product>("http://localhost:3000/api/products/" + productId, { headers: this.getHeaders() });
     }
 
-    public getAllProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(
-            "http://localhost:3000/api/products", 
-            { headers: this.getHeaders() });
-    }
+    // public getAllProducts(): Observable<Product[]> {
+    //     return this.http.get<Product[]>(
+    //         "http://localhost:3000/api/products", 
+    //         { headers: this.getHeaders() });
+    // }
 
     public addProduct(productForm: FormData): Observable<FormData> {
         return this.http.post<FormData>(

@@ -50,12 +50,9 @@ export class AddProductComponent implements OnInit {
     }
 
     public onFileSelect(event) {
-        console.log(event);
 
         if (event.target.files.length > 0) {
             this.image = event.target.files[0];
-
-            console.log("this.image:", this.image);
 
             // Preview Image
             var reader = new FileReader();
@@ -74,8 +71,6 @@ export class AddProductComponent implements OnInit {
         productForm.append("unitPrice", this.product.unitPrice.toString());
         productForm.append("image", this.image, this.image.name);
 
-        console.log(productForm.get("productName"));
-        console.log(productForm.get("image"));
 
         this.adminService
             .addProduct(productForm)
