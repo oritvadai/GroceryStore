@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.use(verifyLoggedIn);
 
-// Get cart (& items) by id - GET http://localhost:3000/api/carts/:_id
+// Get cart by id + items & total price - 
+// GET http://localhost:3000/api/carts/:_id
 router.get("/:_id", async (request, response) => {
     try {
         const cart = await cartsLogic.getCartByIdAsync(request.params._id);
@@ -38,7 +39,7 @@ router.get("/date/:userId", async (request, response) => {
     }
 });
 
-// Add cart - POST http://localhost:3000/api/carts
+// Add new cart - POST http://localhost:3000/api/carts
 router.post("/", async (request, response) => {
     try {
         const cart = new Cart(request.body);

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(verifyLoggedIn);
 
-// Get all categories - GET http://localhost:3000/api/categories
+// Get all product categories - GET http://localhost:3000/api/categories
 router.get("/", async (request, response) => {
     try {
         const categories = await categoriesLogic.getAllCategoriesAsync();

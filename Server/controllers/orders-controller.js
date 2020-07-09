@@ -33,7 +33,7 @@ router.get("/by-user/:userId", async (request, response) => {
     }
 });
 
-// Add order - POST http://localhost:3000/api/orders
+// Add new order - POST http://localhost:3000/api/orders
 router.post("/", async (request, response) => {
     try {
         const order = new Order(request.body);

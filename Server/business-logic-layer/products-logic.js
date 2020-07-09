@@ -6,26 +6,31 @@ const path = require("path");
 
 const uploadsFolder = "./uploads"
 
+// Get total number of available products
 function getNumProductsAsync() {
     return Product.countDocuments();
 }
 
-function getAllProductsAsync() {
-    return Product.find({}).populate("category").exec();
-}
+// function getAllProductsAsync() {
+//     return Product.find({}).populate("category").exec();
+// }
 
+// Get product by id
 function getOneProductAsync(_id) {
     return Product.findOne({ _id }).populate("category").exec();
 }
 
+// Get products by category
 function getProductsByCategoryAsync(categoryId) {
     return Product.find({ categoryId }).populate("category").exec();
 }
 
+// Get products by name
 function getProductsByName(productName) {
     return Product.find({ productName }).populate("category").exec();
 }
 
+// Add new product
 function addProductAsync(product, image) {
     // If there is no uploads folder, create it
     if (!fs.existsSync(uploadsFolder)) {
@@ -41,6 +46,7 @@ function addProductAsync(product, image) {
     return product.save();
 }
 
+// Update existing Product
 async function updateProductAsync(product, image) {
     if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
@@ -60,13 +66,14 @@ async function updateProductAsync(product, image) {
     return Product.updateOne({ _id: product._id }, product);
 }
 
+// Get image
 function getImagePathAsync(imgName) {
     return path.join(__dirname, "../uploads", imgName);
 }
 
 module.exports = {
     getNumProductsAsync,
-    getAllProductsAsync,
+    // getAllProductsAsync,
     getOneProductAsync,
     getProductsByCategoryAsync,
     getProductsByName,

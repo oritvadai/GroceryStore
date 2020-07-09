@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.use(verifyLoggedIn);
 
-// Get items by cart - GET http://localhost:3000/api/items/totalPrice/:cartId
+// Get total price of items by cart - 
+// GET http://localhost:3000/api/items/totalPrice/:cartId
 router.get("/totalPrice/:cartId", async (request, response) => {
     try {
         const totalPrice = await itemsLogic.getItemsTotalPriceAsync(request.params.cartId);
@@ -22,7 +23,7 @@ router.get("/totalPrice/:cartId", async (request, response) => {
     }
 });
 
-// Add item - POST http://localhost:3000/api/items
+// Add item to cart - POST http://localhost:3000/api/items
 router.post("/", async (request, response) => {
     try {
         const item = new Item(request.body);
@@ -35,23 +36,23 @@ router.post("/", async (request, response) => {
 });
 
 // Update item - PUT http://localhost:3000/api/items/:_id
-router.put("/:_id", async (request, response) => {
-    try {
-        const item = new Item(request.body);
-        item._id = request.params._id;
-        const updatedItem = await itemsLogic.updateItemAsync(item);
-        if(!updatedItem) {
-            response.sendStatus(404);
-            return;
-        }
-        response.json(updatedItem);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
+// router.put("/:_id", async (request, response) => {
+//     try {
+//         const item = new Item(request.body);
+//         item._id = request.params._id;
+//         const updatedItem = await itemsLogic.updateItemAsync(item);
+//         if(!updatedItem) {
+//             response.sendStatus(404);
+//             return;
+//         }
+//         response.json(updatedItem);
+//     }
+//     catch (err) {
+//         response.status(500).send(err.message);
+//     }
+// });
 
-// Delete one item - DELETE http://localhost:3000/api/items/:_id
+// Delete one item from cart - DELETE http://localhost:3000/api/items/:_id
 router.delete("/:_id", async (request, response) => {
     try {
         await itemsLogic.deleteItemAsync(request.params._id);
@@ -62,7 +63,7 @@ router.delete("/:_id", async (request, response) => {
     }
 });
 
-// Delete all items by cart - DELETE http://localhost:3000/api/items/by-cart/:cartId
+// Delete all items from cart - DELETE http://localhost:3000/api/items/by-cart/:cartId
 router.delete("/by-cart/:cartId", async (request, response) => {
     try {
         await itemsLogic.deleteItemsByCartAsync(request.params.cartId);

@@ -1,7 +1,7 @@
 const Cart = require("../models/cart");
 const Order = require("../models/order");
 
-// Get cart by _id
+// Get cart by _id, populate with items and calculate total price 
 async function getCartByIdAsync(_id) {
     const cart = await Cart.findOne({ _id }).populate({
         path: "items",
@@ -40,7 +40,7 @@ async function getOpenCartByUser(userId) {
     // get the last cart of the user
     const lastCart = await getLastCartAsync(userId);
     if (!lastCart) {
-        // no carts
+        // user has no previous carts
         return { hasCarts: false, hasOpenCart: false };
     }
 
@@ -48,11 +48,11 @@ async function getOpenCartByUser(userId) {
     // check if last cart was already ordered
     const isCartOrdered = await isCartOrderedAsync(cartId);
     if (isCartOrdered) {
-        // no open cart        
+        // user has no open cart        
         return { hasCarts: true, hasOpenCart: false };
     }
 
-    // open cart
+    // user has an open cart
     const openCart = {
         _id: lastCart._id,
         date: lastCart.date,

@@ -1,7 +1,7 @@
 const Item = require("../models/item");
 
+// Get the user's cart items, and calculate total price
 async function getItemsTotalPriceAsync(cartId) {
-
     const items = await Item.find({ cartId }).populate("product").exec();
 
     const prices = items.map(i => i.itemsPrice);
@@ -10,18 +10,17 @@ async function getItemsTotalPriceAsync(cartId) {
     return totalPrice;
 }
 
+// Add item to cart
 function addItemAsync(item) {
     return item.save().then(item => item.populate("product").execPopulate());
 }
 
-function updateItemAsync(item) {
-    return Item.updateOne({ _id: item._id }, item);
-}
-
+// Remove item from cart
 function deleteItemAsync(_id) {
     return Item.deleteOne({ _id }).exec();
 }
 
+// Remove all items from cart
 function deleteItemsByCartAsync(cartId) {
     return Item.deleteMany({ cartId }).exec();
 }
@@ -29,7 +28,6 @@ function deleteItemsByCartAsync(cartId) {
 module.exports = {
     getItemsTotalPriceAsync,
     addItemAsync,
-    updateItemAsync,
     deleteItemAsync,
     deleteItemsByCartAsync
 }

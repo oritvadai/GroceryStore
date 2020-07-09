@@ -31,21 +31,21 @@ router.get("/uploads/:imgName", async (request, response) => {
 router.use(verifyLoggedIn);
 
 // Get all products - GET http://localhost:3000/api/products
-router.get("/", async (request, response) => {
-    try {
-        // Allow access only to admin
-        const user = request.decodedJwt.user;
-        if (user.role != "admin") {
-            response.status(403).send("Access denied");
-            return;
-        }
-        const products = await productsLogic.getAllProductsAsync();
-        response.json(products);
-    }
-    catch (err) {
-        response.status(500).send(err.message);
-    }
-});
+// router.get("/", async (request, response) => {
+//     try {
+//         // Allow access only to admin
+//         const user = request.decodedJwt.user;
+//         if (user.role != "admin") {
+//             response.status(403).send("Access denied");
+//             return;
+//         }
+//         const products = await productsLogic.getAllProductsAsync();
+//         response.json(products);
+//     }
+//     catch (err) {
+//         response.status(500).send(err.message);
+//     }
+// });
 
 // Get one product - GET http://localhost:3000/api/products/:_id
 router.get("/:_id", async (request, response) => {
@@ -77,7 +77,7 @@ router.get("/by-category/:categoryId", async (request, response) => {
     }
 });
 
-// Get products by name - GET http://localhost:3000/api/products/by-name/:productName
+// Get product/s by name - GET http://localhost:3000/api/products/by-name/:productName
 router.get("/by-name/:productName", async (request, response) => {
     try {
         const product = await productsLogic.getProductsByName(request.params.productName);
@@ -92,7 +92,7 @@ router.get("/by-name/:productName", async (request, response) => {
     }
 });
 
-// Add product - POST http://localhost:3000/api/products
+// Add new product - POST http://localhost:3000/api/products
 router.post("/", async (request, response) => {
     try {
         // Allow access only to admin
