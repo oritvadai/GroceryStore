@@ -23,6 +23,6 @@ form {
     height: 220px;
     width: 180px;
     background-color: white;
-    border: 1px solid black;
+    border: 0.5px solid black;
     box-shadow: 5px 5px 5px #aaaaaa;
 }

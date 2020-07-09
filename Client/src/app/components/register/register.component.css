@@ -3,20 +3,20 @@
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    border: 1px solid black;
+    border: 0.5px solid black;
     gap: 10px;
 }
 
 #step1 {
     grid-column: span 6;
     padding: 30px;
-    border: 1px solid black;
+    border: 0.5px solid black;
     box-shadow: 5px 5px 5px #aaaaaa;
 }
 
 #step2 {
     grid-column: span 6;
     padding: 30px;
-    border: 1px solid black;
+    border: 0.5px solid black;
     box-shadow: 5px 5px 5px #aaaaaa;
 }

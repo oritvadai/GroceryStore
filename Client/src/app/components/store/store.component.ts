@@ -80,7 +80,6 @@ export class StoreComponent implements OnInit {
             .getProductsByCategory(categoryId)
             .subscribe(products => {
                 this.productsView = products;
-                console.log(products);
 
                 const action = { type: ActionType.GetProductsView, payload: products };
                 store.dispatch(action);

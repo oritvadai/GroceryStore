@@ -16,7 +16,7 @@ export class AdminComponent implements OnInit {
     public categories: Category[];
     public products: Product[];
     public url: string;
-    public addOpened = false;
+    public addOpened = true;
     public editOpened = false;
     public unsubscribe: Function;
 
