@@ -1,24 +1,24 @@
-<h4>Info</h4>
-<br>
-<div>
-    Available products in our store: {{ productsNum }} <br><br>
-    Number of orders in our store: {{ ordersNum }}
-</div>
+<div id="info">
 
-<div *ngIf="hasToken && user.role == 'user'">
+    <h4>Info</h4>
     <br>
-    <hr>
-    <br>
-    Welcome {{ user.firstName }} {{ user.lastName }}! <br><br>
+    <div>
+        Available products in our store: {{ productsNum }} <br><br>
+        Number of orders in our store: {{ ordersNum }}
+    </div>
 
-    <p *ngIf="openCart">
-        You have an open cart from {{ openCart | date: "dd/MM/yyyy" }}
-    </p>
+    <div *ngIf="hasToken && user.role == 'user'">
+        <br>
+        <hr>
+        <br>
+        Welcome {{ user.firstName }} {{ user.lastName }}! <br><br>
 
-    <p *ngIf="lastOrder">
-        your last order was on {{ lastOrder | date: "dd/MM/yyyy" }} <br>
-    </p>
-
-    <!-- fix pipe date problem  -->
-
+        <p *ngIf="openCart">
+            You have an open cart from {{ openCart | date: "dd/MM/yyyy" }}
+        </p>
+        <!-- fix pipe date problem  -->
+        <p *ngIf="lastOrder">
+            your last order was on {{ lastOrder | date: "dd/MM/yyyy" }} <br>
+        </p>
+    </div>
 </div>

@@ -1,6 +1,6 @@
 <div class="cart">
     <p>
-        Cart date: {{ cart.date | date: "dd/MM/yyyy" }} <br><br>
+        Cart opened: {{ cart.date | date: "dd/MM/yyyy" }} <br><br>
         <button mat-raised-button (click)="emptyCart()">Empty Cart</button>
         <hr>
 
@@ -9,7 +9,7 @@
             <th>Product</th>
             <th>#</th>
             <th>Price</th>
-            <th>x</th>
+            <th></th>
         </thead>
         <tbody>
             <tr *ngFor="let i of cart.items">
@@ -27,5 +27,5 @@
     </h2>
 
     <button mat-raised-button routerLink="/order">Checkout</button>
-
+    
 </div>
