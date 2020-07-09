@@ -1,16 +1,14 @@
-main {
-    padding: 10px;
-    grid-column: span 8;
-    overflow-y: auto;
-    border: 1px solid black;
+mat-sidenav-container {
+    height: 100%;
 }
 
-#products {
-    height: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    overflow-y: auto;
-    border: 1px solid black;
+mat-sidenav, mat-sidenav-content {
+    padding: 20px
+}
+
+mat-sidenav {
+    background-color: lightgray;
+    width: 300px;
 }
 
 .category {

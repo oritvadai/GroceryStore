@@ -22,6 +22,7 @@ export class StoreComponent implements OnInit {
     public cart = new Cart();
     public item = new Item();
     public url: string;
+    public opened = true;
     public unsubscribe: Function;
 
     constructor(

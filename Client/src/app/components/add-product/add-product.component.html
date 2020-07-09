@@ -1,4 +1,5 @@
 <div>
+    <p>Add Product:</p>
     <form #formInfo="ngForm" (ngSubmit)="addProduct()">
         <mat-form-field>
             <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"

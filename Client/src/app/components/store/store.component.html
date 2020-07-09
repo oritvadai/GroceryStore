@@ -1,8 +1,13 @@
-<div id="store">
-    <div id="cart">
+<!-- <div id="store"> -->
+
+<mat-sidenav-container>
+    <mat-sidenav mode="side" [(opened)]="opened">
         <app-cart></app-cart>
-    </div>
-    <div id="products">
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <button (click)="opened=!opened">Cart</button>
+        <br><br>
 
         <div class="categories">
             <div class="category" *ngFor="let c of categories">
@@ -19,5 +24,16 @@
             <button mat-raised-button (click)="openDialog(p)">Add</button>
         </div>
 
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <div id="cart"> -->
+<!-- </div> -->
+
+<!-- <div id="products"> -->
+
+
+
+<!-- </div> -->
+<!-- </div> -->

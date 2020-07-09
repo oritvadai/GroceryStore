@@ -16,6 +16,8 @@ export class AdminComponent implements OnInit {
     public categories: Category[]; 
     public products: Product[];
     public url: string;
+    public addOpened = false;
+    public editOpened = false;
     public unsubscribe: Function;
 
     constructor(
@@ -63,25 +65,6 @@ export class AdminComponent implements OnInit {
         } else {
             this.categories = store.getState().categories;
         }
-
-        // if (store.getState().allProducts.length === 0) {
-        //     this.adminService
-        //         .getAllProducts()
-        //         .subscribe(products => {
-        //             this.products = products
-
-        //             const action = { type: ActionType.AdminGetAllProducts, payload: products };
-        //             store.dispatch(action);
-        //         },
-        //             err => {
-        //                 alert(err.message)
-        //                 this.router.navigateByUrl("/logout");
-        //             }
-        //         );
-        // }
-        // else {
-        //     this.products = store.getState().allProducts;
-        // }
     }
 
     public async getProductsByCategory(categoryId: string) {

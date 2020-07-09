@@ -17,7 +17,7 @@
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.itemsPrice | currency:"ILS" }}</td>
                 <td>
-                    <button mat-raised-button (click)="removeItem(i._id)">X</button>
+                    <button (click)="removeItem(i._id)">X</button>
                 </td>
             </tr>
         </tbody>

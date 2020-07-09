@@ -22,7 +22,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -30,8 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
-
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -59,14 +58,14 @@ import { MatNativeDateModule } from '@angular/material/core';
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule,
         BrowserAnimationsModule,
         MatInputModule,
         MatButtonModule,
         MatSelectModule,
         MatDialogModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatSidenavModule
     ],
     providers: [],
     bootstrap: [LayoutComponent]

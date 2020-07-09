@@ -1,19 +1,39 @@
-<div id="products">
+<mat-sidenav-container>
 
-    <a routerLink="/add-product">Add Product</a>
-    <br><br>
+    <mat-sidenav mode="side" [(opened)]="addOpened">
 
-    <div class="categories">
-        <div class="category" *ngFor="let c of categories">
-            <button mat-raised-button (click)="getProductsByCategory(c._id)"> {{c.category}} </button>
+        <app-add-product></app-add-product>
+
+    </mat-sidenav>
+
+    <mat-sidenav mode="side" [(opened)]="editOpened">
+
+        <app-edit-product></app-edit-product>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+        <button (click)="addOpened=!addOpened">Add Product</button>
+        <br><br>
+        <button (click)="editOpened=!editOpened">Edit Product</button>
+        <br><br>
+
+        <a routerLink="/add-product">Add Product</a>
+        <br><br>
+
+        <div class="categories">
+            <div class="category" *ngFor="let c of categories">
+                <button mat-raised-button (click)="getProductsByCategory(c._id)"> {{c.category}} </button>
+            </div>
         </div>
-    </div>
 
-    <div class="product" *ngFor="let p of products">
-        {{p.productName}}<br>
-        Price: {{p.unitPrice | currency:"ILS"}}<br>
-        <img [src]="url+p.picFileName" height="200"> <br />
-        <button mat-raised-button routerLink="/edit-product/{{p._id}}">Edit</button>
-    </div>
+        <div class="product" *ngFor="let p of products">
+            {{p.productName}}<br>
+            Price: {{p.unitPrice | currency:"ILS"}}<br>
+            <img [src]="url+p.picFileName" height="200"> <br />
+            <button mat-raised-button routerLink="/edit-product/{{p._id}}">Edit</button>
+        </div>
 
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
