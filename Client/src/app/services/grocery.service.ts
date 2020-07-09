@@ -52,7 +52,7 @@ export class GroceryService {
     }
 
     // Cart & Items
-    public getCartDateByUser(userId: string): Observable<CartInfo> {
+    public getCartInfoByUser(userId: string): Observable<CartInfo> {
         return this.http.get<CartInfo>(
             "http://localhost:3000/api/carts/date/" + userId,
             { headers: this.getHeaders() });

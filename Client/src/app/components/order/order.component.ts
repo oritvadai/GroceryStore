@@ -24,7 +24,7 @@ export class OrderComponent implements OnInit {
     async ngOnInit() {
 
         this.cart = store.getState().cart;
-        this.openCart = store.getState().openCart;
+        this.openCart = store.getState().openCartInfo;
 
         const user = store.getState().user;
         const hasToken = store.getState().hasToken;

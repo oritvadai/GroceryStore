@@ -24,7 +24,7 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             break;
 
         case ActionType.GetOpenCartInfo:
-            newAppState.openCart = action.payload;
+            newAppState.openCartInfo = action.payload;
             break;
 
 

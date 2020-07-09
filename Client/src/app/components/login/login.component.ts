@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
     public credentials = new User();
     public user = new User();
     public hasToken: boolean;
+
+    public lastOrder: Date;
+    public openCartDate: Date;
+
     public unsubscribe: Function;
 
     constructor(
@@ -26,8 +30,15 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void {
 
         this.unsubscribe = store.subscribe(() => {
-            this.user = store.getState().user;
-            this.hasToken = store.getState().hasToken;
+            const storeState = store.getState();
+
+            this.user = storeState.user;
+            this.hasToken = storeState.hasToken;
+
+            this.lastOrder = storeState.lastOrder;
+            if (storeState.openCartInfo) {
+                this.openCartDate = storeState.openCartInfo.date;
+            }
         });
 
         this.user = store.getState().user;
@@ -45,7 +56,7 @@ export class LoginComponent implements OnInit {
 
                     const action = { type: ActionType.Login, payload: response.user };
                     store.dispatch(action);
-
+                    
                     if (response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
                     }
@@ -64,11 +75,15 @@ export class LoginComponent implements OnInit {
     getUserInfo() {
         //  Get open cart info
         this.groceryService
-            .getCartDateByUser(this.user._id)
-            .subscribe(openCart => {
+            .getCartInfoByUser(this.user._id)
+            .subscribe(openCartInfo => {
 
-                const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
+                console.log("login openCartInfo", openCartInfo);
+
+                const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
                 store.dispatch(action);
+
+                console.log("redux openCartInfo", store.getState().openCartInfo);
 
             }, err => alert(err.message));
 

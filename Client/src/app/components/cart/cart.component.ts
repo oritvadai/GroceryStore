@@ -5,7 +5,6 @@ import { CartInfo } from 'src/app/models/cart-info';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Router } from '@angular/router';
-import { InfoService } from 'src/app/services/info.service';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -18,7 +17,7 @@ export class CartComponent implements OnInit {
     public user = new User();
     public hasToken: boolean;
 
-    public openCart = new CartInfo();
+    public openCartInfo = new CartInfo();
     public cart = new Cart();
     public totalPrice: number;
 
@@ -34,7 +33,7 @@ export class CartComponent implements OnInit {
             this.user = store.getState().user;
             this.hasToken = store.getState().hasToken;
 
-            this.openCart = store.getState().openCart;
+            this.openCartInfo = store.getState().openCartInfo;
             this.cart = store.getState().cart;
             this.totalPrice = store.getState().totalPrice;
         });
@@ -54,43 +53,58 @@ export class CartComponent implements OnInit {
             return;
         }
 
-        // Get openCart info
-        if (!store.getState().openCart || !store.getState().openCart._id) {
-            this.groceryService
-                .getCartDateByUser(this.user._id)
-                .subscribe(openCart => {
-                    this.openCart = openCart;
+        console.log(store.getState());
 
-                    const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
+        // Get open cart info
+        if (!store.getState().openCartInfo || !store.getState().openCartInfo._id) {
+            this.groceryService
+                .getCartInfoByUser(this.user._id)
+                .subscribe(openCartInfo => {
+
+                    console.log("net", openCartInfo)
+
+                    this.openCartInfo = openCartInfo;
+
+                    const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
                     store.dispatch(action);
 
-                    this.getCartItems(openCart._id);
-
+                    if (openCartInfo.hasOpenCart) {
+                        this.getCartItems(openCartInfo._id);
+                    }
                 }, err => alert(err.message));
         } else {
 
-            this.openCart = store.getState().openCart;
+            this.openCartInfo = store.getState().openCartInfo;
 
-            this.getCartItems(this.openCart._id);
+            console.log("redux", this.openCartInfo);
+
+
+            if (this.openCartInfo.hasOpenCart) {
+                this.getCartItems(this.openCartInfo._id);
+            }
         }
     }
 
     // Get openCart items
     getCartItems(openCartId) {
-        this.groceryService
-            .getCartById(openCartId)
-            .subscribe(cart => {
+        if (!this.cart || ! this.cart._id) {
+            this.groceryService
+                .getCartById(openCartId)
+                .subscribe(cart => {
 
-                this.cart = cart;
-                this.totalPrice = cart.totalPrice;
+                    this.cart = cart;
+                    this.totalPrice = cart.totalPrice;
 
-                const actionCart = { type: ActionType.GetCartContent, payload: cart };
-                store.dispatch(actionCart);
+                    const actionCart = { type: ActionType.GetCartContent, payload: cart };
+                    store.dispatch(actionCart);
 
-                const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
-                store.dispatch(actionPrice);
+                    const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
+                    store.dispatch(actionPrice);
 
-            }, err => alert(err.message));
+                }, err => alert(err.message));
+        } else {
+            this.cart = store.getState().cart;
+        }
     }
 
     public async removeItem(itemId) {

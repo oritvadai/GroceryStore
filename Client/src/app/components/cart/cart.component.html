@@ -1,31 +1,39 @@
 <div class="cart">
-    <p>
-        Cart opened: {{ cart.date | date: "dd/MM/yyyy" }} <br><br>
+    <div *ngIf="!cart || !cart._id">
+        <p> No open cart </p>
+    </div>
+
+    <div *ngIf="cart && cart._id">
+        <p> Cart opened: {{ cart.date | date: "dd/MM/yyyy" }} </p> 
+        <br><br>
+
         <button mat-raised-button (click)="emptyCart()">Empty Cart</button>
+        <br><br>
+
         <hr>
+        <table>
+            <thead>
+                <th>Product</th>
+                <th>#</th>
+                <th>Price</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of cart.items">
+                    <td>{{ i.product.productName }}</td>
+                    <td>{{ i.quantity }}</td>
+                    <td>{{ i.itemsPrice | currency:"ILS" }}</td>
+                    <td>
+                        <button (click)="removeItem(i._id)">X</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>
+            Total Price: {{ totalPrice| currency:"ILS" }}
+        </h2>
 
-    <table>
-        <thead>
-            <th>Product</th>
-            <th>#</th>
-            <th>Price</th>
-            <th></th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let i of cart.items">
-                <td>{{ i.product.productName }}</td>
-                <td>{{ i.quantity }}</td>
-                <td>{{ i.itemsPrice | currency:"ILS" }}</td>
-                <td>
-                    <button (click)="removeItem(i._id)">X</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>
-        Total Price: {{ totalPrice| currency:"ILS" }}
-    </h2>
+        <button mat-raised-button routerLink="/order">Checkout</button>
+    </div>
 
-    <button mat-raised-button routerLink="/order">Checkout</button>
-    
 </div>

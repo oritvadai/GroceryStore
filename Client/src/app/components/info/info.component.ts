@@ -18,7 +18,7 @@ export class InfoComponent implements OnInit {
     public hasToken: boolean;
 
     public lastOrder: Date;
-    public openCart: Date;
+    public openCartDate: Date;
 
     public unsubscribe: Function;
 
@@ -39,8 +39,8 @@ export class InfoComponent implements OnInit {
 
             this.lastOrder = storeState.lastOrder;
 
-            if (storeState.openCart) {
-                this.openCart = storeState.openCart.date;
+            if (storeState.openCartInfo) {
+                this.openCartDate = storeState.openCartInfo.date;
             }
         });
 
@@ -80,12 +80,12 @@ export class InfoComponent implements OnInit {
         }
 
         //  Get open cart info
-        if (this.hasToken && !store.getState().openCart) {
+        if (this.hasToken && !store.getState().openCartInfo) {
             this.getOpenCartInfo();
         } else {
-            const openCart = store.getState().openCart;
+            const openCart = store.getState().openCartInfo;
             if (openCart) {
-                this.openCart = store.getState().openCart.date;
+                this.openCartDate = store.getState().openCartInfo.date;
             }
         }
     }
@@ -110,16 +110,14 @@ export class InfoComponent implements OnInit {
 
     getOpenCartInfo() {
         this.groceryService
-            .getCartDateByUser(this.user._id)
-            .subscribe(openCart => {
+            .getCartInfoByUser(this.user._id)
+            .subscribe(openCartInfo => {
 
-                console.log("info openCart");
-                console.log(openCart);
-                // if !open cart => 
-                // else -
-                this.openCart = openCart.date;
+                console.log("info openCart", openCartInfo);
+                
+                this.openCartDate = openCartInfo.date;
 
-                const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
+                const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
                 store.dispatch(action);
 
             }, err => alert(err.message));

@@ -1,6 +1,6 @@
 <div id="info">
 
-    <h4>Info</h4>
+    <h3>Info</h3>
     <br>
     <div>
         Available products in our store: {{ productsNum }} <br><br>
@@ -8,17 +8,24 @@
     </div>
 
     <div *ngIf="hasToken && user.role == 'user'">
-        <br>
+        <br><br>
         <hr>
-        <br>
-        Welcome {{ user.firstName }} {{ user.lastName }}! <br><br>
-
-        <p *ngIf="openCart">
-            You have an open cart from {{ openCart | date: "dd/MM/yyyy" }}
+        <br><br>
+        <!-- Welcome {{ user.firstName }} {{ user.lastName }}!  -->
+        
+        <p *ngIf="openCartDate">
+            You have an open cart from {{ openCartDate | date: "dd/MM/yyyy" }}
         </p>
+        <p *ngIf="!openCartDate">
+            You have no open cart
+        </p>
+    
         <!-- fix pipe date problem  -->
         <p *ngIf="lastOrder">
             your last order was on {{ lastOrder | date: "dd/MM/yyyy" }} <br>
+        </p>
+        <p *ngIf="!lastOrder">
+            You have no prior orders
         </p>
     </div>
 </div>

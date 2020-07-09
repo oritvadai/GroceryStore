@@ -10,7 +10,7 @@ export class AppState {
     public productsNum: number;
     public ordersNum: number;
     public lastOrder: Date;
-    public openCart: CartInfo;
+    public openCartInfo: CartInfo;
 
     // Login
     public user: User;
@@ -33,8 +33,8 @@ export class AppState {
         // Home Info
         this.productsNum = 0;
         this.ordersNum = 0;
-        // this.lastOrder = null;
-        // this.openCart = new CartInfo();
+        this.lastOrder = null;
+        this.openCartInfo = null;
 
         // Login
         this.user = JSON.parse(sessionStorage.getItem("user"));

@@ -31,11 +31,26 @@
 </div>
 
 <div *ngIf="hasToken && user && user.role == 'user'">
-    <h4> Welcome! </h4>
-    <br>
-    <a routerLink="/store" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        Start / Resume Shopping</a>
+    <div *ngIf="openCartDate && lastOrder">
+        <h1> Welcome!</h1>
+        <br>
+        <a routerLink="/store"> Resume Shopping </a>
+    </div>
+
+    <div *ngIf="!openCartDate && lastOrder">
+        <h1> Welcome!</h1>
+        <br>
+        <a routerLink="/store"> Start Shopping </a>
+    </div>
+
+    <div *ngIf="!openCartDate && !lastOrder">
+        <h1> Welcome New User!</h1>
+        <br>
+        <a routerLink="/store"> Start Shopping </a>
+    </div>
 </div>
+
+
 
 <div *ngIf="hasToken && user && user.role == 'admin'">
     <h4> Welcome! </h4>
