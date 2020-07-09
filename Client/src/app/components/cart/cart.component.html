@@ -1,6 +1,6 @@
 <div class="cart">
     <div *ngIf="!cart || !cart._id">
-        <p> No open cart </p>
+        <button mat-raised-button (click)="addCart()">Open New Cart</button>
     </div>
 
     <div *ngIf="cart && cart._id">

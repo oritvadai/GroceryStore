@@ -87,7 +87,7 @@ export class CartComponent implements OnInit {
 
     // Get openCart items
     getCartItems(openCartId) {
-        if (!this.cart || ! this.cart._id) {
+        if (!this.cart || !this.cart._id) {
             this.groceryService
                 .getCartById(openCartId)
                 .subscribe(cart => {
@@ -110,7 +110,7 @@ export class CartComponent implements OnInit {
     public async removeItem(itemId) {
         this.groceryService
             .removeItem(itemId)
-            .subscribe(result => {
+            .subscribe(() => {
 
                 const action = { type: ActionType.RemoveItem, payload: itemId };
                 store.dispatch(action);
@@ -120,7 +120,7 @@ export class CartComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    // Update totalPrice
+    // Update totalPrice when items are removed
     updateTotalPrice() {
         this.groceryService
             .getTotalPriceByCart(this.cart._id)
@@ -136,13 +136,26 @@ export class CartComponent implements OnInit {
     emptyCart() {
         this.groceryService
             .removeItemsByCart(this.cart._id)
-            .subscribe(result => {
+            .subscribe(() => {
 
                 const action = { type: ActionType.ClearCart };
                 store.dispatch(action);
-                // alert("Cart Cleared");
             },
                 err => alert(err.message));
+    }
+
+    addCart() {
+        const cart = new Cart();
+        cart.userId = this.user._id;
+        cart.date = new Date();
+
+        this.groceryService
+            .addCart(cart)
+            .subscribe(cart => {
+
+                this.getCartItems(cart._id);
+
+            }, err => alert(err.message));
     }
 
     ngOnDestroy() {

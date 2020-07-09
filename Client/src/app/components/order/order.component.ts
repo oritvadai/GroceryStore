@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user';
 import { Cart } from 'src/app/models/cart';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { Router } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Order } from 'src/app/models/order';
+import { CartInfo } from 'src/app/models/cart-info';
 
 @Component({
     selector: 'app-order',
@@ -47,8 +47,8 @@ export class OrderComponent implements OnInit {
                 .subscribe(cart => {
                     this.cart = cart;
 
-                    const cartAction = { type: ActionType.GetCartContent, payload: cart };
-                    store.dispatch(cartAction);
+                    const action = { type: ActionType.GetCartContent, payload: cart };
+                    store.dispatch(action);
 
                 }, err => alert(err.message));
         }
@@ -65,6 +65,17 @@ export class OrderComponent implements OnInit {
         this.groceryService
             .addOrder(this.order)
             .subscribe(response => {
+
+                // clear ordered cart from redux
+                const cart = new Cart();
+                const actionCart = { type: ActionType.GetCartContent, payload: cart };
+                store.dispatch(actionCart);
+
+                // clear previous cart info from redux
+                const cartInfo = new CartInfo();
+                const actionInfo = { type: ActionType.GetOpenCartInfo, payload: cartInfo };
+                store.dispatch(actionInfo);
+
                 alert("Order confirmed")
                 this.router.navigateByUrl("/home");
             },

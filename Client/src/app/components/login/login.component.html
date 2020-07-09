@@ -31,7 +31,8 @@
 </div>
 
 <div *ngIf="hasToken && user && user.role == 'user'">
-    <div *ngIf="openCartDate && lastOrder">
+
+    <div *ngIf="openCartDate">
         <h1> Welcome!</h1>
         <br>
         <a routerLink="/store"> Resume Shopping </a>

@@ -120,7 +120,7 @@ export class StoreComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    // Update totalPrice
+    // Update totalPrice when items are added
     updateTotalPrice() {
         this.groceryService
             .getTotalPriceByCart(this.cart._id)
