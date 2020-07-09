@@ -3,11 +3,9 @@ import { Action } from './action';
 import { ActionType } from './action-type';
 import { User } from '../models/user';
 import { Cart } from '../models/cart';
-import { Product } from '../models/product';
 
 export function reducer(oldAppState: AppState, action: Action): AppState {
 
-    console.log(oldAppState, action)
     const newAppState = { ...oldAppState };
 
     switch (action.type) {

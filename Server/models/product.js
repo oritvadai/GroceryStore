@@ -9,11 +9,11 @@ const ProductSchema = mongoose.Schema({
     unitPrice: Number,
     picFileName: String
 
-}, { 
+}, {
     versionKey: false,
     toJSON: { virtuals: true },
     id: false
- });
+});
 
 ProductSchema.virtual("category", {
     ref: "Category",

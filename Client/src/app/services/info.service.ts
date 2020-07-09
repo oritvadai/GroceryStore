@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { GroceryService } from './grocery.service';
 import { ActionType } from '../redux/action-type';
 import { store } from '../redux/store';
+import { Observable } from 'rxjs';
+import { CartInfo } from '../models/cart-info';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +16,6 @@ export class InfoService {
         this.groceryService
             .getCartDateByUser(userId)
             .subscribe(openCart => {
-
                 const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
                 store.dispatch(action);
 

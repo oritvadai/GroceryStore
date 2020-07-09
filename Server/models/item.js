@@ -10,11 +10,11 @@ const ItemSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cart"
     }
-}, { 
+}, {
     versionKey: false,
     toJSON: { virtuals: true },
     id: false
- });
+});
 
 ItemSchema.virtual("product", {
     ref: "Product",
@@ -30,7 +30,7 @@ ItemSchema.virtual("product", {
 //     justOne: true
 // });
 
-ItemSchema.virtual("itemsPrice").get(function(){
+ItemSchema.virtual("itemsPrice").get(function () {
     return this.quantity * this.product.unitPrice;
 });
 

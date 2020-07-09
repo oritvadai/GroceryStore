@@ -6,7 +6,7 @@ const CartSchema = mongoose.Schema({
         ref: "User"
     },
     date: Date,
-    totalPrice: Number  
+    totalPrice: Number
 }, {
     versionKey: false,
     toJSON: { virtuals: true },

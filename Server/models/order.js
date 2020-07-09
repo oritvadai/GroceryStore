@@ -14,11 +14,11 @@ const OrderSchema = mongoose.Schema({
     deliveryDate: Date,
     orderDate: Date,
     creditCard: Number
-}, { 
+}, {
     versionKey: false,
     toJSON: { virtuals: true },
     id: false
- });
+});
 
 OrderSchema.virtual("user", {
     ref: "User",

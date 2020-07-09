@@ -14,12 +14,12 @@ router.get("/:_id", async (request, response) => {
         if(!cart) {
             response.sendStatus(404);
             return;
-        };
+        }
         response.json(cart);
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Get open cart (id & date) by user -
@@ -30,12 +30,12 @@ router.get("/date/:userId", async (request, response) => {
         if(!openCart) {
             response.sendStatus(404);
             return;
-        };
+        }
         response.json(openCart);
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Add cart - POST http://localhost:3000/api/carts

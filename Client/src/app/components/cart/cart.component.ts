@@ -47,45 +47,35 @@ export class CartComponent implements OnInit {
             alert("Access Denied");
             this.router.navigateByUrl("/home");
             return;
-        };
+        }
 
         if (!this.hasToken) {
             alert("Please Login");
             this.router.navigateByUrl("/logout");
             return;
-        };
+        }
 
         // Get openCart info
+
         if (!store.getState().openCart || !store.getState().openCart._id) {
-            this.infoService
-                .getOpenCartInfo(this.user._id);
+            this.groceryService
+                .getCartDateByUser(this.user._id)
+                .subscribe(openCart => {
+                    this.openCart = openCart;
+
+                    const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
+                    store.dispatch(action);
+
+                    this.getCartItems(openCart._id);
+
+                }, err => alert(err.message));
         } else {
+
             this.openCart = store.getState().openCart;
+
+            this.getCartItems(this.openCart._id);
         }
-        
-        this.getCartItems(this.openCart._id);
-
-        console.log(store.getState());
-
-        // if (!store.getState().openCart || !store.getState().openCart._id) {
-        //     this.groceryService
-        //         .getCartDateByUser(this.user._id)
-        //         .subscribe(openCart => {
-        //             this.openCart = openCart;
-
-        //             const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
-        //             store.dispatch(action);
-
-        //             this.getCartItems(openCart._id);
-
-        //         }, err => alert(err.message));
-        // } else {
-
-        //     this.openCart = store.getState().openCart;
-
-            // this.getCartItems(this.openCart._id);
-        // };
-    };
+    }
 
     // Get openCart items
     getCartItems(openCartId) {
@@ -103,7 +93,7 @@ export class CartComponent implements OnInit {
                 store.dispatch(actionPrice);
 
             }, err => alert(err.message));
-    };
+    }
 
     public async removeItem(itemId) {
         this.groceryService
@@ -112,23 +102,24 @@ export class CartComponent implements OnInit {
 
                 const action = { type: ActionType.RemoveItem, payload: itemId };
                 store.dispatch(action);
-                // alert("Item Removed");
+
+                this.updateTotalPrice();
             },
                 err => alert(err.message));
-    };
+    }
 
     // Update totalPrice
-    // updateTotalPrice() {
-    //     this.groceryService
-    //         .getTotalPriceByCart(this.cart._id)
-    //         .subscribe(totalPrice => {
-    //             this.totalPrice = +totalPrice;
+    updateTotalPrice() {
+        this.groceryService
+            .getTotalPriceByCart(this.cart._id)
+            .subscribe(totalPrice => {
+                this.totalPrice = totalPrice;
 
-    //             const actionPrice = { type: ActionType.GetTotalPrice, payload: this.totalPrice };
-    //             store.dispatch(actionPrice);
-    //         },
-    //             err => alert(err.message));
-    // }
+                const actionPrice = { type: ActionType.GetTotalPrice, payload: this.totalPrice };
+                store.dispatch(actionPrice);
+            },
+                err => alert(err.message));
+    }
 
     emptyCart() {
         this.groceryService
@@ -140,9 +131,9 @@ export class CartComponent implements OnInit {
                 // alert("Cart Cleared");
             },
                 err => alert(err.message));
-    };
+    }
 
     ngOnDestroy() {
         this.unsubscribe();
-    };
-};
+    }
+}

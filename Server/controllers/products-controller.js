@@ -26,7 +26,7 @@ router.get("/uploads/:imgName", async (request, response) => {
     catch (err) {
         response.status(500).send(err.message);
     }
-})
+});
 
 router.use(verifyLoggedIn);
 
@@ -54,12 +54,12 @@ router.get("/:_id", async (request, response) => {
         if (!product) {
             response.sendStatus(404);
             return;
-        };
+        }
         response.json(product);
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Get products by category - GET http://localhost:3000/api/products/by-category/:categoryId
@@ -69,12 +69,12 @@ router.get("/by-category/:categoryId", async (request, response) => {
         if (!products) {
             response.sendStatus(404);
             return;
-        };
+        }
         response.json(products);
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Get products by name - GET http://localhost:3000/api/products/by-name/:productName
@@ -84,12 +84,12 @@ router.get("/by-name/:productName", async (request, response) => {
         if (!product) {
             response.sendStatus(404);
             return;
-        };
+        }
         response.json(product);
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Add product - POST http://localhost:3000/api/products
@@ -118,7 +118,7 @@ router.post("/", async (request, response) => {
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Update product - PUT http://localhost:3000/api/products/:_id
@@ -149,7 +149,7 @@ router.put("/:_id", async (request, response) => {
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 module.exports = router;

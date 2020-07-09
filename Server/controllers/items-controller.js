@@ -14,12 +14,12 @@ router.get("/totalPrice/:cartId", async (request, response) => {
         if(!totalPrice) {
             response.sendStatus(404);
             return;
-        };
+        }
         response.json(totalPrice);
     }
     catch (err) {
         response.status(500).send(err.message);
-    };
+    }
 });
 
 // Add item - POST http://localhost:3000/api/items

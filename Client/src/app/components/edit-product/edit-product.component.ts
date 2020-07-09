@@ -5,7 +5,6 @@ import { AdminService } from 'src/app/services/admin.service';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { store } from 'src/app/redux/store';
-import { ActionType } from 'src/app/redux/action-type';
 
 @Component({
     selector: 'app-edit-product',

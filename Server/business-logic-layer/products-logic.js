@@ -8,23 +8,23 @@ const uploadsFolder = "./uploads"
 
 function getNumProductsAsync() {
     return Product.countDocuments();
-};
+}
 
 function getAllProductsAsync() {
     return Product.find({}).populate("category").exec();
-};
+}
 
 function getOneProductAsync(_id) {
     return Product.findOne({ _id }).populate("category").exec();
-};
+}
 
 function getProductsByCategoryAsync(categoryId) {
     return Product.find({ categoryId }).populate("category").exec();
-};
+}
 
 function getProductsByName(productName) {
     return Product.find({ productName }).populate("category").exec();
-};
+}
 
 function addProductAsync(product, image) {
     // If there is no uploads folder, create it
@@ -39,7 +39,7 @@ function addProductAsync(product, image) {
     image.mv(path.join(uploadsFolder, fileName));
 
     return product.save();
-};
+}
 
 async function updateProductAsync(product, image) {
     if (!fs.existsSync(uploadsFolder)) {
@@ -58,7 +58,7 @@ async function updateProductAsync(product, image) {
         image.mv(path.join(uploadsFolder, fileName));
     }
     return Product.updateOne({ _id: product._id }, product);
-};
+}
 
 function getImagePathAsync(imgName) {
     return path.join(__dirname, "../uploads", imgName);
@@ -73,4 +73,4 @@ module.exports = {
     addProductAsync,
     updateProductAsync,
     getImagePathAsync
-};
+}

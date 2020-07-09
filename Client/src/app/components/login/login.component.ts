@@ -4,7 +4,7 @@ import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
-import { InfoService } from 'src/app/services/info.service';
+import { GroceryService } from 'src/app/services/grocery.service';
 
 @Component({
     selector: 'app-login',
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
     public unsubscribe: Function;
 
     constructor(
-        private authService: AuthService, 
-        private infoService: InfoService, 
+        private authService: AuthService,
+        private groceryService: GroceryService,
         private router: Router) { }
 
     ngOnInit(): void {
@@ -48,12 +48,9 @@ export class LoginComponent implements OnInit {
 
                     if (response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
-                    } 
+                    }
                     else if (response.user.role == "user") {
-                        this.infoService
-                        .getOpenCartInfo(this.user._id);
-                        this.infoService
-                        .getLastOrderInfo(this.user._id);
+                        this.getUserInfo();
                     }
                 },
                     err => alert(err.message));
@@ -62,5 +59,27 @@ export class LoginComponent implements OnInit {
 
     ngOnDestroy() {
         this.unsubscribe();
+    };
+
+    getUserInfo() {
+        //  Get open cart info
+        this.groceryService
+            .getCartDateByUser(this.user._id)
+            .subscribe(openCart => {
+
+                const action = { type: ActionType.GetOpenCartInfo, payload: openCart };
+                store.dispatch(action);
+
+            }, err => alert(err.message));
+
+        //  Get last order info
+        this.groceryService
+            .getLastOrderByUser(this.user._id)
+            .subscribe(lastOrder => {
+
+                const action = { type: ActionType.GetLastOrderByUser, payload: lastOrder.orderDate };
+                store.dispatch(action);
+
+            }, err => alert(err.message));
     }
 }

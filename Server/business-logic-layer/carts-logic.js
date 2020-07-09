@@ -13,15 +13,15 @@ async function getCartByIdAsync(_id) {
     const prices = cart.items.map(i => i.itemsPrice);
     const totalPrice = prices.reduce((a, b) => a + b, 0);
 
-    cart.totalPrice = totalPrice.toFixed(2);
+    cart.totalPrice = +totalPrice.toFixed(2);
 
     return cart;
-};
+}
 
 // Add cart
 function addCartAsync(cart) {
     return cart.save();
-};
+}
 
 // ---------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ function getLastCartAsync(userId) {
 // check if last cart was already ordered
 function isCartOrderedAsync(cartId) {
     return Order.find({ cartId }).countDocuments();
-};
+}
 
 // Check if user has cart or not, and if it was ordered or left open
 async function getOpenCartByUser(userId) {
@@ -42,7 +42,7 @@ async function getOpenCartByUser(userId) {
     if (!lastCart) {
         // no carts
         return { hasCarts: false, hasOpenCart: false };
-    };
+    }
 
     const cartId = lastCart._id;
     // check if last cart was already ordered
@@ -50,7 +50,7 @@ async function getOpenCartByUser(userId) {
     if (isCartOrdered) {
         // no open cart        
         return { hasCarts: true, hasOpenCart: false };
-    };
+    }
 
     // open cart
     const openCart = {
@@ -60,11 +60,11 @@ async function getOpenCartByUser(userId) {
         hasOpenCart: true
     }
     return openCart;
-};
+}
 
 
 module.exports = {
     getCartByIdAsync,
     addCartAsync,
     getOpenCartByUser
-};
+}
