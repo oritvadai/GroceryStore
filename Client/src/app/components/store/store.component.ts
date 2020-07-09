@@ -116,22 +116,22 @@ export class StoreComponent implements OnInit {
                 const action = { type: ActionType.AddItem, payload: item };
                 store.dispatch(action);
 
-                // this.updateTotalPrice();
+                this.updateTotalPrice();
             },
                 err => alert(err.message));
     }
 
     // Update totalPrice
-    // updateTotalPrice() {
-    //     this.groceryService
-    //         .getTotalPriceByCart(this.cart._id)
-    //         .subscribe(totalPrice => {
+    updateTotalPrice() {
+        this.groceryService
+            .getTotalPriceByCart(this.cart._id)
+            .subscribe(totalPrice => {
 
-    //             const action = { type: ActionType.GetTotalPrice, payload: +totalPrice };
-    //             store.dispatch(action);
-    //         },
-    //             err => alert(err.message));
-    // }
+                const action = { type: ActionType.GetTotalPrice, payload: +totalPrice };
+                store.dispatch(action);
+            },
+                err => alert(err.message));
+    }
 
     ngOnDestroy() {
         this.unsubscribe();

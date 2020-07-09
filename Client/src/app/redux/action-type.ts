@@ -23,6 +23,7 @@ export enum ActionType {
     GetProductsView,
 
     // admin
+    AdminUpdateProductId
     // AdminGetAllProducts,
     // AdminAddProduct,
     // AdminUpdateProduct

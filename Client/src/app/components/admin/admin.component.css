@@ -7,8 +7,12 @@ mat-sidenav, mat-sidenav-content {
 }
 
 mat-sidenav {
-    background-color: lightgray;
-    width: 300px;
+    /* background-color: lightgray; */
+    width: 350px;
+}
+
+#add {
+    float: left;
 }
 
 .category {

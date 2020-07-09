@@ -13,7 +13,7 @@ import { GroceryService } from 'src/app/services/grocery.service';
 })
 export class AdminComponent implements OnInit {
 
-    public categories: Category[]; 
+    public categories: Category[];
     public products: Product[];
     public url: string;
     public addOpened = false;
@@ -77,6 +77,11 @@ export class AdminComponent implements OnInit {
                 store.dispatch(action);
             },
                 err => alert(err.message));
+    }
+
+    public editProductId(id: string) {
+        const action = { type: ActionType.AdminUpdateProductId, payload: id };
+        store.dispatch(action);
     }
 
     ngOnDestroy() {

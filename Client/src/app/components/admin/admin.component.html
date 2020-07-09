@@ -1,25 +1,19 @@
 <mat-sidenav-container>
 
-    <mat-sidenav mode="side" [(opened)]="addOpened">
+    <mat-sidenav mode="side" [(opened)]="addOpened || editOpened">
 
-        <app-add-product></app-add-product>
-
-    </mat-sidenav>
-
-    <mat-sidenav mode="side" [(opened)]="editOpened">
-
-        <app-edit-product></app-edit-product>
+        <div *ngIf="addOpened">
+            <app-add-product></app-add-product>
+        </div>
+        <div *ngIf="editOpened">
+            <app-edit-product></app-edit-product>
+        </div>
 
     </mat-sidenav>
 
     <mat-sidenav-content>
 
-        <button (click)="addOpened=!addOpened">Add Product</button>
-        <br><br>
-        <button (click)="editOpened=!editOpened">Edit Product</button>
-        <br><br>
-
-        <a routerLink="/add-product">Add Product</a>
+        <button id="add" mat-raised-button (click)="addOpened=!addOpened; editOpened=false">Add</button>
         <br><br>
 
         <div class="categories">
@@ -32,7 +26,7 @@
             {{p.productName}}<br>
             Price: {{p.unitPrice | currency:"ILS"}}<br>
             <img [src]="url+p.picFileName" height="200"> <br />
-            <button mat-raised-button routerLink="/edit-product/{{p._id}}">Edit</button>
+            <button mat-raised-button (click)="editOpened=!editOpened; addOpened=false; editProductId(p._id)">Edit</button>
         </div>
 
     </mat-sidenav-content>

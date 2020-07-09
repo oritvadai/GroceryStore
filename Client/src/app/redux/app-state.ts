@@ -25,6 +25,7 @@ export class AppState {
     public productsView: Product[];
 
     // Admin
+    public editProductId: string;
     // public allProducts: Product[];
 
     public constructor() {
@@ -48,6 +49,7 @@ export class AppState {
         this.productsView = [];
 
         // Admin
+        this.editProductId = "";
         // this.allProducts = [];
     }
 }

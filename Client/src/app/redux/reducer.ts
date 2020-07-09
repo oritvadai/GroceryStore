@@ -86,6 +86,10 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
 
         // Admin:
+        case ActionType.AdminUpdateProductId:
+            newAppState.editProductId = action.payload;
+            break;
+
         // case ActionType.AdminGetAllProducts:
         //     newAppState.allProducts = action.payload;
         //     break;

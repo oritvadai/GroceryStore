@@ -26,7 +26,6 @@ export class CartComponent implements OnInit {
 
     constructor(
         private groceryService: GroceryService,
-        private infoService: InfoService,
         public router: Router) { }
 
     async ngOnInit() {
@@ -56,7 +55,6 @@ export class CartComponent implements OnInit {
         }
 
         // Get openCart info
-
         if (!store.getState().openCart || !store.getState().openCart._id) {
             this.groceryService
                 .getCartDateByUser(this.user._id)
