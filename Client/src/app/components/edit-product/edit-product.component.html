@@ -1,5 +1,5 @@
 <div>
-    <p>Edit Product</p>
+    <h2> Edit Product </h2>
     <form #formInfo="ngForm">
         <mat-form-field>
             <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
@@ -26,7 +26,7 @@
         </mat-form-field>
         <br>
 
-        <img [src]="url" height="200"> <br />
+        <img [src]="url" height="120"> <br />
 
         <div>
             <button type="button" mat-raised-button (click)="fileInput.click()">
@@ -35,7 +35,7 @@
             </button>
             <input hidden type="file" accept="image*/" name="image" #fileInput (input)="onFileSelect($event)" /> </div>
         <br>
-        <button mat-raised-button [disabled]="formInfo.form.invalid" (click)="editProduct()">Edit Product</button>
+        <button mat-raised-button [disabled]="formInfo.form.invalid" (click)="editProduct()">Submit</button>
 
     </form>
 </div>

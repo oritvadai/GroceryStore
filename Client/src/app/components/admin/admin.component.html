@@ -13,7 +13,9 @@
 
     <mat-sidenav-content>
 
-        <button id="add" mat-raised-button (click)="addOpened=!addOpened; editOpened=false">Add</button>
+        <button id="add" mat-raised-button (click)="addOpened=!addOpened; editOpened=false">
+            <mat-icon>add</mat-icon>
+        </button>
         <br><br>
 
         <div class="categories">
@@ -27,7 +29,9 @@
             {{p.productName}}<br>
             Price: {{p.unitPrice | currency:"ILS"}}<br>
             <img [src]="url+p.picFileName" height="200"> <br />
-            <button mat-raised-button (click)="editOpened=!editOpened; addOpened=false; editProductId(p._id)">Edit</button>
+            <button mat-button (click)="editOpened=!editOpened; addOpened=false; editProductId(p._id)">
+                Edit <mat-icon>edit</mat-icon>
+            </button>
         </div>
 
     </mat-sidenav-content>

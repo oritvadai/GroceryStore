@@ -20,3 +20,13 @@ td:nth-child(3) {
 /* th {background-color:#f5f5f5;} */
 
 tr:hover {background-color:#f5f5f5;}
+
+#delete-btn {
+    float: left;
+    margin-left: 5px;
+}
+
+#checkout-btn {
+    float: right;
+    margin-right: 5px;
+}
