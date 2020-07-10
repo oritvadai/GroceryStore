@@ -1,22 +1,27 @@
 <div class="cart">
     <div *ngIf="!cart || !cart._id">
-        <button mat-raised-button (click)="addCart()">Open New Cart</button>
+        <button mat-raised-button (click)="addCart()">
+            <mat-icon>add</mat-icon> &nbsp;
+            Open New Cart
+        </button>
     </div>
 
     <div *ngIf="cart && cart._id">
-        <p> Cart opened: {{ cart.date | date: "dd/MM/yyyy" }} </p> 
+        <p> Cart opened: {{ cart.date | date: "dd/MM/yyyy" }} </p>
         <br><br>
 
-        <button mat-raised-button (click)="emptyCart()">Empty Cart</button>
+        <button mat-raised-button (click)="emptyCart()">
+            <mat-icon>clear</mat-icon> &nbsp; Empty Cart
+        </button>
         <br><br>
 
         <hr>
         <table>
             <thead>
                 <th>Product</th>
-                <th>#</th>
+                <th>Qty</th>
                 <th>Price</th>
-                <th></th>
+                <th>Remove</th>
             </thead>
             <tbody>
                 <tr *ngFor="let i of cart.items">
@@ -24,7 +29,9 @@
                     <td>{{ i.quantity }}</td>
                     <td>{{ i.itemsPrice | currency:"ILS" }}</td>
                     <td>
-                        <button (click)="removeItem(i._id)">X</button>
+                        <button mat-button (click)="removeItem(i._id)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>

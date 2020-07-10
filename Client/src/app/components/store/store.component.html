@@ -1,12 +1,12 @@
-<!-- <div id="store"> -->
-
 <mat-sidenav-container>
     <mat-sidenav mode="side" [(opened)]="opened">
         <app-cart></app-cart>
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <button id="cart-btn" mat-raised-button (click)="opened=!opened">Cart</button>
+        <button id="cart-btn" mat-raised-button (click)="opened=!opened">
+            <mat-icon>shopping_cart</mat-icon>
+        </button>
         <br><br>
 
         <div class="categories">
@@ -22,7 +22,9 @@
             Price: {{p.unitPrice | currency:"ILS"}} <br>
             <img [src]="url+p.picFileName" height="200"> <br />
 
-            <button mat-raised-button (click)="openDialog(p)">Add</button>
+            <button mat-button (click)="openDialog(p)">
+                <mat-icon>add_shopping_cart</mat-icon>
+            </button>
         </div>
 
     </mat-sidenav-content>
