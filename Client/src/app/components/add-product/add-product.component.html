@@ -3,7 +3,7 @@
     <form #formInfo="ngForm" (ngSubmit)="addProduct()">
         <mat-form-field>
             <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
-                required minlength="2" #prodNameInfo="ngModel" autofocus>
+                required minlength="2" #prodNameInfo="ngModel">
             <mat-error *ngIf="prodNameInfo.errors?.required && prodNameInfo.touched">Missing Product Name</mat-error>
             <mat-error *ngIf="prodNameInfo.errors?.minlength && prodNameInfo.touched">Product Name too short</mat-error>
         </mat-form-field>
@@ -11,15 +11,17 @@
 
         <mat-form-field>
             <mat-label>Category</mat-label>
-            <mat-select name="categories" [(ngModel)]="product.categoryId" required>
+            <mat-select name="categories" [(ngModel)]="product.categoryId" #categoryInfo="ngModel" required>
                 <mat-option *ngFor="let c of categories" value={{c._id}}>{{c.category}}</mat-option>
-            </mat-select><br>
+            </mat-select>
+            <mat-error *ngIf="categoryInfo.errors?.required && categoryInfo.touched">Missing Category</mat-error>
+            <br>
         </mat-form-field>
         <br>
 
         <mat-form-field>
-            <input matInput type="number" min="0" placeholder="Price" name="price" [(ngModel)]="product.unitPrice" required
-                nonNegative #priceInfo="ngModel">
+            <input matInput type="number" min="0" placeholder="Price" name="price" [(ngModel)]="product.unitPrice"
+                required nonNegative #priceInfo="ngModel">
             <mat-error *ngIf="priceInfo.errors?.required && priceInfo.touched">Missing Price Name</mat-error>
             <mat-error *ngIf="priceInfo.errors?.nonNegative && priceInfo.touched">Price can't be negative</mat-error>
         </mat-form-field>
@@ -28,11 +30,16 @@
         <img [src]="url" height="200"> <br />
 
         <div>
-            <input type="file" accept="image*/" name="image" (input)="onFileSelect($event)" required />
+            <button type="button" mat-raised-button (click)="fileInput.click()">
+                Choose Picture
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden type="file" accept="image*/" name="image" #fileInput (input)="onFileSelect($event)" />
+            <!-- <mat-error *ngIf="!image && uploadBtnClicked">Picture Required</mat-error> -->
         </div>
         <br>
 
-        <button type="submit" mat-raised-button [disabled]="formInfo.form.invalid">Add Product</button>
+        <button type="submit" mat-raised-button [disabled]="formInfo.form.invalid || !image">Add Product</button>
 
     </form>
 </div>

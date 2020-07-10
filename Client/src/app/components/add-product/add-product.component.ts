@@ -17,6 +17,7 @@ export class AddProductComponent implements OnInit {
     public product = new Product();
     public image: File;
     public url: string;
+    // public uploadBtnClicked = false;
 
     constructor(
         private adminService: AdminService,

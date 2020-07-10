@@ -3,7 +3,7 @@
     <form #formInfo="ngForm">
         <mat-form-field>
             <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
-                value={{product.productName}} required minlength="2" #prodNameInfo="ngModel" autofocus>
+                value={{product.productName}} required minlength="2" #prodNameInfo="ngModel">
             <mat-error *ngIf="prodNameInfo.errors?.required && prodNameInfo.touched">Missing Product Name</mat-error>
             <mat-error *ngIf="prodNameInfo.errors?.minlength && prodNameInfo.touched">Product Name too short</mat-error>
         </mat-form-field>
@@ -29,10 +29,12 @@
         <img [src]="url" height="200"> <br />
 
         <div>
-            <input type="file" accept="image*/" name="image" (input)="onFileSelect($event)" />
-        </div>
+            <button type="button" mat-raised-button (click)="fileInput.click()">
+                Choose Picture
+                <mat-icon>attach_file</mat-icon>
+            </button>
+            <input hidden type="file" accept="image*/" name="image" #fileInput (input)="onFileSelect($event)" /> </div>
         <br>
-
         <button mat-raised-button [disabled]="formInfo.form.invalid" (click)="editProduct()">Edit Product</button>
 
     </form>

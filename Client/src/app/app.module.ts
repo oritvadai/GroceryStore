@@ -30,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 
@@ -65,6 +66,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         MatDialogModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatIconModule,
         MatSidenavModule
     ],
     providers: [],

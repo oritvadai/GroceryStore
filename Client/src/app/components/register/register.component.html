@@ -7,7 +7,7 @@
 
             <mat-form-field>
                 <input matInput type="number" min="0" placeholder="ID" name="ID" [(ngModel)]="user.ID" required
-                    nonNegative #IDInfo="ngModel" autofocus>
+                    nonNegative #IDInfo="ngModel">
                 <mat-error *ngIf="IDInfo.errors?.required && IDInfo.touched">Missing ID</mat-error>
                 <mat-error *ngIf="IDInfo.errors?.nonNegative && IDInfo.touched">ID can't be negative</mat-error>
             </mat-form-field>
