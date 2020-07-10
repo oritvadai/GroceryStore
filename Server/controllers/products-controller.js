@@ -140,12 +140,12 @@ router.put("/:_id", async (request, response) => {
             response.status(400).send("Missing Product Details");
             return;
         }
-        const updatedProduct = await productsLogic.updateProductAsync(product, image);
-        if (!updatedProduct) {
+        const updateResult = await productsLogic.updateProductAsync(product, image);
+        if (!updateResult) {
             response.sendStatus(404);
             return;
         }
-        response.json(updatedProduct);
+        response.json(updateResult);
     }
     catch (err) {
         response.status(500).send(err.message);

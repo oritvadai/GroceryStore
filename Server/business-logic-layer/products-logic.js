@@ -63,7 +63,11 @@ async function updateProductAsync(product, image) {
         product.picFileName = fileName;
         image.mv(path.join(uploadsFolder, fileName));
     }
-    return Product.updateOne({ _id: product._id }, product);
+
+    const updateResult = await Product.updateOne({ _id: product._id }, product);
+    updateResult.picFileName = product.picFileName;
+
+    return updateResult;
 }
 
 // Get image
