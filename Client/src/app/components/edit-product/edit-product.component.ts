@@ -86,9 +86,11 @@ export class EditProductComponent implements OnInit {
 
         this.adminService
             .updateProduct(this.product._id, productForm)
-            .subscribe(product => {
-                console.log(product)
+            .subscribe(updateResult => {
+                console.log(updateResult)
                 console.log(this.product)
+
+                this.product.picFileName = updateResult.picFileName
 
                 const action = { type: ActionType.AdminUpdateProduct, payload: this.product };
                 store.dispatch(action);

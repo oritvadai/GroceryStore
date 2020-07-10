@@ -10,6 +10,10 @@ export enum ActionType {
     Login,
     Logout,
 
+    // Store & Admin
+    GetAllCategories,
+    GetProductsView,
+
     // Cart
     GetCartContent,
     GetItems,
@@ -17,10 +21,6 @@ export enum ActionType {
     RemoveItem,
     ClearCart,
     GetTotalPrice,
-
-    // Store
-    GetAllCategories,
-    GetProductsView,
 
     // admin
     AdminUpdateProductId,

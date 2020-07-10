@@ -30,8 +30,8 @@ export class AdminService {
             { headers: this.getHeaders() });
     }
 
-    public updateProduct(productId: string ,productForm: FormData): Observable<FormData> {
-        return this.http.put<FormData>(
+    public updateProduct(productId: string ,productForm: FormData): Observable<any> {
+        return this.http.put<any>(
             "http://localhost:3000/api/products/" + productId, productForm, 
             { headers: this.getHeaders() });
     }
