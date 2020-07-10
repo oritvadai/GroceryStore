@@ -94,6 +94,16 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.editProductId = action.payload;
             break;
 
+        case ActionType.AdminUpdateProduct:
+            {
+                const id = action.payload._id;
+                const index = newAppState.productsView.findIndex(p => p._id === id);
+                if (index >= 0) {
+                    newAppState.productsView[index] = action.payload;
+                }
+            }
+            break;
+
         // case ActionType.AdminGetAllProducts:
         //     newAppState.allProducts = action.payload;
         //     break;
@@ -101,18 +111,6 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
         // case ActionType.AdminAddProduct:
         //     newAppState.allProducts.push(action.payload);
         //     break;
-
-        // case ActionType.AdminUpdateProduct:
-        //     {
-        //         const id = action.payload._id;
-        //         const index = newAppState.allProducts.findIndex(p => p._id === id);
-        //         if (index >= 0) {
-        //             newAppState.allProducts[index] = action.payload;
-        //         }
-        //     }
-        //     break;
-
-
 
     }
 

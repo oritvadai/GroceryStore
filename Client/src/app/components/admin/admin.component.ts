@@ -60,9 +60,7 @@ export class AdminComponent implements OnInit {
                     err => {
                         alert(err.message);
                         this.router.navigateByUrl("/logout");
-                    }
-                );
-
+                    });
         } else {
             this.categories = store.getState().categories;
         }

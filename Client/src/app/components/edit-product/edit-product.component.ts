@@ -87,8 +87,11 @@ export class EditProductComponent implements OnInit {
         this.adminService
             .updateProduct(this.product._id, productForm)
             .subscribe(product => {
-                // const action = { type: ActionType.AdminUpdateProduct, payload: product };
-                // store.dispatch(action);
+                console.log(product)
+                console.log(this.product)
+
+                const action = { type: ActionType.AdminUpdateProduct, payload: this.product };
+                store.dispatch(action);
 
                 alert(this.product.productName + " has been edited");
                 // this.router.navigateByUrl("/admin");
