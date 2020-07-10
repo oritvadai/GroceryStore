@@ -126,7 +126,7 @@ export class StoreComponent implements OnInit {
             .getTotalPriceByCart(this.cart._id)
             .subscribe(totalPrice => {
 
-                const action = { type: ActionType.GetTotalPrice, payload: +totalPrice };
+                const action = { type: ActionType.GetTotalPrice, payload: totalPrice };
                 store.dispatch(action);
             },
                 err => alert(err.message));

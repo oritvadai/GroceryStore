@@ -14,7 +14,7 @@ import { GroceryService } from 'src/app/services/grocery.service';
 export class AdminComponent implements OnInit {
 
     public categories: Category[];
-    public products: Product[];
+    public productsView: Product[];
     public url: string;
     public addOpened = true;
     public editOpened = false;
@@ -28,6 +28,7 @@ export class AdminComponent implements OnInit {
 
         this.unsubscribe = store.subscribe(() => {
             this.categories = store.getState().categories;
+            this.productsView = store.getState().productsView;
         });
 
         this.url = "http://localhost:3000/api/products/uploads/"
@@ -71,7 +72,7 @@ export class AdminComponent implements OnInit {
         this.groceryService
             .getProductsByCategory(categoryId)
             .subscribe(products => {
-                this.products = products;
+                this.productsView = products;
 
                 const action = { type: ActionType.GetProductsView, payload: products };
                 store.dispatch(action);

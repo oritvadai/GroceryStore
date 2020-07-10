@@ -43,6 +43,11 @@ export class LoginComponent implements OnInit {
 
         this.user = store.getState().user;
         this.hasToken = store.getState().hasToken;
+
+        this.lastOrder = store.getState().lastOrder;
+        if (store.getState().openCartInfo) {
+            this.openCartDate = store.getState().openCartInfo.date;
+        }
     }
 
     login() {
@@ -56,7 +61,7 @@ export class LoginComponent implements OnInit {
 
                     const action = { type: ActionType.Login, payload: response.user };
                     store.dispatch(action);
-                    
+
                     if (response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
                     }
@@ -67,10 +72,6 @@ export class LoginComponent implements OnInit {
                     err => alert(err.message));
         }
     }
-
-    ngOnDestroy() {
-        this.unsubscribe();
-    };
 
     getUserInfo() {
         //  Get open cart info
@@ -97,4 +98,8 @@ export class LoginComponent implements OnInit {
 
             }, err => alert(err.message));
     }
+
+    ngOnDestroy() {
+        this.unsubscribe();
+    };
 }

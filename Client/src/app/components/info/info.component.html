@@ -11,7 +11,6 @@
         <br><br>
         <hr>
         <br><br>
-        <!-- Welcome {{ user.firstName }} {{ user.lastName }}!  -->
         
         <p *ngIf="openCartDate">
             You have an open cart from {{ openCartDate | date: "dd/MM/yyyy" }}
@@ -20,7 +19,6 @@
             You have no open cart
         </p>
     
-        <!-- fix pipe date problem  -->
         <p *ngIf="lastOrder">
             your last order was on {{ lastOrder | date: "dd/MM/yyyy" }} <br>
         </p>

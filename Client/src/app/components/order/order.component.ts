@@ -41,7 +41,7 @@ export class OrderComponent implements OnInit {
             return;
         }
 
-        if (!store.getState().cart._id) {
+        if (!store.getState().cart || !store.getState().cart._id) {
             this.groceryService
                 .getCartById(this.openCart._id)
                 .subscribe(cart => {

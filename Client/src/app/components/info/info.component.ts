@@ -90,10 +90,6 @@ export class InfoComponent implements OnInit {
         }
     }
 
-    ngOnDestroy() {
-        this.unsubscribe();
-    }
-
     getLastOrderInfo() {
         this.groceryService
             .getLastOrderByUser(this.user._id)
@@ -123,4 +119,7 @@ export class InfoComponent implements OnInit {
             }, err => alert(err.message));
     }
 
+    ngOnDestroy() {
+        this.unsubscribe();
+    }
 }

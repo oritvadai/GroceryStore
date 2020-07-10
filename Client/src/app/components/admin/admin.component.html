@@ -23,7 +23,7 @@
         </div>
         <br><br>
 
-        <div class="product" *ngFor="let p of products">
+        <div class="product" *ngFor="let p of productsView">
             {{p.productName}}<br>
             Price: {{p.unitPrice | currency:"ILS"}}<br>
             <img [src]="url+p.picFileName" height="200"> <br />

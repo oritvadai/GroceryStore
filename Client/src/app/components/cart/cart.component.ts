@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
 
     public openCartInfo = new CartInfo();
     public cart = new Cart();
-    public totalPrice: number;
+    // public totalPrice: number;
 
     public unsubscribe: Function;
 
@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
 
             this.openCartInfo = store.getState().openCartInfo;
             this.cart = store.getState().cart;
-            this.totalPrice = store.getState().totalPrice;
+            // this.totalPrice = store.getState().totalPrice;
         });
 
         this.user = store.getState().user;
@@ -61,8 +61,6 @@ export class CartComponent implements OnInit {
                 .getCartInfoByUser(this.user._id)
                 .subscribe(openCartInfo => {
 
-                    console.log("net", openCartInfo)
-
                     this.openCartInfo = openCartInfo;
 
                     const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
@@ -73,11 +71,7 @@ export class CartComponent implements OnInit {
                     }
                 }, err => alert(err.message));
         } else {
-
             this.openCartInfo = store.getState().openCartInfo;
-
-            console.log("redux", this.openCartInfo);
-
 
             if (this.openCartInfo.hasOpenCart) {
                 this.getCartItems(this.openCartInfo._id);
@@ -93,13 +87,13 @@ export class CartComponent implements OnInit {
                 .subscribe(cart => {
 
                     this.cart = cart;
-                    this.totalPrice = cart.totalPrice;
+                    // this.totalPrice = cart.totalPrice;
 
                     const actionCart = { type: ActionType.GetCartContent, payload: cart };
                     store.dispatch(actionCart);
 
-                    const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
-                    store.dispatch(actionPrice);
+                    // const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
+                    // store.dispatch(actionPrice);
 
                 }, err => alert(err.message));
         } else {
@@ -125,9 +119,10 @@ export class CartComponent implements OnInit {
         this.groceryService
             .getTotalPriceByCart(this.cart._id)
             .subscribe(totalPrice => {
-                this.totalPrice = totalPrice;
+                // this.totalPrice = totalPrice;
+                this.cart.totalPrice = totalPrice;
 
-                const actionPrice = { type: ActionType.GetTotalPrice, payload: this.totalPrice };
+                const actionPrice = { type: ActionType.GetTotalPrice, payload: totalPrice };
                 store.dispatch(actionPrice);
             },
                 err => alert(err.message));

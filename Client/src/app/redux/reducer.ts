@@ -68,11 +68,15 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
 
         case ActionType.ClearCart:
             newAppState.cart.items = [];
-            newAppState.totalPrice = 0;
+            newAppState.cart.totalPrice = 0;
+
+            // newAppState.totalPrice = 0;
             break;
 
         case ActionType.GetTotalPrice:
-            newAppState.totalPrice = action.payload;
+            // newAppState.totalPrice = action.payload;
+            newAppState.cart.totalPrice = action.payload;
+
             break;
 
         // Store

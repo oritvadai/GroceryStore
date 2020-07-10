@@ -39,7 +39,8 @@
     </div>
 
     <!-- User -->
-    <div id="search" *ngIf="hasToken && user.role == 'user'">
+    <div id="search" *ngIf="hasToken">
+        <!-- && user.role == 'user' -->
         <app-search></app-search>
     </div>
 

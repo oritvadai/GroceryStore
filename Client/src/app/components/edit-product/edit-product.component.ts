@@ -91,7 +91,7 @@ export class EditProductComponent implements OnInit {
                 // store.dispatch(action);
 
                 alert(this.product.productName + " has been edited");
-                this.router.navigateByUrl("/admin");
+                // this.router.navigateByUrl("/admin");
             },
                 err => alert(err.message));
     }
