@@ -7,15 +7,15 @@ const router = express.Router();
 
 router.use(verifyLoggedIn);
 
-// Get user by id - GET http://localhost:3000/api/users/:_id
+// Get user address by id - GET http://localhost:3000/api/users/:_id
 router.get("/:_id", async (request, response) => {
     try {
-        const user = await usersLogic.getOneUserAsync(request.params._id);
-        if(!user) {
+        const userInfo = await usersLogic.getUserInfoAsync(request.params._id);
+        if(!userInfo) {
             response.sendStatus(404);
             return;
         }
-        response.json(user);
+        response.json(userInfo);
     }
     catch (err) {
         response.status(500).send(err.message);

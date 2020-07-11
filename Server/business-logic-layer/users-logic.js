@@ -1,8 +1,12 @@
 const User = require("../models/user");
 
-// Get user by id
-function getOneUserAsync(_id) {
-    return User.findOne({_id}).exec();
+// Get user address by id
+async function getUserInfoAsync(_id) {
+    const result = await User.findOne({ _id }).exec();
+    const userInfo = new User();
+    userInfo.city = result.city;
+    userInfo.street = result.street;
+    return userInfo;
 }
 
 // function updateUserAsync(user) {
@@ -10,6 +14,6 @@ function getOneUserAsync(_id) {
 // }
 
 module.exports = {
-    getOneUserAsync,
+    getUserInfoAsync,
     // updateUserAsync
 }

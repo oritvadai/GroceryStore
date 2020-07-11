@@ -11,10 +11,6 @@ function getNumProductsAsync() {
     return Product.countDocuments();
 }
 
-// function getAllProductsAsync() {
-//     return Product.find({}).populate("category").exec();
-// }
-
 // Get product by id
 function getOneProductAsync(_id) {
     return Product.findOne({ _id }).populate("category").exec();
@@ -31,7 +27,7 @@ function getProductsByName(productName) {
 }
 
 // Add new product
-function addProductAsync(product, image) {
+async function addProductAsync(product, image) {
     // If there is no uploads folder, create it
     if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
@@ -43,7 +39,9 @@ function addProductAsync(product, image) {
     product.picFileName = fileName;
     image.mv(path.join(uploadsFolder, fileName));
 
-    return product.save();
+    const result = await product.save();
+
+    return Product.findOne({ _id: result._id}).populate("category").exec();
 }
 
 // Update existing Product
@@ -77,10 +75,10 @@ function getImagePathAsync(imgName) {
 
 module.exports = {
     getNumProductsAsync,
-    // getAllProductsAsync,
     getOneProductAsync,
     getProductsByCategoryAsync,
     getProductsByName,
+
     addProductAsync,
     updateProductAsync,
     getImagePathAsync

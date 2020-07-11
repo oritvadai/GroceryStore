@@ -30,23 +30,6 @@ router.get("/uploads/:imgName", async (request, response) => {
 
 router.use(verifyLoggedIn);
 
-// Get all products - GET http://localhost:3000/api/products
-// router.get("/", async (request, response) => {
-//     try {
-//         // Allow access only to admin
-//         const user = request.decodedJwt.user;
-//         if (user.role != "admin") {
-//             response.status(403).send("Access denied");
-//             return;
-//         }
-//         const products = await productsLogic.getAllProductsAsync();
-//         response.json(products);
-//     }
-//     catch (err) {
-//         response.status(500).send(err.message);
-//     }
-// });
-
 // Get one product - GET http://localhost:3000/api/products/:_id
 router.get("/:_id", async (request, response) => {
     try {
@@ -114,6 +97,7 @@ router.post("/", async (request, response) => {
             return;
         }
         const addedProduct = await productsLogic.addProductAsync(product, image);
+
         response.json(addedProduct);
     }
     catch (err) {
