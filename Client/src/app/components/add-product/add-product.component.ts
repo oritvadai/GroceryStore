@@ -5,6 +5,8 @@ import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { store } from 'src/app/redux/store';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { ActionType } from 'src/app/redux/action-type';
 
 @Component({
     selector: 'app-add-product',
@@ -13,8 +15,12 @@ import { Router } from '@angular/router';
 })
 export class AddProductComponent implements OnInit {
 
+    public user = new User();
+    public hasToken: boolean;
+
     public categories: Category[];
     public product = new Product();
+
     public image: File;
     public url: string;
     // public uploadBtnClicked = false;
@@ -27,17 +33,12 @@ export class AddProductComponent implements OnInit {
 
     ngOnInit(): void {
 
-        const user = store.getState().user;
-        const hasToken = store.getState().hasToken;
+        this.user = store.getState().user;
+        this.hasToken = store.getState().hasToken;
 
-        if (user.role != "admin") {
-            alert("Access Denied");
-            this.router.navigateByUrl("/home");
-            return;
-        }
-
-        if (!hasToken) {
-            alert("Please Login");
+        // Check for role and token
+        if (!this.hasToken || this.user.role != "admin") {
+            alert("Access Denied, Please Login");
             this.router.navigateByUrl("/logout");
             return;
         }
@@ -46,7 +47,6 @@ export class AddProductComponent implements OnInit {
             .getAllCategories()
             .subscribe(categories => this.categories = categories,
                 err => alert(err.message));
-
     }
 
     public onFileSelect(event) {
@@ -71,15 +71,14 @@ export class AddProductComponent implements OnInit {
         productForm.append("unitPrice", this.product.unitPrice.toString());
         productForm.append("image", this.image, this.image.name);
 
-
         this.adminService
             .addProduct(productForm)
             .subscribe(product => {
-                // const action = { type: ActionType.AdminAddProduct, payload: product };
-                // store.dispatch(action);
+
+                const action = { type: ActionType.AdminAddProduct, payload: product };
+                store.dispatch(action);
 
                 alert(this.product.productName + " has been added");
-                // this.router.navigateByUrl("/admin");
             },
                 err => alert(err.message));
     }

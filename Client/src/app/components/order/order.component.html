@@ -40,7 +40,7 @@
         <form #formInfo="ngForm">
             <mat-form-field>
                 <mat-label>City</mat-label>
-                <mat-select name="city" [(ngModel)]="order.city" #cityInfo="ngModel" required>
+                <mat-select name="city" [(ngModel)]="order.city" value={{user.city}} #cityInfo="ngModel" required>
                     <mat-option value="Jerusalem">Jerusalem</mat-option>
                     <mat-option value="Tel Aviv">Tel Aviv</mat-option>
                     <mat-option value="Haifa">Haifa</mat-option>
@@ -59,18 +59,11 @@
 
             <mat-form-field>
                 <input matInput type="text" placeholder="Street" name="street" [(ngModel)]="order.street" required
-                    minlength="2" #streetInfo="ngModel">
+                    minlength="2" #streetInfo="ngModel" value={{user.street}}>
                 <mat-error *ngIf="streetInfo.errors?.required && streetInfo.touched">Missing street</mat-error>
                 <mat-error *ngIf="streetInfo.errors?.minlength && streetInfo.touched">Street too short</mat-error>
             </mat-form-field>
             <br>
-
-            <!-- <mat-form-field>
-            <mat-label>Shipping Date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field> -->
 
             <mat-form-field>
                 <mat-label>Shipping Date</mat-label>

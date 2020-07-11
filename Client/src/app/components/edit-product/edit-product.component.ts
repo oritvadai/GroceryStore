@@ -6,6 +6,7 @@ import { GroceryService } from 'src/app/services/grocery.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
+import { User } from 'src/app/models/user';
 
 @Component({
     selector: 'app-edit-product',
@@ -14,8 +15,12 @@ import { ActionType } from 'src/app/redux/action-type';
 })
 export class EditProductComponent implements OnInit {
 
+    public user = new User();
+    public hasToken: boolean;
+
     public product = new Product();
     public categories: Category[];
+
     public image: File;
     public url: string;
 
@@ -28,25 +33,20 @@ export class EditProductComponent implements OnInit {
 
     ngOnInit(): void {
 
-        const user = store.getState().user;
-        const hasToken = store.getState().hasToken;
+        this.user = store.getState().user;
+        this.hasToken = store.getState().hasToken;
 
-        if (user.role != "admin") {
-            alert("Access Denied");
+        // Check for role and token
+        if (!this.hasToken || this.user.role != "admin") {
+            alert("Access Denied, Please Login");
             this.router.navigateByUrl("/home");
-            return;
-        }
-
-        if (!hasToken) {
-            alert("Please Login");
-            this.router.navigateByUrl("/logout");
             return;
         }
 
         this.unsubscribe = store.subscribe(() => {
             this.product._id = store.getState().editProductId;
         });
-        
+
         this.product._id = store.getState().editProductId;
 
         this.adminService
@@ -87,9 +87,7 @@ export class EditProductComponent implements OnInit {
         this.adminService
             .updateProduct(this.product._id, productForm)
             .subscribe(updateResult => {
-                console.log(updateResult)
-                console.log(this.product)
-
+               
                 this.product.picFileName = updateResult.picFileName
 
                 const action = { type: ActionType.AdminUpdateProduct, payload: this.product };

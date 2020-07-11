@@ -50,6 +50,5 @@ export class AppState {
 
         // Admin
         this.editProductId = "";
-        // this.allProducts = [];
     }
 }

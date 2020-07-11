@@ -62,10 +62,10 @@ export class LoginComponent implements OnInit {
                     const action = { type: ActionType.Login, payload: response.user };
                     store.dispatch(action);
 
-                    if (response.user.role == "admin") {
+                    if (response.token && response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
                     }
-                    else if (response.user.role == "user") {
+                    else if (response.token && response.user.role == "user") {
                         this.getUserInfo();
                     }
                 },
@@ -79,12 +79,8 @@ export class LoginComponent implements OnInit {
             .getCartInfoByUser(this.user._id)
             .subscribe(openCartInfo => {
 
-                console.log("login openCartInfo", openCartInfo);
-
                 const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
                 store.dispatch(action);
-
-                console.log("redux openCartInfo", store.getState().openCartInfo);
 
             }, err => alert(err.message));
 

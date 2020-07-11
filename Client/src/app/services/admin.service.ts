@@ -24,8 +24,8 @@ export class AdminService {
     //         { headers: this.getHeaders() });
     // }
 
-    public addProduct(productForm: FormData): Observable<FormData> {
-        return this.http.post<FormData>(
+    public addProduct(productForm: FormData): Observable<Product> {
+        return this.http.post<Product>(
             "http://localhost:3000/api/products", productForm, 
             { headers: this.getHeaders() });
     }

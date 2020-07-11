@@ -27,6 +27,7 @@
 
         <div class="product" *ngFor="let p of productsView">
             {{p.productName}}<br>
+            Category: {{p.category.category}} <br>
             Price: {{p.unitPrice | currency:"ILS"}}<br>
             <img [src]="url+p.picFileName" height="200"> <br />
             <button mat-button (click)="editOpened=!editOpened; addOpened=false; editProductId(p._id)">

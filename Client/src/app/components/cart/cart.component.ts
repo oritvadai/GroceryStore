@@ -19,7 +19,6 @@ export class CartComponent implements OnInit {
 
     public openCartInfo = new CartInfo();
     public cart = new Cart();
-    // public totalPrice: number;
 
     public unsubscribe: Function;
 
@@ -35,25 +34,17 @@ export class CartComponent implements OnInit {
 
             this.openCartInfo = store.getState().openCartInfo;
             this.cart = store.getState().cart;
-            // this.totalPrice = store.getState().totalPrice;
         });
 
         this.user = store.getState().user;
         this.hasToken = store.getState().hasToken;
 
-        if (this.user.role != "user") {
-            alert("Access Denied");
-            this.router.navigateByUrl("/home");
-            return;
-        }
-
-        if (!this.hasToken) {
-            alert("Please Login");
+        // Check for role and token
+        if (!this.hasToken || this.user.role != "user") {
+            alert("Access Denied, Please Login");
             this.router.navigateByUrl("/logout");
             return;
         }
-
-        console.log(store.getState());
 
         // Get open cart info
         if (!store.getState().openCartInfo || !store.getState().openCartInfo._id) {
@@ -81,19 +72,15 @@ export class CartComponent implements OnInit {
 
     // Get openCart items
     getCartItems(openCartId) {
-        if (!this.cart || !this.cart._id) {
+        if (!store.getState().cart || !store.getState().cart._id) {
             this.groceryService
                 .getCartById(openCartId)
                 .subscribe(cart => {
 
                     this.cart = cart;
-                    // this.totalPrice = cart.totalPrice;
 
                     const actionCart = { type: ActionType.GetCartContent, payload: cart };
                     store.dispatch(actionCart);
-
-                    // const actionPrice = { type: ActionType.GetTotalPrice, payload: cart.totalPrice };
-                    // store.dispatch(actionPrice);
 
                 }, err => alert(err.message));
         } else {

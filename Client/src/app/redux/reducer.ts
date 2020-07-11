@@ -104,14 +104,9 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             }
             break;
 
-        // case ActionType.AdminGetAllProducts:
-        //     newAppState.allProducts = action.payload;
-        //     break;
-
-        // case ActionType.AdminAddProduct:
-        //     newAppState.allProducts.push(action.payload);
-        //     break;
-
+        case ActionType.AdminAddProduct:
+            newAppState.productsView.push(action.payload);
+            break;
     }
 
     return newAppState;

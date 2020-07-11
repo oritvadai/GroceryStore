@@ -108,8 +108,6 @@ export class InfoComponent implements OnInit {
         this.groceryService
             .getCartInfoByUser(this.user._id)
             .subscribe(openCartInfo => {
-
-                console.log("info openCart", openCartInfo);
                 
                 this.openCartDate = openCartInfo.date;
 

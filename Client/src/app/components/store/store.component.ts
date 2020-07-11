@@ -9,6 +9,7 @@ import { ActionType } from 'src/app/redux/action-type';
 import { Cart } from 'src/app/models/cart';
 import { MatDialog } from '@angular/material/dialog';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
+import { User } from 'src/app/models/user';
 
 @Component({
     selector: 'app-store',
@@ -19,10 +20,13 @@ export class StoreComponent implements OnInit {
 
     public categories: Category[];
     public productsView: Product[];
+
     public cart = new Cart();
     public item = new Item();
+
     public url: string;
     public opened = true;
+    
     public unsubscribe: Function;
 
     constructor(
@@ -42,20 +46,15 @@ export class StoreComponent implements OnInit {
         this.cart = store.getState().cart;
         this.url = "http://localhost:3000/api/products/uploads/"
 
-        const user = store.getState().user;
-        const hasToken = store.getState().hasToken;
+        // this.user = store.getState().user;
+        // this.hasToken = store.getState().hasToken;
 
-        if (user.role != "user") {
-            alert("Access Denied");
-            this.router.navigateByUrl("/home");
-            return;
-        }
-
-        if (!hasToken) {
-            alert("Please Login");
-            this.router.navigateByUrl("/home");
-            return;
-        }
+        // Check for role and token
+        // if (!this.hasToken || this.user.role != "user") {
+        //     alert("Access Denied, Please Login");
+        //     this.router.navigateByUrl("/home");
+        //     return;
+        // }
 
         if (store.getState().categories.length === 0) {
             this.groceryService

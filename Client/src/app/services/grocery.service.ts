@@ -6,6 +6,7 @@ import { Order } from '../models/order';
 import { Category } from '../models/category';
 import { Cart } from '../models/cart';
 import { Item } from '../models/item';
+import { User } from '../models/user';
 import { CartInfo } from '../models/cart-info';
 
 @Injectable({
@@ -32,7 +33,7 @@ export class GroceryService {
     // 	return this.http.get<Product[]>("http://localhost:3000/api/products", { headers: this.getHeaders() });
     // }
 
-    
+
     // Products
     public getAllCategories(): Observable<Category[]> {
         return this.http.get<Category[]>(
@@ -74,25 +75,25 @@ export class GroceryService {
     public addItem(item: Item): Observable<Item> {
         return this.http.post<Item>(
             "http://localhost:3000/api/items", item,
-            { headers: this.getHeaders() })
+            { headers: this.getHeaders() });
     }
 
     public removeItem(itemId: string): Observable<string> {
         return this.http.delete<string>(
             "http://localhost:3000/api/items/" + itemId,
-            { headers: this.getHeaders() })
+            { headers: this.getHeaders() });
     }
 
     public removeItemsByCart(cartId: string): Observable<string> {
         return this.http.delete<string>(
             "http://localhost:3000/api/items/by-cart/" + cartId,
-            { headers: this.getHeaders() })
+            { headers: this.getHeaders() });
     }
 
     public getTotalPriceByCart(cartId: string): Observable<number> {
         return this.http.get<number>(
             "http://localhost:3000/api/items/totalPrice/" + cartId,
-            { headers: this.getHeaders() })
+            { headers: this.getHeaders() });
     }
 
     // Order
@@ -105,6 +106,12 @@ export class GroceryService {
     public addOrder(order: Order): Observable<Order> {
         return this.http.post<Order>(
             "http://localhost:3000/api/orders", order,
-            { headers: this.getHeaders() })
+            { headers: this.getHeaders() });
+    }
+
+    public updateUserInfo(userId: string): Observable<User> {
+        return this.http.get<User>(
+            "http://localhost:3000/api/users/" + userId,
+            { headers: this.getHeaders() });
     }
 }

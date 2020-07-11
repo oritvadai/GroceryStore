@@ -6,6 +6,7 @@ import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Order } from 'src/app/models/order';
 import { CartInfo } from 'src/app/models/cart-info';
+import { User } from 'src/app/models/user';
 
 @Component({
     selector: 'app-order',
@@ -14,45 +15,89 @@ import { CartInfo } from 'src/app/models/cart-info';
 })
 export class OrderComponent implements OnInit {
 
-    public cart = new Cart();
-    public openCart = new Cart();
-    public order = new Order();
-    public minDate: Date;
+    public user = new User();
+    public hasToken: boolean;
 
-    constructor(private groceryService: GroceryService, public router: Router) { }
+    public openCartInfo = new CartInfo();
+    public cart = new Cart();
+
+    public minDate: Date;
+    public order = new Order();
+
+    public unsubscribe: Function;
+
+    constructor(
+        private groceryService: GroceryService,
+        public router: Router) { }
 
     async ngOnInit() {
 
-        this.cart = store.getState().cart;
-        this.openCart = store.getState().openCartInfo;
 
-        const user = store.getState().user;
-        const hasToken = store.getState().hasToken;
+        this.unsubscribe = store.subscribe(() => {
+            this.user = store.getState().user;
+            this.hasToken = store.getState().hasToken;
 
-        if (user.role != "user") {
-            alert("Access Denied");
+            this.openCartInfo = store.getState().openCartInfo;
+            this.cart = store.getState().cart;
+
+        });
+
+        this.user = store.getState().user;
+        this.hasToken = store.getState().hasToken;
+
+        // Check for role and token
+        if (!this.hasToken || this.user.role != "user") {
+            alert("Access Denied, Please Login");
             this.router.navigateByUrl("/home");
             return;
         }
 
-        if (!hasToken) {
-            alert("Please Login");
-            this.router.navigateByUrl("/home");
-            return;
-        }
-
-        if (!store.getState().cart || !store.getState().cart._id) {
+        // Get open cart info
+        if (!store.getState().openCartInfo || !store.getState().openCartInfo._id) {
             this.groceryService
-                .getCartById(this.openCart._id)
-                .subscribe(cart => {
-                    this.cart = cart;
+                .getCartInfoByUser(this.user._id)
+                .subscribe(openCartInfo => {
 
-                    const action = { type: ActionType.GetCartContent, payload: cart };
+                    this.openCartInfo = openCartInfo;
+
+                    const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
                     store.dispatch(action);
 
+                    if (openCartInfo.hasOpenCart) {
+                        this.getCartItems(openCartInfo._id);
+                    }
                 }, err => alert(err.message));
+        } else {
+            this.openCartInfo = store.getState().openCartInfo;
+
+            if (this.openCartInfo.hasOpenCart) {
+                this.getCartItems(this.openCartInfo._id);
+            }
         }
-        else {
+
+        // Get user's address
+        this.groceryService
+            .updateUserInfo(this.user._id)
+            .subscribe(userInfo => {
+                this.user.city = userInfo.city;
+                this.user.street = userInfo.street;
+            }, err => alert(err.message));
+    }
+
+    // Get openCart items
+    getCartItems(openCartId) {
+        if (!store.getState().cart || !store.getState().cart._id) {
+            this.groceryService
+                .getCartById(openCartId)
+                .subscribe(cart => {
+
+                    this.cart = cart;
+
+                    const actionCart = { type: ActionType.GetCartContent, payload: cart };
+                    store.dispatch(actionCart);
+
+                }, err => alert(err.message));
+        } else {
             this.cart = store.getState().cart;
         }
     }
@@ -71,7 +116,7 @@ export class OrderComponent implements OnInit {
                 const actionCart = { type: ActionType.GetCartContent, payload: cart };
                 store.dispatch(actionCart);
 
-                // clear previous cart info from redux
+                // clear old openCartInfo from redux
                 const cartInfo = new CartInfo();
                 const actionInfo = { type: ActionType.GetOpenCartInfo, payload: cartInfo };
                 store.dispatch(actionInfo);

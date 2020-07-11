@@ -24,8 +24,6 @@ export enum ActionType {
 
     // admin
     AdminUpdateProductId,
-    AdminUpdateProduct
-
-    // AdminGetAllProducts,
-    // AdminAddProduct,
+    AdminUpdateProduct,
+    AdminAddProduct
 }
