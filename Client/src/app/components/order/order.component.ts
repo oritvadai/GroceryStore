@@ -74,8 +74,11 @@ export class OrderComponent implements OnInit {
                 this.getCartItems(this.openCartInfo._id);
             }
         }
+        this.getUserAddress();
+    }
 
-        // Get user's address
+    // Get user's address
+    getUserAddress() {
         this.groceryService
             .updateUserInfo(this.user._id)
             .subscribe(userInfo => {
