@@ -5,6 +5,21 @@ const verifyLoggedIn = require("../middleware/verify-logged-in");
 
 const router = express.Router();
 
+
+// Get receipt after submitting an order
+// Get http://localhost:3000/api/orders/receipt/:orderId
+router.get("/receipt/:orderId", async (request, response) => {
+    try {
+        const receipt = await ordersLogic.getOrderReceipt(request.params.orderId);
+        response.send(receipt);
+    }
+    catch (err) {
+        response.status(500).send(err.message);
+    }
+});
+
+
+
 // Get the num of all orders - GET http://localhost:3000/api/orders/num
 router.get("/num", async (request, response) => {
     try {
