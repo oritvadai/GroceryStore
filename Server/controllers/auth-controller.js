@@ -11,7 +11,7 @@ router.post("/login", async (request, response) => {
     try {
         const credentials = request.body
         if (!credentials || !credentials.username || !credentials.password) {
-            alert("Missing username and/or password");
+            response.status(401).send("Missing username and/or password");
             return;
         }
 
@@ -56,7 +56,7 @@ router.post("/register", async (request, response) => {
         const newUser = new User(request.body);
         if (!newUser || !newUser.firstName || !newUser.lastName || !newUser.username 
             || !newUser.ID || !newUser.password || !newUser.city || !newUser.street) {
-            alert("Missing registration data");
+            response.status(401).send("Missing registration data");
             return;
         }
 
