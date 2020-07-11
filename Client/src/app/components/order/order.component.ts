@@ -7,6 +7,8 @@ import { ActionType } from 'src/app/redux/action-type';
 import { Order } from 'src/app/models/order';
 import { CartInfo } from 'src/app/models/cart-info';
 import { User } from 'src/app/models/user';
+import { MatDialog } from '@angular/material/dialog';
+import { ReceiptDialogComponent } from '../receipt-dialog/receipt-dialog.component';
 
 @Component({
     selector: 'app-order',
@@ -28,7 +30,8 @@ export class OrderComponent implements OnInit {
 
     constructor(
         private groceryService: GroceryService,
-        public router: Router) { }
+        public router: Router,
+        public dialog: MatDialog) { }
 
     async ngOnInit() {
 
@@ -80,7 +83,7 @@ export class OrderComponent implements OnInit {
     // Get user's address
     getUserAddress() {
         this.groceryService
-            .updateUserInfo(this.user._id)
+            .getUserInfo(this.user._id)
             .subscribe(userInfo => {
                 this.user.city = userInfo.city;
                 this.user.street = userInfo.street;
@@ -112,7 +115,9 @@ export class OrderComponent implements OnInit {
 
         this.groceryService
             .addOrder(this.order)
-            .subscribe(response => {
+            .subscribe(order => {
+
+                this.openDialog(order._id);
 
                 // clear ordered cart from redux
                 const cart = new Cart();
@@ -124,9 +129,25 @@ export class OrderComponent implements OnInit {
                 const actionInfo = { type: ActionType.GetOpenCartInfo, payload: cartInfo };
                 store.dispatch(actionInfo);
 
-                alert("Order confirmed")
-                this.router.navigateByUrl("/home");
+
+                // alert("Order confirmed")
+                // this.router.navigateByUrl("/home");
             },
                 err => alert(err.message));
     }
+
+    // Pop-up dialog for receipt
+    openDialog(orderId: string): void {
+
+        const dialogRef = this.dialog.open(ReceiptDialogComponent, {
+            width: '300px',
+            data: { orderId: orderId },
+            disableClose: true
+        });
+
+        // dialogRef.afterClosed()
+        // .subscribe(result => {
+        // });
+    }
+
 }

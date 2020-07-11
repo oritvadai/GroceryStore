@@ -109,9 +109,15 @@ export class GroceryService {
             { headers: this.getHeaders() });
     }
 
-    public updateUserInfo(userId: string): Observable<User> {
+    public getUserInfo(userId: string): Observable<User> {
         return this.http.get<User>(
             "http://localhost:3000/api/users/" + userId,
+            { headers: this.getHeaders() });
+    }
+
+    public getOrderReceipt(orderId: string): Observable<any> {
+        return this.http.get<any>(
+            "http://localhost:3000/api/orders/receipt/" + orderId,
             { headers: this.getHeaders() });
     }
 }

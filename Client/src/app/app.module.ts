@@ -32,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ReceiptDialogComponent } from './components/receipt-dialog/receipt-dialog.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         StoreComponent,
         OrderComponent,
         QuantityDialogComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        ReceiptDialogComponent
     ],
     imports: [
         BrowserModule,

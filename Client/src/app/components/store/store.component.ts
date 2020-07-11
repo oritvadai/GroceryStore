@@ -9,7 +9,6 @@ import { ActionType } from 'src/app/redux/action-type';
 import { Cart } from 'src/app/models/cart';
 import { MatDialog } from '@angular/material/dialog';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
-import { User } from 'src/app/models/user';
 
 @Component({
     selector: 'app-store',
@@ -86,7 +85,7 @@ export class StoreComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    // Pop-up Dialog for item quantity
+    // Pop-up dialog for item quantity
     openDialog(p): void {
 
         const dialogRef = this.dialog.open(QuantityDialogComponent, {
