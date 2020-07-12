@@ -37,8 +37,35 @@ router.get("/by-user/:userId", async (request, response) => {
 router.post("/", async (request, response) => {
     try {
         const order = new Order(request.body);
+
+        let err = "";
+        if (!order || !order.userId || !order.cartId || !order.city ||
+            !order.street || !order.deliveryDate || !order.creditCard) {
+            err = "Missing order fields";
+        }
+        else if (!/^[0-9A-Fa-f]{24}$/.test(order.userId)) {
+            err = "Invalid user id";
+        }
+        else if (!/^[0-9A-Fa-f]{24}$/.test(order.cartId)) {
+            err = "Invalid cart id";
+        }
+        else if (order.city.length < 2 || order.city.length > 50) {
+            err = "City should be between 2 - 50 characters";
+        }
+        else if (order.street.length < 2 || order.street.length > 100) {
+            err = "Street should be between 2 - 100 characters";
+        }
+        else if (!validateOrderDate(order.deliveryDate)) {
+            err = "Invalid delivery date";
+        }
+        if (err !== "") {
+            response.status(400).send(err);
+            return;
+        }
+
         const now = new Date();
         order.orderDate = now;
+
         const addedOrder = await ordersLogic.addOrderAsync(order);
         response.json(addedOrder);
     }
@@ -47,12 +74,16 @@ router.post("/", async (request, response) => {
     }
 });
 
+function validateOrderDate() {
+    return true;
+}
+
 // Get receipt after submitting an order
 // Get http://localhost:3000/api/orders/receipt/:orderId
 router.get("/receipt/:orderId", async (request, response) => {
     try {
         const receipt = await ordersLogic.getOrderReceipt(request.params.orderId);
-        response.json({receipt});
+        response.json({ receipt });
     }
     catch (err) {
         response.status(500).send(err.message);

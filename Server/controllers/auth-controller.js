@@ -16,20 +16,20 @@ function validateEmail(email) {
 router.post("/login", async (request, response) => {
     try {
         const credentials = request.body
-        if (!credentials || !credentials.username || !credentials.password) {
-            response.status(400).send("Missing username and/or password");
-            return;
-        }
 
         let err = "";
-        if (!validateEmail(newUser.username)) {
+        if (!credentials || !credentials.username || !credentials.password) {
+            err = "Missing username and/or password";
+        }
+        else if (!validateEmail(credentials.username)) {
             err = "Invalid email address";
         }
-        else if (credentials.password.length() < 6 || credentials.password.length() > 50) {
+        else if (credentials.password.length < 6 || credentials.password.length > 50) {
             err = "Password should be between 6 - 50 characters";
         }
         if (err !== "") {
             response.status(400).send(err);
+            return;
         }
 
         const user = await authLogic.loginAsync(credentials);
@@ -67,31 +67,29 @@ router.post("/register", async (request, response) => {
         //     response.status(400).send("CAPTCHA not valid");
         //     return;
         // }
-
         const newUser = new User(request.body);
-        if (!newUser || !newUser.firstName || !newUser.lastName || !newUser.username
-            || !newUser.ID || !newUser.password || !newUser.city || !newUser.street) {
-            response.status(400).send("Missing registration data");
-            return;
-        }
 
         let err = "";
-        if (newUser.firstName.length() < 2 || newUser.firstName.length() > 50) {
+        if (!newUser || !newUser.firstName || !newUser.lastName || !newUser.username
+            || !newUser.ID || !newUser.password || !newUser.city || !newUser.street) {
+            err = "Missing registration data";
+        }
+        else if (newUser.firstName.length < 2 || newUser.firstName.length > 50) {
             err = "First name should be between 2 - 50 characters";
         }
-        else if (newUser.lastName.length() < 2 || newUser.lastName.length() > 50) {
+        else if (newUser.lastName.length < 2 || newUser.lastName.length > 50) {
             err = "Last name should be between 2 - 50 characters";
         }
-        else if (newUser.password.length() < 6 || newUser.password.length() > 50) {
+        else if (newUser.password.length < 6 || newUser.password.length > 50) {
             err = "Password should be between 6 - 50 characters";
         }
-        else if (newUser.city.length() < 2 || newUser.city.length() > 50) {
+        else if (newUser.city.length < 2 || newUser.city.length > 50) {
             err = "City should be between 2 - 50 characters";
         }
-        else if (newUser.street.length() < 2 || newUser.street.length() > 100) {
+        else if (newUser.street.length < 2 || newUser.street.length > 100) {
             err = "Street should be between 2 - 100 characters";
         }
-        else if (/^\d{9}$/.test(id)) {
+        else if (!/^\d{9}$/.test(newUser.ID)) {
             err = "ID must be exactly 9 digits";
         }
         else if (!validateEmail(newUser.username)) {
@@ -99,6 +97,7 @@ router.post("/register", async (request, response) => {
         }
         if (err !== "") {
             response.status(400).send(err);
+            return;
         }
 
         newUser.role = "user";

@@ -92,16 +92,14 @@ router.post("/", async (request, response) => {
         const image = request.files.image;
         const product = new Product(request.body);
 
-        if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
-            response.status(400).send("Missing Product Details");
-            return;
-        }
-
         let err = "";
-        if (product.productName.length() < 2 || product.productName.length() > 50){
+        if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
+            err = "Missing Product Details";
+        }
+        else if (product.productName.length < 2 || product.productName.length > 50) {
             err = "City should be between 2 - 50 characters"
         }
-        else if (product.unitPrice <= 1 || product.unitPrice >= 100000){
+        else if (product.unitPrice <= 1 || product.unitPrice >= 100000) {
             err = "Price should be between 0 - 100,000"
         }
         if (err !== "") {
@@ -132,16 +130,14 @@ router.put("/:_id", async (request, response) => {
         const id = request.params._id;
         product._id = id;
 
-        if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
-            response.status(400).send("Missing Product Details");
-            return;
-        }
-
         let err = "";
-        if (product.productName.length() < 2 || product.productName.length() > 50){
+        if (!product || !product.productName || !product.categoryId || !product.unitPrice) {
+            err = "Missing Product Details";
+        }
+        else if (product.productName.length < 2 || product.productName.length > 50) {
             err = "City should be between 2 - 50 characters"
         }
-        else if (product.unitPrice <= 1 || product.unitPrice >= 100000){
+        else if (product.unitPrice <= 1 || product.unitPrice >= 100000) {
             err = "Price should be between 0 - 100,000"
         }
         if (err !== "") {
