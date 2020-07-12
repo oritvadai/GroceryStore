@@ -35,23 +35,6 @@ router.post("/", async (request, response) => {
     }
 });
 
-// Update item - PUT http://localhost:3000/api/items/:_id
-// router.put("/:_id", async (request, response) => {
-//     try {
-//         const item = new Item(request.body);
-//         item._id = request.params._id;
-//         const updatedItem = await itemsLogic.updateItemAsync(item);
-//         if(!updatedItem) {
-//             response.sendStatus(404);
-//             return;
-//         }
-//         response.json(updatedItem);
-//     }
-//     catch (err) {
-//         response.status(500).send(err.message);
-//     }
-// });
-
 // Delete one item from cart - DELETE http://localhost:3000/api/items/:_id
 router.delete("/:_id", async (request, response) => {
     try {

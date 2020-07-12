@@ -62,11 +62,6 @@ router.get("/:ID", async (request, response) => {
 // Register new user - POST http://localhost:3000/api/auth/register
 router.post("/register", async (request, response) => {
     try {
-        // Verify captcha text: 
-        // if (request.body.captchaText !== request.session.captchaText) {
-        //     response.status(400).send("CAPTCHA not valid");
-        //     return;
-        // }
         const newUser = new User(request.body);
 
         let err = "";
@@ -114,19 +109,5 @@ router.post("/register", async (request, response) => {
     }
 });
 
-// Request captcha image - Get http://localhost:3000/api/auth/captcha
-// router.get("/captcha", (request, response) => {
-
-//     // Create a new captcha: 
-//     const captcha = svgCaptcha.create();
-//     const captchaText = captcha.text;
-//     const captchaImage = captcha.data;
-
-//     // Save text to session: 
-//     request.session.captchaText = captchaText;
-
-//     // Send back the image to client: 
-//     response.type("svg").send(captchaImage);
-// });
 
 module.exports = router;

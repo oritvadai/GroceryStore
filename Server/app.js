@@ -11,15 +11,7 @@ const itemsController = require("./controllers/items-controller");
 const ordersController = require("./controllers/orders-controller");
 const fileUpload = require("express-fileupload");
 
-// const expressSession = require("express-session");
 const server = express();
-
-// server.use(expressSession({
-//     name: "GrocerySession",
-//     secret: config.secret.expressSession,
-//     resave: true,
-//     saveUninitialized: false
-// }));
 
 server.use(cors());
 server.use(express.json());
@@ -33,4 +25,4 @@ server.use("/api/carts", cartsController);
 server.use("/api/items", itemsController);
 server.use("/api/orders", ordersController);
 
-server.listen(3000, () => console.log("Listening on http://localhost:3000"));
+server.listen(3000, () => console.log("Listening on port 3000"));

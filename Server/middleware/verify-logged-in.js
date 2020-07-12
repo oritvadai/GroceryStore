@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 function verifyLoggedIn(request, response, next) {
 
     // If there is no authorization header: 
-    if (!request.headers.authorization) { // Headers are automatically lower-cased.
+    if (!request.headers.authorization) { 
         response.status(401).send("You are not logged-in");
         return;
     }
@@ -19,7 +19,7 @@ function verifyLoggedIn(request, response, next) {
     }
 
     // Verify the token: 
-    jwt.verify(token, config.secrets.jwt, (err, payload) => { // payload is the object used to create the token (i.e. {user}).
+    jwt.verify(token, config.secrets.jwt, (err, payload) => {
 
         // If the token isn't verified or it is expired:
         if (err) {

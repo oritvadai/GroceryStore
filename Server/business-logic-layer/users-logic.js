@@ -14,11 +14,7 @@ async function getUserInfoAsync(_id) {
     return userInfo;
 }
 
-// function updateUserAsync(user) {
-//     return User.updateOne({ _id: user._id }, user);
-// }
 
 module.exports = {
-    getUserInfoAsync,
-    // updateUserAsync
+    getUserInfoAsync
 }

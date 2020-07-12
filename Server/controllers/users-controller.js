@@ -22,21 +22,4 @@ router.get("/:_id", async (request, response) => {
     }
 });
 
-// Edit user - PUT http://localhost:3000/api/users/:_id
-// router.put("/:_id", async (request, response) => {
-//     try {
-//         const user = new User(request.body);
-//         user._id = request.params._id;
-//         const updatedUser = await usersLogic.updateUserAsync(user);
-//         if(!updatedUser) {
-//             response.sendStatus(404);
-//             return;
-//         }
-//         response.json(updatedUser);
-//     }
-//     catch (err) {
-//         response.status(500).send(err.message);
-//     }
-// });
-
 module.exports = router;

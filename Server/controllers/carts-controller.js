@@ -51,21 +51,5 @@ router.post("/", async (request, response) => {
     }
 });
 
-// Update cart - PUT http://localhost:3000/api/carts/:_id
-// router.put("/:_id", async (request, response) => {
-//     try {
-//         const cart = new Cart(request.body);
-//         cart._id = request.params._id;
-//         const updatedCart = await cartsLogic.updateCartAsync(cart);
-//         if(!updatedCart) {
-//             response.sendStatus(404);
-//             return;
-//         }
-//         response.json(updatedCart);
-//     }
-//     catch (err) {
-//         response.status(500).send(err.message);
-//     }
-// });
 
 module.exports = router;
