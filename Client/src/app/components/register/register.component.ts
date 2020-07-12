@@ -33,7 +33,13 @@ export class RegisterComponent implements OnInit {
         private authService: AuthService,
         private router: Router) { }
 
-    validateUserID() {
+    validateStep1() {
+        // Validate password confirmation
+        if (this.user.password != this.confirmPass) {
+            alert("Passwords do not match");
+            return;
+        }
+        // Check if user id already exists
         this.authService
             .userIDExists(this.user.ID)
             .subscribe(userIDExists => {
@@ -64,16 +70,4 @@ export class RegisterComponent implements OnInit {
                     err => alert(err.message));
         }
     }
-
-    validateEmail(email: string) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    // confirmPassword() {
-    //     if (this.user.password != this.confirmPass) {
-    //         return false;
-    //     }
-    // }
 }
-
