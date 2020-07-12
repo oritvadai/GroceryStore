@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { GroceryService } from 'src/app/services/grocery.service';
 import { User } from 'src/app/models/user';
+import { serverBaseUrl } from 'src/environments/environment';
 
 @Component({
     selector: 'app-admin',
@@ -34,7 +35,7 @@ export class AdminComponent implements OnInit {
             this.productsView = store.getState().productsView;
         });
 
-        this.url = "http://localhost:3000/api/products/uploads/"
+        this.url = serverBaseUrl + "/products/uploads/"
 
         if (store.getState().categories.length === 0) {
             this.groceryService

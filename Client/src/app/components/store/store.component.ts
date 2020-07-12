@@ -9,6 +9,7 @@ import { ActionType } from 'src/app/redux/action-type';
 import { Cart } from 'src/app/models/cart';
 import { MatDialog } from '@angular/material/dialog';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
+import { serverBaseUrl } from 'src/environments/environment';
 
 @Component({
     selector: 'app-store',
@@ -43,7 +44,7 @@ export class StoreComponent implements OnInit {
         });
 
         this.cart = store.getState().cart;
-        this.url = "http://localhost:3000/api/products/uploads/"
+        this.url = serverBaseUrl + "/api/products/uploads/"
 
         // this.user = store.getState().user;
         // this.hasToken = store.getState().hasToken;
