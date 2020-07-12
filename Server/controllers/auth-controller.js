@@ -54,10 +54,39 @@ router.post("/register", async (request, response) => {
         // }
 
         const newUser = new User(request.body);
-        if (!newUser || !newUser.firstName || !newUser.lastName || !newUser.username 
+        if (!newUser || !newUser.firstName || !newUser.lastName || !newUser.username
             || !newUser.ID || !newUser.password || !newUser.city || !newUser.street) {
-            response.status(401).send("Missing registration data");
+            response.status(400).send("Missing registration data");
             return;
+        }
+
+        let err = "";
+        // name length & password validation
+        if (newUser.firstName.length() < 2 || newUser.firstName.length() > 50) {
+            err = "First name should be between 2-50 characters";
+        }
+        else if (newUser.lastName.length() < 2 || newUser.lastName.length() > 50) {
+            err = "Last name should be between 2-50 characters";
+        }
+        else if (newUser.password.length() < 6 || newUser.password.length() > 50) {
+            err = "Password should be between 6-50 characters";
+        }
+        else if (newUser.city.length() < 2 || newUser.city.length() > 50) {
+            err = "City should be between 2-50 characters";
+        }
+        else if (newUser.street.length() < 2 || newUser.street.length() > 100) {
+            err = "Street should be between 2-100 characters";
+        }
+        // ID length validation
+        else if (/^\d{9}$/.test(id)) {
+            err = "ID must be exactly 9 digits";
+        }
+        // Email validation
+        else if (!validateEmail(newUser.username)) {
+            err = "Invalid email address";
+        }
+        if (err !== "") {
+            response.status(400).send(err);
         }
 
         newUser.role = "user";
@@ -73,6 +102,11 @@ router.post("/register", async (request, response) => {
         response.status(500).send(err.message);
     }
 });
+
+function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 // Request captcha image - Get http://localhost:3000/api/auth/captcha
 // router.get("/captcha", (request, response) => {
