@@ -23,6 +23,9 @@ async function addOrderAsync(order) {
         return { dateFullError: true }
     } 
 
+    const creditCard = order.creditCard
+    order.creditCard = creditCard.substr(creditCard.length-4)
+
     return order.save();
 }
 

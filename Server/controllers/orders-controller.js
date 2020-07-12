@@ -55,8 +55,8 @@ router.post("/", async (request, response) => {
         else if (order.street.length < 2 || order.street.length > 100) {
             err = "Street should be between 2 - 100 characters";
         }
-        else if (!validateOrderDate(order.deliveryDate)) {
-            err = "Invalid delivery date";
+        else if (!/^([0-9]{8}){1,2}$/.test(order.creditCard)) {
+            err = "Invalid credit card number";
         }
         if (err !== "") {
             response.status(400).send(err);
@@ -67,21 +67,13 @@ router.post("/", async (request, response) => {
         order.orderDate = now;
 
         const addedOrder = await ordersLogic.addOrderAsync(order);
-        // if (addedOrder && addedOrder.dateFullError){
-        //     response.status(400).send("Requested delivery date is not available");
-        //     return;
-        // }
-
+        
         response.json(addedOrder);
     }
     catch (err) {
         response.status(500).send(err.message);
     }
 });
-
-function validateOrderDate() {
-    return true;
-}
 
 // Get receipt after submitting an order
 // Get http://localhost:3000/api/orders/receipt/:orderId
