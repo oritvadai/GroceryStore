@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { Item } from 'src/app/models/item';
 import { Router } from '@angular/router';
@@ -10,6 +9,8 @@ import { Cart } from 'src/app/models/cart';
 import { MatDialog } from '@angular/material/dialog';
 import { QuantityDialogComponent } from '../quantity-dialog/quantity-dialog.component';
 import { serverBaseUrl } from 'src/environments/environment';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     selector: 'app-store',
@@ -30,7 +31,9 @@ export class StoreComponent implements OnInit {
     public unsubscribe: Function;
 
     constructor(
-        private groceryService: GroceryService,
+        private productsService: ProductsService,
+        private cartService: CartService,
+
         private router: Router,
         public dialog: MatDialog
     ) { }
@@ -46,18 +49,8 @@ export class StoreComponent implements OnInit {
         this.cart = store.getState().cart;
         this.url = serverBaseUrl + "/products/uploads/"
 
-        // this.user = store.getState().user;
-        // this.hasToken = store.getState().hasToken;
-
-        // Check for role and token
-        // if (!this.hasToken || this.user.role != "user") {
-        //     alert("Access Denied, Please Login");
-        //     this.router.navigateByUrl("/home");
-        //     return;
-        // }
-
         if (store.getState().categories.length === 0) {
-            this.groceryService
+            this.productsService
                 .getAllCategories()
                 .subscribe(categories => {
                     this.categories = categories;
@@ -75,7 +68,7 @@ export class StoreComponent implements OnInit {
     }
 
     public async getProductsByCategory(categoryId: string) {
-        this.groceryService
+        this.productsService
             .getProductsByCategory(categoryId)
             .subscribe(products => {
                 this.productsView = products;
@@ -107,7 +100,7 @@ export class StoreComponent implements OnInit {
         this.item.cartId = this.cart._id;
         this.item.productId = p._id;
 
-        this.groceryService
+        this.cartService
             .addItem(this.item)
             .subscribe(item => {
 
@@ -121,7 +114,7 @@ export class StoreComponent implements OnInit {
 
     // Update totalPrice when items are added
     updateTotalPrice() {
-        this.groceryService
+        this.cartService
             .getTotalPriceByCart(this.cart._id)
             .subscribe(totalPrice => {
 

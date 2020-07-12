@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { AdminService } from 'src/app/services/admin.service';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { Category } from 'src/app/models/category';
 import { store } from 'src/app/redux/store';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { ActionType } from 'src/app/redux/action-type';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     selector: 'app-add-product',
@@ -26,8 +26,8 @@ export class AddProductComponent implements OnInit {
     // public uploadBtnClicked = false;
 
     constructor(
+        private productsService: ProductsService,
         private adminService: AdminService,
-        private groceryService: GroceryService,
         private router: Router,
     ) { }
 
@@ -43,7 +43,7 @@ export class AddProductComponent implements OnInit {
             return;
         }
 
-        this.groceryService
+        this.productsService
             .getAllCategories()
             .subscribe(categories => this.categories = categories,
                 err => alert(err.message));

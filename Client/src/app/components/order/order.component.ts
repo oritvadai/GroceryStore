@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/models/cart';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { Router } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
@@ -9,6 +8,8 @@ import { CartInfo } from 'src/app/models/cart-info';
 import { User } from 'src/app/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { ReceiptDialogComponent } from '../receipt-dialog/receipt-dialog.component';
+import { CartService } from 'src/app/services/cart.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
     selector: 'app-order',
@@ -29,7 +30,8 @@ export class OrderComponent implements OnInit {
     public unsubscribe: Function;
 
     constructor(
-        private groceryService: GroceryService,
+        private cartService: CartService,
+        private orderService: OrderService,
         public router: Router,
         public dialog: MatDialog) { }
 
@@ -57,7 +59,7 @@ export class OrderComponent implements OnInit {
 
         // Get open cart info
         if (!store.getState().openCartInfo || !store.getState().openCartInfo._id) {
-            this.groceryService
+            this.cartService
                 .getCartInfoByUser(this.user._id)
                 .subscribe(openCartInfo => {
 
@@ -82,7 +84,7 @@ export class OrderComponent implements OnInit {
 
     // Get user's address
     getUserAddress() {
-        this.groceryService
+        this.orderService
             .getUserInfo(this.user._id)
             .subscribe(userInfo => {
                 this.user.city = userInfo.city;
@@ -93,7 +95,7 @@ export class OrderComponent implements OnInit {
     // Get openCart items
     getCartItems(openCartId) {
         if (!store.getState().cart || !store.getState().cart._id) {
-            this.groceryService
+            this.cartService
                 .getCartById(openCartId)
                 .subscribe(cart => {
 
@@ -113,7 +115,7 @@ export class OrderComponent implements OnInit {
         this.order.cartId = this.cart._id;
         this.order.userId = this.cart.userId;
 
-        this.groceryService
+        this.orderService
             .addOrder(this.order)
             .subscribe(order => {
 
@@ -128,10 +130,6 @@ export class OrderComponent implements OnInit {
                 const cartInfo = new CartInfo();
                 const actionInfo = { type: ActionType.GetOpenCartInfo, payload: cartInfo };
                 store.dispatch(actionInfo);
-
-
-                // alert("Order confirmed")
-                // this.router.navigateByUrl("/home");
             },
                 err => alert(err.message));
     }
@@ -144,10 +142,6 @@ export class OrderComponent implements OnInit {
             data: { orderId: orderId },
             disableClose: true
         });
-
-        // dialogRef.afterClosed()
-        // .subscribe(result => {
-        // });
     }
 
 }

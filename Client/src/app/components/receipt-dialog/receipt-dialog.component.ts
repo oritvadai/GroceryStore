@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OrderService } from 'src/app/services/order.service';
 
 export interface DialogData {
     orderId: string;
@@ -17,7 +17,7 @@ export class ReceiptDialogComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<ReceiptDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
-        public groceryService: GroceryService,
+        public orderService: OrderService,
         public router: Router) { }
 
     ngOnInit(): void {
@@ -29,7 +29,7 @@ export class ReceiptDialogComponent implements OnInit {
     }
 
     onDLReceipt(): void {
-        this.groceryService
+        this.orderService
             .getOrderReceipt(this.data.orderId)
             .subscribe(receipt => {
                 console.log("download receipt", typeof receipt.receipt)

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { Cart } from 'src/app/models/cart';
 import { CartInfo } from 'src/app/models/cart-info';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
     selector: 'app-cart',
@@ -23,7 +23,7 @@ export class CartComponent implements OnInit {
     public unsubscribe: Function;
 
     constructor(
-        private groceryService: GroceryService,
+        private cartService: CartService,
         public router: Router) { }
 
     async ngOnInit() {
@@ -48,7 +48,7 @@ export class CartComponent implements OnInit {
 
         // Get open cart info
         if (!store.getState().openCartInfo || !store.getState().openCartInfo._id) {
-            this.groceryService
+            this.cartService
                 .getCartInfoByUser(this.user._id)
                 .subscribe(openCartInfo => {
 
@@ -73,7 +73,7 @@ export class CartComponent implements OnInit {
     // Get openCart items
     getCartItems(openCartId) {
         if (!store.getState().cart || !store.getState().cart._id) {
-            this.groceryService
+            this.cartService
                 .getCartById(openCartId)
                 .subscribe(cart => {
 
@@ -89,7 +89,7 @@ export class CartComponent implements OnInit {
     }
 
     public async removeItem(itemId) {
-        this.groceryService
+        this.cartService
             .removeItem(itemId)
             .subscribe(() => {
 
@@ -103,7 +103,7 @@ export class CartComponent implements OnInit {
 
     // Update totalPrice when items are removed
     updateTotalPrice() {
-        this.groceryService
+        this.cartService
             .getTotalPriceByCart(this.cart._id)
             .subscribe(totalPrice => {
                 // this.totalPrice = totalPrice;
@@ -116,7 +116,7 @@ export class CartComponent implements OnInit {
     }
 
     emptyCart() {
-        this.groceryService
+        this.cartService
             .removeItemsByCart(this.cart._id)
             .subscribe(() => {
 
@@ -131,7 +131,7 @@ export class CartComponent implements OnInit {
         cart.userId = this.user._id;
         cart.date = new Date();
 
-        this.groceryService
+        this.cartService
             .addCart(cart)
             .subscribe(cart => {
 

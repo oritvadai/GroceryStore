@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { User } from 'src/app/models/user';
+import { CartService } from 'src/app/services/cart.service';
+import { OrderService } from 'src/app/services/order.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     selector: 'app-info',
@@ -22,9 +24,10 @@ export class InfoComponent implements OnInit {
 
     public unsubscribe: Function;
 
-
     constructor(
-        private groceryService: GroceryService) { }
+        private productsService: ProductsService,
+        private orderService: OrderService,
+        public cartService: CartService) { }
 
     ngOnInit(): void {
 
@@ -48,7 +51,7 @@ export class InfoComponent implements OnInit {
         this.hasToken = store.getState().hasToken;
 
         if (store.getState().productsNum === 0) {
-            this.groceryService
+            this.productsService
                 .getNumProducts()
                 .subscribe(productsNum => {
                     this.productsNum = productsNum;
@@ -58,7 +61,7 @@ export class InfoComponent implements OnInit {
                 },
                     err => alert(err.message));
 
-            this.groceryService
+            this.orderService
                 .getNumOrders()
                 .subscribe(ordersNum => {
                     this.ordersNum = ordersNum
@@ -91,7 +94,7 @@ export class InfoComponent implements OnInit {
     }
 
     getLastOrderInfo() {
-        this.groceryService
+        this.orderService
             .getLastOrderByUser(this.user._id)
             .subscribe(lastOrder => {
                 if (lastOrder.noOrders) {
@@ -105,7 +108,7 @@ export class InfoComponent implements OnInit {
     }
 
     getOpenCartInfo() {
-        this.groceryService
+        this.cartService
             .getCartInfoByUser(this.user._id)
             .subscribe(openCartInfo => {
                 

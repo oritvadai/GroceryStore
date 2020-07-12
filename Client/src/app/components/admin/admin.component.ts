@@ -4,9 +4,8 @@ import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
-import { GroceryService } from 'src/app/services/grocery.service';
-import { User } from 'src/app/models/user';
 import { serverBaseUrl } from 'src/environments/environment';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     selector: 'app-admin',
@@ -25,7 +24,7 @@ export class AdminComponent implements OnInit {
     public unsubscribe: Function;
 
     constructor(
-        private groceryService: GroceryService,
+        private productsService: ProductsService,
         private router: Router) { }
 
     ngOnInit(): void {
@@ -38,7 +37,7 @@ export class AdminComponent implements OnInit {
         this.url = serverBaseUrl + "/products/uploads/"
 
         if (store.getState().categories.length === 0) {
-            this.groceryService
+            this.productsService
                 .getAllCategories()
                 .subscribe(categories => {
                     this.categories = categories;
@@ -56,7 +55,7 @@ export class AdminComponent implements OnInit {
     }
 
     public async getProductsByCategory(categoryId: string) {
-        this.groceryService
+        this.productsService
             .getProductsByCategory(categoryId)
             .subscribe(products => {
                 this.productsView = products;

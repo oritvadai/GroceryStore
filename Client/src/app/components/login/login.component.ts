@@ -4,7 +4,8 @@ import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
-import { GroceryService } from 'src/app/services/grocery.service';
+import { OrderService } from 'src/app/services/order.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private groceryService: GroceryService,
+        private orderService: OrderService,
+        private cartService: CartService,
+
         private router: Router) { }
 
     ngOnInit(): void {
@@ -75,7 +78,7 @@ export class LoginComponent implements OnInit {
 
     getUserInfo() {
         //  Get open cart info
-        this.groceryService
+        this.cartService
             .getCartInfoByUser(this.user._id)
             .subscribe(openCartInfo => {
 
@@ -85,7 +88,7 @@ export class LoginComponent implements OnInit {
             }, err => alert(err.message));
 
         //  Get last order info
-        this.groceryService
+        this.orderService
             .getLastOrderByUser(this.user._id)
             .subscribe(lastOrder => {
 

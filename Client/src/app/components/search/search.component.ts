@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GroceryService } from 'src/app/services/grocery.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     selector: 'app-search',
@@ -16,7 +16,9 @@ export class SearchComponent implements OnInit {
     public productName = "";
     public unsubscribe: Function;
 
-    constructor(private groceryService: GroceryService, private router: Router) { }
+    constructor(
+        private productsService: ProductsService,
+        private router: Router) { }
 
     ngOnInit(): void {
 
@@ -26,7 +28,7 @@ export class SearchComponent implements OnInit {
     }
 
     public async search() {
-        this.groceryService
+        this.productsService
             .getProductsByName(this.productName)
             .subscribe(products => {
 

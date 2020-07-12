@@ -15,18 +15,21 @@ export class AdminService {
 
     constructor(private http: HttpClient) { }
 
+    // Get product by id for edit form
     public getProductById(productId): Observable<Product> {
         return this.http.get<Product>(
             serverBaseUrl + "/products/" + productId,
             { headers: this.getHeaders() });
     }
 
+    // Add new product
     public addProduct(productForm: FormData): Observable<Product> {
         return this.http.post<Product>(
             serverBaseUrl + "/products/", productForm,
             { headers: this.getHeaders() });
     }
 
+    // Edit product
     public updateProduct(productId: string, productForm: FormData): Observable<any> {
         return this.http.put<any>(
             serverBaseUrl + "/products/" + productId, productForm,

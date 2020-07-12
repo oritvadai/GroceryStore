@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product';
-import { Category } from 'src/app/models/category';
-import { AdminService } from 'src/app/services/admin.service';
-import { GroceryService } from 'src/app/services/grocery.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { store } from 'src/app/redux/store';
 import { ActionType } from 'src/app/redux/action-type';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/models/product';
+import { Category } from 'src/app/models/category';
 import { User } from 'src/app/models/user';
+import { ProductsService } from 'src/app/services/products.service';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
     selector: 'app-edit-product',
@@ -27,8 +27,8 @@ export class EditProductComponent implements OnInit {
     public unsubscribe: Function;
 
     constructor(
+        private productsService: ProductsService,
         private adminService: AdminService,
-        private groceryService: GroceryService,
         private router: Router) { }
 
     ngOnInit(): void {
@@ -54,7 +54,7 @@ export class EditProductComponent implements OnInit {
             .subscribe(product => this.product = product,
                 err => alert(err.message));
 
-        this.groceryService
+        this.productsService
             .getAllCategories()
             .subscribe(categories => this.categories = categories,
                 err => alert(err.message));
@@ -94,7 +94,6 @@ export class EditProductComponent implements OnInit {
                 store.dispatch(action);
 
                 alert(this.product.productName + " has been edited");
-                // this.router.navigateByUrl("/admin");
             },
                 err => alert(err.message));
     }

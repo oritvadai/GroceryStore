@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { GroceryService } from 'src/app/services/grocery.service';
-import { Cart } from 'src/app/models/cart';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from 'src/app/redux/store';
 
@@ -30,7 +28,9 @@ export class RegisterComponent implements OnInit {
         // 		err => alert(err.message));
     }
 
-    constructor(private authService: AuthService, private groceryService: GroceryService, private router: Router) { }
+    constructor(
+        private authService: AuthService, 
+        private router: Router) { }
 
     validateUserID() {
         this.authService
