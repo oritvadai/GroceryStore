@@ -96,6 +96,18 @@ router.post("/", async (request, response) => {
             response.status(400).send("Missing Product Details");
             return;
         }
+
+        let err = "";
+        if (product.productName.length() < 2 || product.productName.length() > 50){
+            err = "City should be between 2 - 50 characters"
+        }
+        else if (product.unitPrice <= 1 || product.unitPrice >= 100000){
+            err = "Price should be between 0 - 100,000"
+        }
+        if (err !== "") {
+            response.status(400).send(err);
+        }
+
         const addedProduct = await productsLogic.addProductAsync(product, image);
 
         response.json(addedProduct);
@@ -124,6 +136,18 @@ router.put("/:_id", async (request, response) => {
             response.status(400).send("Missing Product Details");
             return;
         }
+
+        let err = "";
+        if (product.productName.length() < 2 || product.productName.length() > 50){
+            err = "City should be between 2 - 50 characters"
+        }
+        else if (product.unitPrice <= 1 || product.unitPrice >= 100000){
+            err = "Price should be between 0 - 100,000"
+        }
+        if (err !== "") {
+            response.status(400).send(err);
+        }
+
         const updateResult = await productsLogic.updateProductAsync(product, image);
         if (!updateResult) {
             response.sendStatus(404);
