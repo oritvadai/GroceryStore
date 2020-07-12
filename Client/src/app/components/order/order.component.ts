@@ -24,7 +24,7 @@ export class OrderComponent implements OnInit {
     public openCartInfo = new CartInfo();
     public cart = new Cart();
 
-    public minDate: Date;
+    public minDate = new Date;
     public order = new Order();
 
     public unsubscribe: Function;

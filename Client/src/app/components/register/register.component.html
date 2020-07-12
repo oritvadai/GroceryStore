@@ -6,26 +6,28 @@
         <form #formInfo1="ngForm">
 
             <mat-form-field>
-                <input matInput type="number" min="0" placeholder="ID" name="ID" [(ngModel)]="user.ID" required
+                <input matInput type="text" maxlength="9" pattern="[0-9]{9}" placeholder="ID" name="ID" [(ngModel)]="user.ID" required
                     nonNegative #IDInfo="ngModel">
                 <mat-error *ngIf="IDInfo.errors?.required && IDInfo.touched">Missing ID</mat-error>
-                <mat-error *ngIf="IDInfo.errors?.nonNegative && IDInfo.touched">ID can't be negative</mat-error>
+                <mat-error *ngIf="IDInfo.errors?.pattern && IDInfo.touched">Enter a 9 digits ID</mat-error>
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput type="text" placeholder="User Name = Email" name="username" [(ngModel)]="user.username"
-                    required minlength="2" #emailInfo="ngModel">
+                <input matInput type="text" [pattern]="emailRegex" placeholder="Username = Email" name="username" [(ngModel)]="user.username"
+                    required #emailInfo="ngModel">
                 <mat-error *ngIf="emailInfo.errors?.required && emailInfo.touched">Missing Email</mat-error>
-                <mat-error *ngIf="emailInfo.errors?.minlength && emailInfo.touched">Email too short</mat-error>
+                <mat-error *ngIf="emailInfo.errors?.pattern && emailInfo.touched">Enter a valid Email</mat-error>
+
             </mat-form-field>
             <br>
 
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="user.password" required
-                    minlength="4" #passInfo="ngModel">
+                    minlength="6" maxlength="7"  #passInfo="ngModel">
                 <mat-error *ngIf="passInfo.errors?.required && passInfo.touched">Missing Password</mat-error>
                 <mat-error *ngIf="passInfo.errors?.minlength && passInfo.touched">Password too short</mat-error>
+                <mat-error *ngIf="passInfo.errors?.maxlength && passInfo.touched">Password too long</mat-error>
             </mat-form-field>
             <br>
 

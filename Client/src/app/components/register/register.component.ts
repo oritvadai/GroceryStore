@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
     public userIDExists: boolean;
     public step1complete: boolean;
     public token = "";
+    public emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     // public captcha = "";
 
     ngOnInit(): void {
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
     }
 
     constructor(
-        private authService: AuthService, 
+        private authService: AuthService,
         private router: Router) { }
 
     validateUserID() {
@@ -62,6 +63,11 @@ export class RegisterComponent implements OnInit {
                 },
                     err => alert(err.message));
         }
+    }
+
+    validateEmail(email: string) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
 
     // confirmPassword() {
