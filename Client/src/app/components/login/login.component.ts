@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         if (this.credentials.username && this.credentials.password) {
-
+            // Try to log, on success save user and token
             this.authService
                 .login(this.credentials.username, this.credentials.password)
                 .subscribe(response => {
@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit {
                     const action = { type: ActionType.Login, payload: response.user };
                     store.dispatch(action);
 
+                    // Check if user or admin
                     if (response.token && response.user.role == "admin") {
                         this.router.navigateByUrl("/admin");
                     }

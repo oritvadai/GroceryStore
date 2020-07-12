@@ -47,8 +47,11 @@ export class StoreComponent implements OnInit {
         });
 
         this.cart = store.getState().cart;
+
+        // Url for product images
         this.url = serverBaseUrl + "/products/uploads/"
 
+        // Get categories
         if (store.getState().categories.length === 0) {
             this.productsService
                 .getAllCategories()
@@ -67,6 +70,7 @@ export class StoreComponent implements OnInit {
         }
     }
 
+    // Get products by category
     public async getProductsByCategory(categoryId: string) {
         this.productsService
             .getProductsByCategory(categoryId)
@@ -86,9 +90,8 @@ export class StoreComponent implements OnInit {
             width: '250px',
             data: { quantity: this.item.quantity, isConfirmed: false }
         });
-
+        // Add to cart after quantity is chosen
         dialogRef.afterClosed().subscribe(result => {
-
             if (result && result.isConfirmed) {
                 this.item.quantity = result.quantity;
                 this.addToCart(p);
@@ -96,6 +99,7 @@ export class StoreComponent implements OnInit {
         });
     }
 
+    // Add product to cart and update redux
     public async addToCart(p) {
         this.item.cartId = this.cart._id;
         this.item.productId = p._id;
@@ -103,7 +107,6 @@ export class StoreComponent implements OnInit {
         this.cartService
             .addItem(this.item)
             .subscribe(item => {
-
                 const action = { type: ActionType.AddItem, payload: item };
                 store.dispatch(action);
 
@@ -112,7 +115,7 @@ export class StoreComponent implements OnInit {
                 err => alert(err.message));
     }
 
-    // Update totalPrice when items are added
+    // Update totalPrice when items are added to cart
     updateTotalPrice() {
         this.cartService
             .getTotalPriceByCart(this.cart._id)

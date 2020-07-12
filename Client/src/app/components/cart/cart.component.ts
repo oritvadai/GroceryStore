@@ -46,24 +46,25 @@ export class CartComponent implements OnInit {
             return;
         }
 
-        // Get open cart info
+        // Get open cart info from db if not on redux
         if (!store.getState().openCartInfo || !store.getState().openCartInfo._id) {
             this.cartService
                 .getCartInfoByUser(this.user._id)
                 .subscribe(openCartInfo => {
-
                     this.openCartInfo = openCartInfo;
-
+                    // Save to redux
                     const action = { type: ActionType.GetOpenCartInfo, payload: openCartInfo };
                     store.dispatch(action);
 
+                    // Get cart if there's an open one
                     if (openCartInfo.hasOpenCart) {
                         this.getCartItems(openCartInfo._id);
                     }
                 }, err => alert(err.message));
         } else {
+            // Get cart info from redux
             this.openCartInfo = store.getState().openCartInfo;
-
+            // Get cart if there's an open one
             if (this.openCartInfo.hasOpenCart) {
                 this.getCartItems(this.openCartInfo._id);
             }
@@ -87,7 +88,8 @@ export class CartComponent implements OnInit {
             this.cart = store.getState().cart;
         }
     }
-
+    
+    // Remove item from cart and update redux
     public async removeItem(itemId) {
         this.cartService
             .removeItem(itemId)
@@ -106,7 +108,6 @@ export class CartComponent implements OnInit {
         this.cartService
             .getTotalPriceByCart(this.cart._id)
             .subscribe(totalPrice => {
-                // this.totalPrice = totalPrice;
                 this.cart.totalPrice = totalPrice;
 
                 const actionPrice = { type: ActionType.GetTotalPrice, payload: totalPrice };
@@ -115,6 +116,7 @@ export class CartComponent implements OnInit {
                 err => alert(err.message));
     }
 
+    // Empty cart and update redux
     emptyCart() {
         this.cartService
             .removeItemsByCart(this.cart._id)
@@ -126,6 +128,7 @@ export class CartComponent implements OnInit {
                 err => alert(err.message));
     }
 
+    // Open new cart
     addCart() {
         const cart = new Cart();
         cart.userId = this.user._id;

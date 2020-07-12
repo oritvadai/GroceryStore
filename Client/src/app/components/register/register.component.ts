@@ -18,15 +18,9 @@ export class RegisterComponent implements OnInit {
     public step1complete: boolean;
     public token = "";
     public emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // public captcha = "";
 
     ngOnInit(): void {
-
         this.step1complete = false;
-        // this.authService
-        // 	.getCaptcha()
-        // 	.subscribe(captcha => this.captcha = captcha,
-        // 		err => alert(err.message));
     }
 
     constructor(
@@ -54,6 +48,7 @@ export class RegisterComponent implements OnInit {
                 err => alert(err.message));
     }
 
+    // Register new user if details pass validation
     register() {
         if (this.user) {
             this.authService

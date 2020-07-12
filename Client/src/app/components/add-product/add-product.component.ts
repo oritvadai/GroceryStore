@@ -23,7 +23,6 @@ export class AddProductComponent implements OnInit {
 
     public image: File;
     public url: string;
-    // public uploadBtnClicked = false;
 
     constructor(
         private productsService: ProductsService,
@@ -49,6 +48,7 @@ export class AddProductComponent implements OnInit {
                 err => alert(err.message));
     }
 
+    // When image is chosen
     public onFileSelect(event) {
 
         if (event.target.files.length > 0) {
@@ -64,21 +64,19 @@ export class AddProductComponent implements OnInit {
     }
 
     public addProduct() {
-
+        // Save product as form
         const productForm = new FormData();
         productForm.append("productName", this.product.productName);
         productForm.append("categoryId", this.product.categoryId);
         productForm.append("unitPrice", this.product.unitPrice.toString());
         productForm.append("image", this.image, this.image.name);
 
+        // Add product to db and redux
         this.adminService
             .addProduct(productForm)
             .subscribe(product => {
-
                 const action = { type: ActionType.AdminAddProduct, payload: product };
                 store.dispatch(action);
-
-                alert(this.product.productName + " has been added");
             },
                 err => alert(err.message));
     }

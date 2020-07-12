@@ -21,12 +21,9 @@ export class AuthService {
             serverBaseUrl + "/auth/register", user);
     }
 
+    // Check if ID exists
     public userIDExists(ID: number): Observable<boolean> {
         return this.http.get<boolean>(
             serverBaseUrl + "/auth/" + ID);
     }
-
-    //   public getCaptcha(): Observable<string> {
-    //     return this.http.get<string>("serverBaseUrl + "/auth/captcha");
-    //   }
 }

@@ -26,7 +26,6 @@ export class AppState {
 
     // Admin
     public editProductId: string;
-    // public allProducts: Product[];
 
     public constructor() {
 

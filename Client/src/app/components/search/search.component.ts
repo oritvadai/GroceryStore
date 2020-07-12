@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit {
         });
     }
 
+    // Search products by name for user and admin and save to products view
     public async search() {
         this.productsService
             .getProductsByName(this.productName)

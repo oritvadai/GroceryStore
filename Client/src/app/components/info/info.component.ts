@@ -50,6 +50,7 @@ export class InfoComponent implements OnInit {
         this.user = store.getState().user;
         this.hasToken = store.getState().hasToken;
 
+        // Get number of products and orders in store from db or redux
         if (store.getState().productsNum === 0) {
             this.productsService
                 .getNumProducts()

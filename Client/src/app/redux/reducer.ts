@@ -39,7 +39,6 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
             newAppState.hasToken = false;
             newAppState.cart = new Cart();
             newAppState.productsView = [];
-            // newAppState.allProducts = [];
             break;
 
 
@@ -69,12 +68,9 @@ export function reducer(oldAppState: AppState, action: Action): AppState {
         case ActionType.ClearCart:
             newAppState.cart.items = [];
             newAppState.cart.totalPrice = 0;
-
-            // newAppState.totalPrice = 0;
             break;
 
         case ActionType.GetTotalPrice:
-            // newAppState.totalPrice = action.payload;
             newAppState.cart.totalPrice = action.payload;
 
             break;

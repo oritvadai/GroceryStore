@@ -49,17 +49,20 @@ export class EditProductComponent implements OnInit {
 
         this.product._id = store.getState().editProductId;
 
+        // Get product to edit
         this.adminService
             .getProductById(this.product._id)
             .subscribe(product => this.product = product,
                 err => alert(err.message));
 
+        // Get all product categories
         this.productsService
             .getAllCategories()
             .subscribe(categories => this.categories = categories,
                 err => alert(err.message));
     }
 
+    // When image is chosen
     public onFileSelect(event: any) {
 
         if (event.target.files.length > 0) {
@@ -75,7 +78,7 @@ export class EditProductComponent implements OnInit {
     }
 
     editProduct() {
-
+        // Save product as form
         const productForm = new FormData();
         productForm.append("productName", this.product.productName);
         productForm.append("categoryId", this.product.categoryId);
@@ -84,16 +87,13 @@ export class EditProductComponent implements OnInit {
             productForm.append("image", this.image, this.image.name);
         }
 
+        // Update db and redux
         this.adminService
             .updateProduct(this.product._id, productForm)
             .subscribe(updateResult => {
-               
                 this.product.picFileName = updateResult.picFileName
-
                 const action = { type: ActionType.AdminUpdateProduct, payload: this.product };
                 store.dispatch(action);
-
-                alert(this.product.productName + " has been edited");
             },
                 err => alert(err.message));
     }
