@@ -20,7 +20,7 @@
         <br>
 
         <mat-form-field>
-            <input matInput type="number" min="0" placeholder="Price" name="price" [(ngModel)]="product.unitPrice"
+            <input matInput type="number" step=".01" min="0" placeholder="Price" name="price" [(ngModel)]="product.unitPrice"
                 required nonNegative #priceInfo="ngModel">
             <mat-error *ngIf="priceInfo.errors?.required && priceInfo.touched">Missing Price Name</mat-error>
             <mat-error *ngIf="priceInfo.errors?.nonNegative && priceInfo.touched">Price can't be negative</mat-error>

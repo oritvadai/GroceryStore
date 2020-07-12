@@ -2,7 +2,7 @@
     <h2> Edit Product </h2>
     <form #formInfo="ngForm">
         <mat-form-field>
-            <input matInput type="text" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
+            <input matInput type="text" step=".01" placeholder="Product Name" name="productName" [(ngModel)]="product.productName"
                 value={{product.productName}} required minlength="2" #prodNameInfo="ngModel">
             <mat-error *ngIf="prodNameInfo.errors?.required && prodNameInfo.touched">Missing Product Name</mat-error>
             <mat-error *ngIf="prodNameInfo.errors?.minlength && prodNameInfo.touched">Product Name too short</mat-error>
