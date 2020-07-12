@@ -67,6 +67,11 @@ router.post("/", async (request, response) => {
         order.orderDate = now;
 
         const addedOrder = await ordersLogic.addOrderAsync(order);
+        // if (addedOrder && addedOrder.dateFullError){
+        //     response.status(400).send("Requested delivery date is not available");
+        //     return;
+        // }
+
         response.json(addedOrder);
     }
     catch (err) {

@@ -9,7 +9,20 @@ function getNumOrdersAsync() {
 }
 
 // Add new order
-function addOrderAsync(order) {
+async function addOrderAsync(order) {
+
+    // remove the time of day part of deliveryDate
+    const dateString = order.deliveryDate.toISOString().split("T")[0];
+    const deliveryDateOnly = new Date(dateString);
+    order.deliveryDate = deliveryDateOnly
+
+    // find number of deliveries on this date
+    const numOrders = await Order.find({ deliveryDate: order.deliveryDate }, "deliveryDate").countDocuments();
+
+    if (numOrders >= 3) {
+        return { dateFullError: true }
+    } 
+
     return order.save();
 }
 
