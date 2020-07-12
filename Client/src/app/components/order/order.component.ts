@@ -79,18 +79,18 @@ export class OrderComponent implements OnInit {
                 this.getCartItems(this.openCartInfo._id);
             }
         }
-        this.getUserAddress();
+        // this.getUserAddress();
     }
 
     // Get user's address
-    getUserAddress() {
-        this.orderService
-            .getUserInfo(this.user._id)
-            .subscribe(userInfo => {
-                this.user.city = userInfo.city;
-                this.user.street = userInfo.street;
-            }, err => alert(err.message));
-    }
+    // getUserAddress() {
+    //     this.orderService
+    //         .getUserInfo(this.user._id)
+    //         .subscribe(userInfo => {
+    //             this.user.city = userInfo.city;
+    //             this.user.street = userInfo.street;
+    //         }, err => alert(err.message));
+    // }
 
     // Get openCart items
     getCartItems(openCartId) {
@@ -114,10 +114,16 @@ export class OrderComponent implements OnInit {
 
         this.order.cartId = this.cart._id;
         this.order.userId = this.cart.userId;
+        this.order.deliveryDate = new Date(this.order.deliveryDate.getTime() + 12 * 60 * 60 * 1000);
 
         this.orderService
             .addOrder(this.order)
             .subscribe(order => {
+
+                if (order && order.dateFullError) {
+                    alert("The delivery date you choose is already full, please choose another");
+                    return;
+                }
 
                 this.openDialog(order._id);
 

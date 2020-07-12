@@ -9,6 +9,7 @@ export class Order {
         public street?: string,
         public deliveryDate?: Date,
         public orderDate?: Date,
-        public creditCard?: number) {
+        public creditCard?: number,
+        public dateFullError?: boolean) {
     }
 }
