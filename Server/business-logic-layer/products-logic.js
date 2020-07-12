@@ -23,7 +23,10 @@ function getProductsByCategoryAsync(categoryId) {
 
 // Get products by name
 function getProductsByName(productName) {
-    return Product.find({ productName }).populate("category").exec();
+    // Replace problematic characters
+    const safeString = productName.replace(/[\\\.\+\*\?\^\$\[\]\(\)\{\}\/\'\#\:\!\=\|]/ig, "\\$&");
+    // User regex for partial match
+    return Product.find({ productName: new RegExp(safeString, "i")}).populate("category").exec();
 }
 
 // Add new product
