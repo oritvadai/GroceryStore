@@ -63,7 +63,12 @@ router.get("/by-category/:categoryId", async (request, response) => {
 // Get product/s by name - GET http://localhost:3000/api/products/by-name/:productName
 router.get("/by-name/:productName", async (request, response) => {
     try {
-        const product = await productsLogic.getProductsByName(request.params.productName);
+        const productName = request.params.productName;
+        if (!productName) {
+            response.json({ invalidInput: true })
+            return;
+        }
+        const product = await productsLogic.getProductsByName(productName);
         if (!product) {
             response.sendStatus(404);
             return;

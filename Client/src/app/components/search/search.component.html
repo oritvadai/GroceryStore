@@ -2,9 +2,9 @@
     <form #formInfo="ngForm">
         <mat-form-field>
             <input matInput type="text" placeholder="Search" name="productName" [(ngModel)]="productName"
-                minlength="2" #productInfo="ngModel">
+                #productInfo="ngModel">
         </mat-form-field>
-        <button mat-button (click)="search()">
+        <button mat-button [disabled]="!productName" (click)="search()">
             <mat-icon>search</mat-icon>
         </button>
     </form>
