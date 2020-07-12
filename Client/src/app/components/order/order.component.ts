@@ -114,7 +114,8 @@ export class OrderComponent implements OnInit {
 
         this.order.cartId = this.cart._id;
         this.order.userId = this.cart.userId;
-        this.order.deliveryDate = new Date(this.order.deliveryDate.getTime() + 12 * 60 * 60 * 1000);
+        const deliveryDate = this.order.deliveryDate;
+        this.order.deliveryDate = new Date(deliveryDate.getTime() + 12 * 60 * 60 * 1000);
 
         this.orderService
             .addOrder(this.order)

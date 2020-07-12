@@ -79,18 +79,17 @@
             <br>
 
             <mat-form-field>
-                <input matInput type="number" min="0" placeholder="Credit Card" name="credit-card"
+                <input matInput type="text" pattern="^([0-9]{8}){1,2}$" placeholder="Credit Card" name="credit-card"
                     [(ngModel)]="order.creditCard" required nonNegative #cardInfo="ngModel">
-                <mat-error *ngIf="cardInfo.errors?.required && cardInfo.touched">Missing credit Card</mat-error>
-                <mat-error *ngIf="cardInfo.errors?.nonNegative && cardInfo.touched">Credit card can't be negative
-                </mat-error>
+                <mat-error *ngIf="cardInfo.errors?.required && cardInfo.touched">Missing credit card</mat-error>
+                <mat-error *ngIf="cardInfo.errors?.pattern && cardInfo.touched">Invalid credit card number </mat-error>
             </mat-form-field>
             <br>
 
             <button mat-raised-button [disabled]="formInfo.form.invalid" (click)="commitOrder()">Order</button>
 
         </form>
-        
+
     </div>
 
 </div>

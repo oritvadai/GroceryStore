@@ -6,7 +6,7 @@
         <form #formInfo1="ngForm">
 
             <mat-form-field>
-                <input matInput type="text" maxlength="9" pattern="[0-9]{9}" placeholder="ID" name="ID" [(ngModel)]="user.ID" required
+                <input matInput type="text" maxlength="9" pattern="^[0-9]{9}$" placeholder="ID" name="ID" [(ngModel)]="user.ID" required
                     nonNegative #IDInfo="ngModel">
                 <mat-error *ngIf="IDInfo.errors?.required && IDInfo.touched">Missing ID</mat-error>
                 <mat-error *ngIf="IDInfo.errors?.pattern && IDInfo.touched">Enter a 9 digits ID</mat-error>
