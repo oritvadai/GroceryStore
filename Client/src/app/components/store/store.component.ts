@@ -44,7 +44,7 @@ export class StoreComponent implements OnInit {
         });
 
         this.cart = store.getState().cart;
-        this.url = serverBaseUrl + "/api/products/uploads/"
+        this.url = serverBaseUrl + "/products/uploads/"
 
         // this.user = store.getState().user;
         // this.hasToken = store.getState().hasToken;
