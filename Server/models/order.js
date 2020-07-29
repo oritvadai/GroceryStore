@@ -13,7 +13,7 @@ const OrderSchema = mongoose.Schema({
     street: String,
     deliveryDate: Date,
     orderDate: Date,
-    creditCard: Number
+    creditCard: String
 }, {
     versionKey: false,
     toJSON: { virtuals: true },
