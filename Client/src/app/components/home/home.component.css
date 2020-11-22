@@ -17,6 +17,7 @@ app-login {
     padding: 30px;
     background-color: white;
     box-shadow: 5px 5px 5px #aaaaaa;
+    overflow-y: auto;
 }
 
 app-about {
@@ -24,6 +25,7 @@ app-about {
     padding: 30px;
     background-color: white;
     box-shadow: 5px 5px 5px #aaaaaa;
+    overflow-y: auto;
 }
 
 app-info {
@@ -31,4 +33,5 @@ app-info {
     padding: 30px;
     background-color: white;
     box-shadow: 5px 5px 5px #aaaaaa;
+    overflow-y: auto;
 }

@@ -4,3 +4,7 @@ div {
     display: grid;
     grid-template-rows: 20% 80%;
 }
+
+main {
+    overflow-y: auto;
+}

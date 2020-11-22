@@ -1,6 +1,11 @@
 <div *ngIf="!hasToken">
-    <h4>Login</h4>
-    <br>
+    <h4 id="login">Login</h4>
+
+    <div id="example">
+        Demo user: user@email.com <br>
+        Demo admin: admin@email.com <br>
+        passwords: abc123
+    </div>
 
     <form #formInfo="ngForm">
         <mat-form-field>
@@ -9,7 +14,6 @@
             <mat-error *ngIf="nameInfo.errors?.required && nameInfo.touched">Missing name</mat-error>
             <mat-error *ngIf="nameInfo.errors?.minlength && nameInfo.touched">Name too short</mat-error>
         </mat-form-field>
-        <br>
 
         <mat-form-field>
             <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="credentials.password"
@@ -22,12 +26,13 @@
         <button mat-raised-button [disabled]="formInfo.form.invalid" (click)="login()">Login</button>
 
     </form>
-    <br><br>
+    <br>
 
     <h4>New User?</h4>
     <a routerLink="/register">
         <h4>Register Here</h4>
     </a>
+
 </div>
 
 <div *ngIf="hasToken && user && user.role == 'user'">
