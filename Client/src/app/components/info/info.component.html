@@ -16,7 +16,7 @@
             You have an open cart from {{ openCartDate | date: "dd/MM/yyyy" }}
         </p>
         <p *ngIf="!openCartDate">
-            You have no open cart
+            You don't have an open cart
         </p>
     
         <p *ngIf="lastOrder">

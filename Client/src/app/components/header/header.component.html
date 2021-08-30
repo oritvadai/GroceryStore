@@ -1,12 +1,6 @@
 <div id="header">
 
     <div id="nav">
-        <div *ngIf="hasToken; then thenBlock else elseBlock"></div>
-        <!-- User and Admin -->
-        <ng-template #thenBlock>Hello {{user.firstName}} {{user.lastName}}!</ng-template>
-        <!-- Guest -->
-        <ng-template #elseBlock>Hello Guest!</ng-template>
-        <br><br>
 
         <!-- Guest, User & Admin -->
         <div class="route">
@@ -36,9 +30,20 @@
         <div class="route" *ngIf="hasToken">
             <a routerLink="/logout" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Logout</a>
         </div>
+
+
+        <!-- Welcome message -->
+        <div *ngIf="hasToken; then thenBlock else elseBlock"></div>
+        <!-- User and Admin -->
+        <ng-template #thenBlock> &nbsp; &nbsp; - Welcome {{user.firstName}} {{user.lastName}} -</ng-template>
+        <!-- Guest -->
+        <ng-template #elseBlock> &nbsp; &nbsp; - Welcome Guest -</ng-template>
+
     </div>
 
-    <!-- User -->
+
+
+    <!-- User and Admin -->
     <div id="search" *ngIf="hasToken">
         <!-- && user.role == 'user' -->
         <app-search></app-search>

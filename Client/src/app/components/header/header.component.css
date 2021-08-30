@@ -1,22 +1,13 @@
 #header {
-    padding: 5px;
+    padding-left: 20px;
     height: 100%;
     width: 100%;
-    border:  0.5px solid black;
     box-shadow: 5px 5px 5px #aaaaaa!important;
-}
 
-#nav {
-    /* border:  1px solid black; */
-    padding: 20px;
-    float: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-#search {
-    /* border:  1px solid black; */
-    float: right;
-    padding: 10px;
-} 
 
 .route {
     display: inline-block;
