@@ -35,9 +35,9 @@
         <!-- Welcome message -->
         <div *ngIf="hasToken; then thenBlock else elseBlock"></div>
         <!-- User and Admin -->
-        <ng-template #thenBlock> &nbsp; &nbsp; - Welcome {{user.firstName}} {{user.lastName}} -</ng-template>
+        <ng-template #thenBlock> &nbsp; &nbsp; - Hello {{user.firstName}} {{user.lastName}} -</ng-template>
         <!-- Guest -->
-        <ng-template #elseBlock> &nbsp; &nbsp; - Welcome Guest -</ng-template>
+        <ng-template #elseBlock> &nbsp; &nbsp; - Hello Guest -</ng-template>
 
     </div>
 
